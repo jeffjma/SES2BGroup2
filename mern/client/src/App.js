@@ -1,23 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+//Helmet is used to set the title tag of the web page
+import { Helmet } from "react-helmet";
+//Routing between different pages
+import {
+  BrowserRouter as Router,
+  Route,
+} from "react-router-dom";
+
+import Registration from "./pages/registration/Registration"
+import Login from "./pages/login/Login"
+import Homepage from "./pages/homepage/Homepage"
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <Helmet>
+          <title>Adaptive Testing System</title>
+        </Helmet>
+
+        <Router>
+          <Route exact path="/" component={Registration} />
+          <Route path="/Login" component={Login} />
+          <Route path="/Home" component={Homepage} />
+        </Router>
+
     </div>
   );
 }
