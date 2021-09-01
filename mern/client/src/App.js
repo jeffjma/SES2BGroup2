@@ -6,10 +6,13 @@ import {
   BrowserRouter as Router,
   Route,
 } from "react-router-dom";
+//Import pages files
+import {
+    Registration,
+    Login,
+    Homepage
+} from "./pages/Routes";
 
-import Registration from "./pages/registration/Registration"
-import Login from "./pages/login/Login"
-import Homepage from "./pages/homepage/Homepage"
 
 function App() {
   return (
