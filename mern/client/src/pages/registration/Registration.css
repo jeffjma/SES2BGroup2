@@ -1,0 +1,28 @@
+.Title {
+  font-weight: bolder;
+  margin-left: 100px;
+  margin-block-start: 50px;
+}
+
+.SecondTitle {
+  margin-left: 100px;
+  color: gray;
+}
+
+.LoginButton {
+  padding-top: 50px;
+  padding-bottom: 25px;
+  margin-left: 100px;
+}
+
+.RegisterButton {
+  padding-top: 30px;
+}
+
+.Form {
+  margin-left: 100px;
+}
+
+.Section {
+  padding: 10px;
+}
