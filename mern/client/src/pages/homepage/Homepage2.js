@@ -10,81 +10,89 @@ class Homepage2 extends Component{
     super(props)
     this.state = {
       //this state values are now only for test before fetching data from api
-      UserName: 'TestUserName',
-      SubjectName: 'TestSubjectName',
-      AvailableAss: '4',
-      CompletedCheckBox: false,
-      NotAttemptedCheckBox: false,
-      AllSubjects:[
-        {id: "1", name:"Ass1", status: "1"},
+      UserName: 'TestUserName',                       // Name of User
+      SubjectName: 'TestSubjectName',                 // Name of Subjects
+      AvailableAss: '',                               // Numbers of Assessments shown in table
+      CompletedCheckBox: false,                       // Boolean for check whether checkbox("Completed") is clicked
+      NotAttemptedCheckBox: false,                    // Boolean for check whether checkbox("NotAttempted") is clicked
+      AllAssOfSubjects:[                              // All assessments of this Subjects (which is for test only before 
+        {id: "1", name:"Ass1", status: "1"},          // Fetching data from database)
         {id: "2", name:"Ass2", status: "0"},
         {id: "3", name:"Ass3", status: "0"},
         {id: "4", name:"Ass4", status: "0"},
       ],
-      SelectedSubjects:[],
+      SelectedSubjects:[],                            // All selected assessment according to the filters
     }
-    this.setState({
-      SelectedSubjects: this.state.AllSubjects
-    })
   }
 
   componentDidMount(){
-    var Sub= this.state.AllSubjects;
-    this.setState({SelectedSubjects:[]});
-    console.log(this.state.SelectedSubjects);
+    var Sub= this.state.AllAssOfSubjects;             // Temporary array for AllAssOfSubjects value
+    this.setState({SelectedSubjects: []});            // Set SelectedSubjects to null before running
     
+    //The process of handling filters
     if(this.state.CompletedCheckBox){
-      if(!this.state.NotAttemptedCheckBox){
-        for(var i=0; i<Sub.length;i++){
-          if(Sub[i].status === "1"){
-            let { SelectedSubjects } = this.state;
-            SelectedSubjects.push(Sub[i])
-            this.setState({SelectedSubjects: SelectedSubjects})
-          }
-        }
+      if(!this.state.NotAttemptedCheckBox){           // 1: Completed = true and Not Attempted = false
+        this.setState({SelectedSubjects: []});
+        var TempFirstTrue=Sub.filter((element)=>{return element.status === "1"});
+        this.setState({SelectedSubjects: TempFirstTrue, AvailableAss:TempFirstTrue.length});
+      }
+      if(this.state.NotAttemptedCheckBox){            // 1: Completed = true and Not Attempted = true
+        this.setState({ SelectedSubjects: [], AvailableAss:"0" })
       }
     }
     if(!this.state.CompletedCheckBox){
-      if(this.state.NotAttemptedCheckBox){
-        for(var j=0; j<Sub.length;j++){
-          if(Sub[j].status === "0"){
-            let { SelectedSubjects } = this.state;
-            SelectedSubjects.push(Sub[j])
-            this.setState({SelectedSubjects: SelectedSubjects})
-          }
-        }
+      if(this.state.NotAttemptedCheckBox){            // 1: Completed = false and Not Attempted = true
+        var TempFirstFalse=Sub.filter((element)=>{return element.status === "0"});
+        this.setState({SelectedSubjects: TempFirstFalse, AvailableAss:TempFirstFalse.length});
       }
-      if(!this.state.NotAttemptedCheckBox){
-        this.setState({ SelectedSubjects: Sub })
+      if(!this.state.NotAttemptedCheckBox){           // 1: Completed = false and Not Attempted = false
+        this.setState({SelectedSubjects: []});
+        this.setState({ SelectedSubjects: Sub, AvailableAss:Sub.length })
       }
     }
-    Sub = [];
+    Sub = [];                                         // Set Sub to null before next running
   }
 
-  handleCompleted(){
-    var Bool = this.state.CompletedCheckBox;
-    {Bool ? (this.setState({CompletedCheckBox : false})) : (this.setState({CompletedCheckBox : true}))};
-    this.componentDidMount();
-    console.log(this.state.CompletedCheckBox)
+  handleCompleted(){                                  //Once click checkbox("Completed"), change CompletedCheckBox
+    var Temp = this.state.CompletedCheckBox;
+    if(Temp){
+      this.setState({CompletedCheckBox: false})
+    }
+    if(!Temp){
+      this.setState({CompletedCheckBox: true})
+    }
   }
 
-  handleNotCompleted(){
-    if(this.state.NotAttemptedCheckBox === true){
+  handleNotCompleted(){                               //Once click checkbox("Completed"), change NotAttemptedCheckBox
+    var Temp = this.state.NotAttemptedCheckBox;
+    if(Temp){
       this.setState({NotAttemptedCheckBox: false});
     }
-    else{
+    if(!Temp){
       this.setState({NotAttemptedCheckBox: true})
     }
-    this.componentWillMount();
+  }
+
+  handleCheckBox(){                                   // handle "Confirm" button to run filters
+    this.componentDidMount();
+  }
+
+  changeStatusCss(e){                                 // Change status css color(green/gray) and type(boolean -> var)
+    if(e === "1"){
+      return <p className="AssListStatusComp">Completed</p>
+    }
+    else{
+      return <p className="AssListStatusNotAtt">Not Attempted</p>
+    }
   }
 
   render(){
-    let AssScript = (
+    let AssScript = (                                // The left table script showing the assessments details
       <div>
         {this.state.SelectedSubjects.map(SelectedSubject=>(
                <tr key={SelectedSubject.id}>
-                 <td className="ListTd"><p className="ListTdP1">{SelectedSubject.name}</p>
-                 <p className="ListTdP2">{SelectedSubject.status}</p>
+                 <td className="AssListTd"><p className="AssListName">{SelectedSubject.name}</p>
+                 {this.changeStatusCss(SelectedSubject.status)}
                  </td>
                </tr>
              ))}
@@ -98,7 +106,7 @@ class Homepage2 extends Component{
           <div className="TitleBackground">
             <span className="Title">
               Testing System  
-              <span className="UserButton">
+              <span className="RightUserButton">
                 <i className="fa fa-user-o fa-lg" aria-hidden="true"></i>
                 &nbsp;&nbsp;&nbsp;{this.state.UserName}
               </span>
@@ -117,7 +125,7 @@ class Homepage2 extends Component{
           <button className="JoinClassButton">JOIN CLASS</button>
         </div>
 
-         {/* this is leftcontent title */}
+         {/* this is leftcontent */}
          <div className="LeftContent">
            <p className="AssessmentTitle">
              You have {this.state.AvailableAss} assessments available
@@ -127,7 +135,7 @@ class Homepage2 extends Component{
            </div>
          </div>
 
-         {/* this is rightcontent title */}
+         {/* this is rightcontent */}
          <div className="RightContent">
            <div className="RightCube">       
              <p className="FilterTitle"><br/>Filters</p>
@@ -135,6 +143,8 @@ class Homepage2 extends Component{
              <input type="checkbox" className="FilterCheckbox"  onClick={()=>this.handleCompleted()}></input><p className="FilterCheckboxName">Completed</p>
              <br/>
              <input type="checkbox" className="FilterCheckbox" onClick={()=>this.handleNotCompleted()}></input><p className="FilterCheckboxName">Not attempted</p>
+             <br/>
+             <button className="FilterConfirmButton" onClick={()=>this.handleCheckBox()}>Confirm</button>
            </div>
          </div>
         </body>
