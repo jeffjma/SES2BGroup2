@@ -1,0 +1,25 @@
+/* make the customizations */
+
+$theme-colors: (
+  "primary": #36d7dd,
+  "dark": #174661,
+  "success": #5bc2a7,
+  "danger": #b00020,
+  "warning": #fda57d,
+);
+
+.btn {
+  &:hover {
+    color: white !important;
+  }
+}
+
+.btn-link {
+  color: #36d7dd !important;
+  &:hover {
+    color: #36d7dd !important;
+  }
+}
+
+/* import bootstrap to set changes */
+@import "~bootstrap/scss/bootstrap";
