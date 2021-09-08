@@ -1,0 +1,122 @@
+.MainBody{
+    width: 100vw;
+    height: 100vh;
+    background-color: #F8FCFF;
+}
+/* The title position */
+.TitleBackground {
+    height: 60px;
+    width: 100vw;
+    background-color: #174661;
+}
+/* the secondtitle position */
+.SecondTitleBackground{
+    width: 100vw;
+    height: 100px;
+    background-color: white
+}
+/* The left content position */
+.Content{
+    position: absolute;
+    width: 100vw;
+    top: 160px;
+    bottom: 0px;
+}
+
+/* ------------------------------------------------------------------------------------------------------------------ */
+/* the title content */
+.Title{
+    margin-left: 12%;
+    line-height: 60px;
+
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-weight: 700;
+    font-size: 24px;
+    color: white;
+}
+.RightUserButton{
+    float: right;
+    margin-right: 8%;
+
+    font-size: 16px;
+}
+/* the second title content */
+.SecondTitle{
+    margin-left: 10%;
+    line-height: 100px;
+
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-weight: 700;
+    font-size: 24px;
+    color: black; 
+}
+.JoinClassButton{
+    float: right;
+    height: 45px;
+    width: 220px;
+    margin-right: 3%;
+    margin-top: 27px;
+    border: 1.5px solid #36D7DD;
+    border-radius: 15px;
+    background-color: rgb(255, 255, 255);
+
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-weight: 700;
+    font-size: 16px;
+    color: #36D7DD; 
+}
+.JoinClassButton:hover{
+    color: #0bbac0ea;
+    border: 1.5px solid #0bbac0ea; 
+    background-color: #d7fcfc42;
+}
+
+/* the left content (the table for showing assessments) */
+.AssessmentTitle{
+    margin-left: 12%;
+    margin-top: 40px;
+
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-weight: 700;
+    font-size: 16px;
+    color: black; 
+}
+.LeftCube{
+    margin-left: 12%;
+    margin-top: 30px;
+    overflow-y: hidden;
+}
+.SubListTd{
+    width: 200px;
+    height: 220px;
+    border: 1px solid rgb(216, 215, 215);
+    background-color: white;
+}
+.AssListTd:hover{
+    border: 1.5px solid rgb(109, 107, 107);
+}
+.SubListName{
+    margin-top: 12px;
+    margin-left: 40px;
+    margin-bottom: 0px;
+}
+.AssListStatusComp{
+    margin-top: 5px;
+    margin-left: 40px;
+    font-size: 16px;
+    color: rgb(34, 151, 5);
+}
+.AssListStatusNotAtt{
+    margin-top: 5px;
+    margin-left: 40px;
+    font-size: 16px;
+    color: rgba(153, 153, 153);
+}
