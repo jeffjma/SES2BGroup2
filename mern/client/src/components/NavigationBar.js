@@ -7,6 +7,11 @@ import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 const NavigationBar = ({ username, hasSubHeader, subjectName }) => {
+  /**
+   * @param {String} username Current username display on right side of navigation bar
+   * @param {String} subjectName Current subject name displayed
+   * @param {bool} hasSubHeader Whether the disabled or not
+   */
   return (
     <React.Fragment>
       <Navbar bg="dark" variant="dark">
@@ -29,6 +34,9 @@ const NavigationBar = ({ username, hasSubHeader, subjectName }) => {
           </Navbar.Collapse>
         </Container>
       </Navbar>
+      {/* 
+      If false, subheader is not displayed
+     */}
       {hasSubHeader ? <SubHeader subjectName={subjectName} /> : null}
     </React.Fragment>
   );
@@ -42,6 +50,9 @@ const SubHeader = ({ subjectName }) => {
           <a href="#main">Dashboard</a>
           <FontAwesomeIcon icon={faChevronRight} />
         </Col>
+        {/* 
+    If no subjectName is given, it is not displayed
+     */}
         {subjectName != null ? (
           <Col xs={6} className={styles.section2}>
             <a href="#subject">{subjectName}</a>

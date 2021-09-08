@@ -11,6 +11,7 @@
   color: black;
 }
 
+/* Styling for the "Dashboard" part of subheader*/
 .section1 {
   align-items: center;
   display: flex;
@@ -19,6 +20,7 @@
   justify-content: space-around;
 }
 
+/* Styling for the "Subject name" part of subheader*/
 .section2 {
   height: 100px;
   display: flex;
@@ -26,6 +28,7 @@
   align-items: center;
 }
 
+/* Styling for the "Join button" part of subheader*/
 .section3 {
   height: 100px;
   display: flex;
