@@ -20,4 +20,20 @@ const UserSchema = new Schema({
   }
 });
 
+// Extend function
+const extend = (Schema, obj) => (
+  new mongoose.Schema(
+    Object.assign({}, Schema.obj, obj)
+  )
+);
+
+// Usage:
+const StudentUserSchema = extend(UserSchema, {
+  educationLevel: {type: String, required: true}
+});
+
+const ExaminerUserSchema = extend(UserSchema, {
+  subjectID: {type: String, required: true}
+})
+
 module.exports = User = mongoose.model("users", UserSchema);
