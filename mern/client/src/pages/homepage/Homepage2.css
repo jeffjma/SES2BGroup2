@@ -7,21 +7,14 @@
 }
 /* The title position */
 .TitleBackground {
-    height: 60px;
+    height: 150px;
     width: 100vw;
-    background-color: #174661;
-}
-/* the secondtitle position */
-.SecondTitleBackground{
-    width: 100vw;
-    height: 100px;
-    background-color: white
 }
 /* The left content position */
 .LeftContent{
     position: absolute;
     width: 70vw;
-    top: 160px;
+    top: 150px;
     bottom: 0px;
 }
 /* The Right content position */
@@ -34,63 +27,11 @@
     bottom: 0px;
 }
 /* ------------------------------------------------------------------------------------------------------------------ */
-/* the title content */
-.Title{
-    margin-left: 12%;
-    line-height: 60px;
-
-    font-family: 'Roboto', sans-serif;
-    font-style: normal;
-    font-weight: bold;
-    font-weight: 700;
-    font-size: 24px;
-    color: white;
-}
-.RightUserButton{
-    float: right;
-    margin-right: 8%;
-
-    font-size: 16px;
-}
-/* the second title content */
-.SecondTitle{
-    margin-left: 10%;
-    line-height: 100px;
-
-    font-family: 'Roboto', sans-serif;
-    font-style: normal;
-    font-weight: bold;
-    font-weight: 700;
-    font-size: 24px;
-    color: black; 
-}
-.JoinClassButton{
-    float: right;
-    height: 45px;
-    width: 220px;
-    margin-right: 3%;
-    margin-top: 27px;
-    border: 1.5px solid #36D7DD;
-    border-radius: 15px;
-    background-color: rgb(255, 255, 255);
-
-    font-family: 'Roboto', sans-serif;
-    font-style: normal;
-    font-weight: bold;
-    font-weight: 700;
-    font-size: 16px;
-    color: #36D7DD; 
-}
-.JoinClassButton:hover{
-    color: #0bbac0ea;
-    border: 1.5px solid #0bbac0ea; 
-    background-color: #d7fcfc42;
-}
 /* the right content (filters) */
 .RightCube{
-    width: 260px;
-    height: 300px;
-    margin-left: 50px;
+    width: 300px;
+    height: 310px;
+    margin-left: 10px;
     margin-top: 90px;
     background-color: rgba(237, 242, 248, 0.877);
 
@@ -118,27 +59,6 @@
     font-size: 15px;
     display: inline;
     color: #36D7DD;
-}
-.FilterConfirmButton{
-    height: 40px;
-    width: 150px;
-    margin-left: 55px;
-    margin-top: 25px;
-    border: 1.5px solid #36D7DD;
-    border-radius: 15px;
-    background-color: rgb(255, 255, 255);
-
-    font-family: 'Roboto', sans-serif;
-    font-style: normal;
-    font-weight: bold;
-    font-weight: 700;
-    font-size: 16px;
-    color: #36D7DD; 
-}
-.FilterConfirmButton:hover{
-    color: #0bbac0ea;
-    border: 1.5px solid #0bbac0ea; 
-    background-color: #d7fcfc42;
 }
 /* the left content (the table for showing assessments) */
 .AssessmentTitle{
@@ -174,6 +94,7 @@
 }
 .AssListTd:hover{
     border: 1.5px solid rgb(109, 107, 107);
+    background-color: #36d7dd07;
 }
 .AssListName{
     margin-top: 12px;
@@ -184,7 +105,7 @@
     margin-top: 5px;
     margin-left: 40px;
     font-size: 16px;
-    color: rgb(34, 151, 5);
+    color: #5bc2a7;
 }
 .AssListStatusNotAtt{
     margin-top: 5px;

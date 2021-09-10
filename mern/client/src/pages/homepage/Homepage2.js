@@ -2,6 +2,10 @@
 import React, {Component} from 'react';
 //import font-awesome icons
 import 'font-awesome/css/font-awesome.min.css';
+//import NavigationBar from components
+import NaviBar from "../../components/NavigationBar";
+//import ButtonOutlined from components
+import ButtonOutlined from "../../components/ButtonOutlined";
 import "./Homepage2.css";
 
 class Homepage2 extends Component{
@@ -53,6 +57,10 @@ class Homepage2 extends Component{
     Sub = [];                                         // Set Sub to null before next running
   }
 
+  handleToAss(e){                                     // Push to url of each Assessment
+    this.props.history.push(window.location.pathname + "/" + e)
+  }
+
   handleCompleted(){                                  //Once click checkbox("Completed"), change CompletedCheckBox
     var Temp = this.state.CompletedCheckBox;
     if(Temp){
@@ -91,7 +99,7 @@ class Homepage2 extends Component{
       <div>
         {this.state.SelectedSubjects.map(SelectedSubject=>(
                <tr key={SelectedSubject.id}>
-                 <td className="AssListTd"><p className="AssListName">{SelectedSubject.name}</p>
+                 <td className="AssListTd" onClick={()=>this.handleToAss(SelectedSubject.id)}><p className="AssListName">{SelectedSubject.name}</p>
                  {this.changeStatusCss(SelectedSubject.status)}
                  </td>
                </tr>
@@ -104,26 +112,12 @@ class Homepage2 extends Component{
         <body className="MainBody">
           {/* this is title */}
           <div className="TitleBackground">
-            <span className="Title">
-              Testing System  
-              <span className="RightUserButton">
-                <i className="fa fa-user-o fa-lg" aria-hidden="true"></i>
-                &nbsp;&nbsp;&nbsp;{this.state.UserName}
-              </span>
-            </span> 
+            <NaviBar
+              username={this.state.UserName}
+              hasSubHeader = "true"
+              subjectName = {this.state.SubjectName}
+            ></NaviBar>
           </div>
-        
-        {/* this is secondary title */}
-        <div className="SecondTitleBackground">
-          <span className="SecondTitle">
-            Dashboard
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <i class="fa fa-angle-right" aria-hidden="true"></i>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <span>{this.state.SubjectName}</span>
-          </span>
-          <button className="JoinClassButton">JOIN CLASS</button>
-        </div>
 
          {/* this is leftcontent */}
          <div className="LeftContent">
@@ -143,8 +137,11 @@ class Homepage2 extends Component{
              <input type="checkbox" className="FilterCheckbox"  onClick={()=>this.handleCompleted()}></input><p className="FilterCheckboxName">Completed</p>
              <br/>
              <input type="checkbox" className="FilterCheckbox" onClick={()=>this.handleNotCompleted()}></input><p className="FilterCheckboxName">Not attempted</p>
-             <br/>
-             <button className="FilterConfirmButton" onClick={()=>this.handleCheckBox()}>Confirm</button>
+             <br/><br/>&nbsp;&nbsp;&nbsp;
+             <ButtonOutlined
+               children = "Confirm"
+               onClick={()=>this.handleCheckBox()}
+             ></ButtonOutlined>
            </div>
          </div>
         </body>
