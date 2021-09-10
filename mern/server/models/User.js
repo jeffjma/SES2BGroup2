@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const extendSchema = require("mongoose-extend-schema");
 const Schema = mongoose.Schema;
 // Create Schema
 const UserSchema = new Schema({
@@ -20,4 +21,15 @@ const UserSchema = new Schema({
   }
 });
 
+// Usage:
+const StudentUserSchema = extendSchema(UserSchema, {
+  educationLevel: {type: String, required: true}
+});
+
+const ExaminerUserSchema = extendSchema(UserSchema, {
+  subjectID: {type: String, required: true}
+})
+
 module.exports = User = mongoose.model("users", UserSchema);
+module.exports = StudentUser = mongoose.model("users", StudentUserSchema);
+module.exports = ExaminerUser = mongoose.model("users", ExaminerUserSchema);
