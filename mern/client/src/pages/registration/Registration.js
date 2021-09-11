@@ -1,8 +1,10 @@
 import React from "react";
-import { Box, Button, TextField } from "@material-ui/core"
-
-
+import { ButtonGroup, Form, Image } from "react-bootstrap";
+import ButtonContained from "../../components/ButtonContained";
+import ButtonOutlined from "../../components/ButtonOutlined";
+import logo from "./logo_register.png";
 import "./Registration.css";
+
 
 const Registration = () => {
 
@@ -11,81 +13,82 @@ const Registration = () => {
       <div className="reg-parent">
 
         {/*Title of Page*/}
-        <h1 className="Title">
+        <h3 className="Title">
           Register on the Testing System
-        </h1>
+        </h3>
 
         {/*Sub header*/}
-        <h4 className="SecondTitle">
+        <h5 className="SecondTitle">
           Access your account or get started with us
-        </h4>
+        </h5>
 
         {/*Buttons*/}
-        <Box className="Buttons" display="flex" justifyContent="space-between">
+        <ButtonGroup className="LoginPageButton">
+
           {/*Login Button, links to Login Page*/}
-          <Button
+          <ButtonOutlined
             variant="contained"
             color="primary"
             href="login">
             I have an account
-          </Button>
+          </ButtonOutlined>
+        </ButtonGroup>
 
+        <ButtonGroup className="RegisterPageButton">
           {/*Registration Button, links to Register Page???*/}
-          <Button
+          <ButtonContained
             variant="contained"
             color="primary"
             href="registration">
             I want to register
-          </Button>
-        </Box>
+          </ButtonContained>
+
+        </ButtonGroup>
+
+        <Image src={logo}className="DrawingLogin"/>
 
         {/*Registration Form*/}
-        <form className="Form" noValidate autoComplete="off">
+        <Form noValidate autoComplete="off">
 
           {/*Full Name*/}
-          <div className="Section">
-            <TextField
-              id="clientName"
-              label="Full name"
-              variant="outlined"
-              size="small"
+          <Form.Group className="Section1" controlID="Name">
+            <Form.Control
+              type="text"
+              size="lg"
+              placeholder="Full name: e.g. John Smith"
             />
-          </div>
+          </Form.Group>
 
           {/*Email*/}
-          <div className="Section">
-            <TextField
-              id="clientEmail"
-              label="Email"
-              variant="outlined"
-              size="small"
+          <Form.Group className="Section2" controlID="Email">
+            <Form.Control
+              type="text"
+              size="lg"
+              placeholder="Email address"
             />
-          </div>
-
+          </Form.Group>
 
           {/*Password (Hidden to User)*/}
-          <div className="Section">
-            <TextField
-              id="clientName"
+          <Form.Group className="Section3">
+            <Form.Control
               type="password"
-              label="Password"
-              variant="outlined"
-              size="small"
+              size="lg"
+              placeholder="Password"
             />
-          </div>
+          </Form.Group>
 
 
           {/*Register Button, links to Homepage for now*/}
           <div className="SubmitButton">
-            <Button
+            <ButtonContained
               variant="contained"
               color="primary"
               href="homepage">
               Create Account
-            </Button>
+            </ButtonContained>
           </div>
 
-        </form>
+        </Form>
       </div>
     </React.Fragment>
   );
