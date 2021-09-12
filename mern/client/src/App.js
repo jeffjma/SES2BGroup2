@@ -10,7 +10,8 @@ import {
 import {
     Registration,
     Login,
-    Homepage
+    Homepage,
+    Homepage2
 } from "./pages/Routes";
 
 
@@ -24,7 +25,8 @@ function App() {
         <Router>
           <Route exact path="/" component={Registration} />
           <Route path="/Login" component={Login} />
-          <Route path="/Home" component={Homepage} />
+          <Route exact path="/Home" component={Homepage} />
+          <Route path="/Home/Subjects" exact strict component={Homepage2} />
         </Router>
 
     </div>
