@@ -1,6 +1,8 @@
 import React from "react";
 
 import "./Login.css";
+import "../../App.scss";
+import { Button} from 'react-bootstrap';
 
 const Login = () => {
 
@@ -13,14 +15,15 @@ const Login = () => {
 
         <form className="Form" noValidate autoComplete="off">
           <div className="Section">
-            <TextField 
+            <input
+               type = "text"  
                id="clientEmail"
                label="Email"
              />
           </div>
 
           <div className="Section">
-            <TextField 
+            <input 
                id="clientPassword"
                type="password"
                label="Password"
