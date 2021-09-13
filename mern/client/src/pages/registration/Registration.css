@@ -1,93 +1,77 @@
+.reg-parent {
+  padding-top: 3%;
+}
+
 .Title {
-  position: absolute;
-  width: 678px;
+  width: 100%;
   height: 101px;
-  left: 192px;
-  top: 148px;
   font-family: Roboto;
   font-style: normal;
   font-weight: bold;
   font-size: 48px;
-  line-height: 56px;
   display: flex;
   align-items: center;
   color: #000000;
 }
 
 .SecondTitle {
-  position: absolute;
-  width: 678px;
-  height: 101px;
-  left: 192px;
-  top: 239px;
+  width: 100%;
+  height: 50px;
   font-family: Roboto;
   font-style: normal;
   font-weight: normal;
   font-size: 24px;
-  line-height: 28px;
   display: flex;
   align-items: center;
   color: #b7b7b9;
 }
 
 .LoginPageButton {
-  position: absolute;
-  width: 270px;
+  width: 40%;
   height: 52px;
-  left: 192px;
-  top: 375px;
+  margin-top: 6%;
+  margin-right: 8%;
 }
 
 .RegisterPageButton {
-  position: absolute;
-  width: 270px;
+  width: 40%;
   height: 52px;
-  left: 250px;
-  top: 375px;
+  margin-top: 6%;
 }
 
 .SubmitButton {
-  position: absolute;
-  width: 240px;
+  width: 40%;
   height: 82px;
-  left: 192px;
-  top: 804px;
+  margin-top: 8%;
+}
+
+form .form-control{
+  border: none;
 }
 
 .Section1 {
-  position: absolute;
-  width: 544px;
+  width: 80%;
   height: 52px;
-  left: 192px;
-  top: 514px;
   filter: drop-shadow(5px 5px 12px rgba(0, 0, 0, 0.1));
+  margin-top: 9%;
 }
 
 .Section2 {
-  position: absolute;
-  width: 544px;
+  width: 80%;
   height: 52px;
-  left: 192px;
-  top: 601px;
   filter: drop-shadow(5px 5px 12px rgba(0, 0, 0, 0.1));
+  margin-top: 4%;
 }
 
 .Section3 {
-  position: absolute;
-  width: 544px;
+  width: 80%;
   height: 52px;
-  left: 192px;
-  top: 688px;
   filter: drop-shadow(5px 5px 12px rgba(0, 0, 0, 0.1));
+  margin-top: 4%;
 }
 
 .DrawingLogin {
-  position: absolute;
-  width: 509px;
+  width: auto;
   height: 325.7px;
-  left: 870px;
-  top: 401px;
-}
-
-.reg-parent {
+  margin-top: 30%;
 }
