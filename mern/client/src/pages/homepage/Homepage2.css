@@ -1,0 +1,115 @@
+/* this css page is only for design Homepage2.js */
+/* Set the main position of this page */
+.MainBody{
+    width: 100vw;
+    height: 100vh;
+    background-color: #F8FCFF;
+}
+/* The title position */
+.TitleBackground {
+    height: 150px;
+    width: 100vw;
+}
+/* The left content position */
+.LeftContent{
+    position: absolute;
+    width: 70vw;
+    top: 150px;
+    bottom: 0px;
+}
+/* The Right content position */
+.RightContent{
+    position: absolute;
+    float: right;
+    right: 0px;
+    width: 30vw;
+    top: 160px;
+    bottom: 0px;
+}
+/* ------------------------------------------------------------------------------------------------------------------ */
+/* the right content (filters) */
+.RightCube{
+    width: 300px;
+    height: 310px;
+    margin-left: 10px;
+    margin-top: 90px;
+    background-color: rgba(237, 242, 248, 0.877);
+
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-weight: 700;
+    font-size: 24px;
+    color: rgb(121, 118, 118); 
+}
+.FilterTitle{
+    margin-left: 40px;
+}
+.FilterSubtitle{
+    margin-left: 40px;
+    margin-top: 30px;
+    margin-bottom: 0px;
+    font-size: 15px;
+}
+.FilterCheckbox{
+    margin-left: 40px; 
+}
+.FilterCheckboxName{
+    margin-left: 20px;
+    font-size: 15px;
+    display: inline;
+    color: #36D7DD;
+}
+/* the left content (the table for showing assessments) */
+.AssessmentTitle{
+    margin-left: 12%;
+    margin-top: 40px;
+
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-weight: 700;
+    font-size: 16px;
+    color: black; 
+}
+.LeftCube{
+    height: 400px;
+    width: 780px;
+    margin-left: 12%;
+    margin-top: 30px;
+    overflow-x: hidden;
+}
+.AssListTd{
+    width: 760px;
+    height: 80px;
+    border: 1px solid rgb(216, 215, 215);
+    background-color: white;
+
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-weight: 500;
+    font-size: 24px;
+    color: #36D7DD;
+}
+.AssListTd:hover{
+    border: 1.5px solid rgb(109, 107, 107);
+    background-color: #36d7dd07;
+}
+.AssListName{
+    margin-top: 12px;
+    margin-left: 40px;
+    margin-bottom: 0px;
+}
+.AssListStatusComp{
+    margin-top: 5px;
+    margin-left: 40px;
+    font-size: 16px;
+    color: #5bc2a7;
+}
+.AssListStatusNotAtt{
+    margin-top: 5px;
+    margin-left: 40px;
+    font-size: 16px;
+    color: rgba(153, 153, 153);
+}
