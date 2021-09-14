@@ -1,0 +1,64 @@
+.Title {
+    font-weight: bolder;
+    font-family: 'Roboto';
+    margin-top: 150px;
+    margin-left: 100px;
+    margin-block-start: 50px;
+  }
+
+  .secondTitle{
+    position:absolute;
+    top: 120px;
+    left: 100px;
+    color:grey;
+  }
+  .LoginButton {
+    position:absolute;
+    padding-top: 50px;
+    padding-bottom: 25px;
+    left:10px;
+    top: 120px;
+  }
+  .forgotPwButton{
+    position:absolute;
+    padding-top: 50px;
+    padding-bottom: 25px;
+    left:300px;
+    top: 120px;
+  }
+
+  .registerButton{
+    position:absolute;
+    top:175px;
+    left:400px;
+  }
+  
+  .Form {
+    position:absolute;
+    top: 260px;
+    left:90px;
+    width: 544px;
+    height: 52px;
+
+  }
+  
+  .Section {
+    padding: 10px;
+   
+  }
+  
+  .textBox{
+    width:544px;
+    height:52px;
+    padding:1px 1px 1px 10px;
+    border:white;
+    filter: drop-shadow(5px 5px 12px rgba(0, 0, 0, 0.1));
+  }
+  
+  .logo{
+    position:absolute;
+    top:370;
+    left: 670px;
+    width: 450px;
+    height:310.7px;
+  }
