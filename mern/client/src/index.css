@@ -1,3 +1,13 @@
+:root {
+  --main-bg-color: ;
+  --main-btn-color: #36D7DD;
+  --secondary-text-color: #B7B7B9;
+  --navbar-color: #174661;
+  --error-color: #B00020;
+  --correct-answer-color: #5BC2A7;
+  --disabled-btn-color: #AFAFAF;
+}
+
 body {
   margin: 0;
   width: 100%;
