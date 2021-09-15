@@ -1,12 +1,16 @@
 import React from "react";
-
-import "./Login.css";
-import "../../App.scss";
-import { Image} from 'react-bootstrap';
+import {
+  Form,
+  Image,
+  Container,
+  Col,
+  Row
+} from "react-bootstrap";
 import ButtonContained from "../../components/ButtonContained";
-import ButtonText from "../../components/ButtonText";
 import ButtonOutlined from "../../components/ButtonOutlined"
-import logo from "./logo.png";
+import { Link } from "react-router-dom";
+import logo from "../../assets/logo_register.png";
+import "./Login.css";
 
 const Login = () => {
 
@@ -14,66 +18,78 @@ const Login = () => {
 
     <React.Fragment>
       <div className="login-parent">
-      
-        <h1 className="Title">
-          Login to Testing System
-        </h1>
 
-        <h5 className="secondTitle">
-           Access your account or get started with us
-        </h5>
+      <Container>
+        <Row>
+          <Col md={7} sm={12} xs={12}>
+            <h3 className="Title">
+              Login to Testing System
+            </h3>
 
-        <div className="registerButton">
-            <ButtonOutlined
-              variant="contained" 
-              color="primary"
-              href="registration">
-              I want to Register
-            </ButtonOutlined>
+            <h5 className="SecondTitle">
+               Access your account or get started with us
+            </h5>
 
+            <div className="registerButton">
+                <Link to='/'>
+                  <ButtonOutlined
+                    variant="contained"
+                    color="primary"
+                    href="registration">
+                    I want to Register
+                  </ButtonOutlined>
+                </Link>
+            </div>
 
-          </div>
+              <Form noValidate autoComplete="off">
 
-          <Image src={logo}className="logo"/>
+              <Form.Group className="student-email" controlID="studentEmail">
+                <Form.Control
+                  type="text"
+                  size="lg"
+                  placeholder="Email Address"
+                />
+              </Form.Group>
 
-        <form className="Form" noValidate autoComplete="off">
-          
-          <div className="Section">
-            <input
-               type = "text"  
-               id="clientEmail"
-               placeholder = "Email Address"
-               class = "textBox"
-             />
-          </div>
+              <Form.Group className="student-password">
+                <Form.Control
+                  type="password"
+                  size="lg"
+                  placeholder="Password"
+                />
+              </Form.Group>
 
-          <div className="Section">
-            <input 
-               id="clientPassword"
-               type="password"
-               placeholder = "Password"
-               class = "textBox"
-             />
-          </div>
-          
-          <div className="forgotPwButton">
-            <ButtonText
-              variant="contained" 
-              color="primary">
-              Forgot Password
-            </ButtonText>
-          </div>
+              <Row
+              className="align-items-center"
+              id="submit-row">
+                <Col md={6} sm={12} xs={12}>
+                  <div className="LoginButton">
+                    <ButtonContained
+                      variant="contained"
+                      color="primary"
+                      href="homepage">
+                      Login
+                    </ButtonContained>
+                  </div>
+                </Col>
+                <Col md={6} sm={12} xs={12}>
+                  <Form.Text id="forgotPassword" muted>
+                    <Link
+                    to='/login'
+                    className="forgot-pword"
+                    > Forgot Password? </Link>
+                  </Form.Text>
+                </Col>
+              </Row>
+            </Form>
+          </Col>
 
-          <div className="LoginButton">
-            <ButtonContained
-              variant="contained" 
-              color="primary" 
-              href="homepage">
-                Login
-            </ButtonContained>
-          </div>
-        </form>
+            <Col md={5} sm={12} xs={12}>
+              <Image src={logo}className="DrawingLogin"/>
+            </Col>
 
+        </Row>
+       </Container>
       </div>
     </React.Fragment>
   );
