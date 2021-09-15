@@ -35,7 +35,7 @@ const Modal = ({ show, close }) => {
                   <div className="student-login-route">
                   <ButtonGroup className="student-login-btn">
                     {/*links to Student Login Page*/}
-                    <Link to='/login'>
+                    <Link to='/StudentLogin'>
                       <ButtonOutlined
                         variant="contained"
                         color="primary"
@@ -48,12 +48,14 @@ const Modal = ({ show, close }) => {
                   <div className="examiner-login-route">
                   <ButtonGroup className="examiner-login-btn">
                     {/*links to Examiner Login Page*/}
-                    <ButtonContained
-                      variant="contained"
-                      color="primary"
-                      href="registration">
-                      Examiner
-                    </ButtonContained>
+                   <Link to='/ExaminerLogin'>
+                      <ButtonContained
+                        variant="contained"
+                        color="primary"
+                        href="registration">
+                        Examiner
+                      </ButtonContained>
+                    </Link>
                   </ButtonGroup>
                   </div>
                 </Card.Body>
