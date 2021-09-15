@@ -51,17 +51,6 @@ function Registration() {
                   </ButtonOutlined>
                 </ButtonGroup>
 
-                <ButtonGroup className="RegisterPageButton">
-                  {/*Registration Button, links to Register Page???*/}
-                  <ButtonContained
-                    variant="contained"
-                    color="primary"
-                    href="registration">
-                    I want to register
-                  </ButtonContained>
-
-                </ButtonGroup>
-
                 {/*Registration Form*/}
                 <Form noValidate autoComplete="off">
 
