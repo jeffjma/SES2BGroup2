@@ -2,8 +2,8 @@
   align-items: center;
   justify-content: center;
   display: flex;
-  height: 220px;
-  width: 235px;
+  height: 220px !important;
+  width: 235px !important;
   padding-top: 20px;
   margin: 15px;
   box-shadow: 0 5px 5px #d8d8d8;
