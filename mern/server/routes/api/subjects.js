@@ -17,4 +17,17 @@ router.post("/create", (req, res) => {
     }
 });
 
+// @route GET api/subjects/getQuestions
+// @desc Get all the questions for this subject
+// @access Public
+router.get("/getQuestions", async (req, res) => {
+    const subject = await Subject.findOne({name: "maths"});
+
+    try {
+        res.send(subject.questions);
+    } catch (err) {
+        res.status(500).send(err);
+    }
+})
+
 module.exports = router;
