@@ -11,6 +11,11 @@ const SubjectSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'users',
         required: true
+    },
+    questions: {
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: "questions",
+        default: []
     }
 });
 
