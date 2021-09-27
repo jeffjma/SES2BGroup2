@@ -23,7 +23,9 @@
     float: left;
     width: calc(100vw - 350px);
     height: 50vh;
-    background-color: rgb(127, 143, 143);
+
+    text-align: center;
+    align-content: center;
 }
 /* Right Badges position */
 .RightBadges{
@@ -43,11 +45,14 @@
 /* The main content css start from here */
 /* ------------------------------------------------------------------------------------------------------------------ */
 
+/* the left profile */
 .LeftProfile #NameCube{
     height: 150px;
     width: 150px;
     margin-top: 50px;
     margin-left: 50px;
+    border-radius: 0.3ex;
+    box-shadow:4px 4px 5px  #AAACAC;
 
     font-family: 'Roboto', sans-serif;
     font-style: normal;
@@ -55,7 +60,6 @@
     font-weight: 700;
     font-size: 40px;
     text-align: center;
-    
 
     color: #366E52;
     background-color: #D1EBDE;
@@ -111,5 +115,37 @@
     font-style: normal;
     font-weight: 700;
     font-size: 15px;
+    color: black;
+}
+
+/*the Right rank image */
+.RightRankImage #CurrentRank{
+    margin-top: 15px;
+    margin-bottom: 10px;
+    
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    color: black;
+}
+
+.RightRankImage #CircleLayout{
+    width: 30vh;
+    height: 30vh;
+
+    margin-left: calc(43vw - 175px);
+}
+.RightRankImage #RankImage{
+    height:18vh;
+    width: 10vw;
+}
+
+.RightRankImage #RankDescription{
+    margin-top: 10px;
+
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-size: 18px;
     color: black;
 }
