@@ -1,0 +1,79 @@
+@import "custom";
+
+body {
+  margin: 0;
+  width: 100%;
+  font-family: "Roboto";
+  background-color: #f8fcff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+h1 {
+  font-size: 96;
+  font-weight: lighter;
+}
+
+h2 {
+  font-size: 60;
+  font-weight: lighter;
+}
+
+h3 {
+  font-size: 48;
+  font-weight: bolder;
+}
+
+h4 {
+  font-size: 34;
+  font-weight: normal;
+}
+
+h5 {
+  font-size: 24;
+  font-weight: normal;
+}
+
+h6 {
+  font-size: 20;
+  font-weight: 500;
+}
+
+.subtitle1 {
+  font-size: 16 !important;
+  font-weight: 400;
+}
+
+.subtitle2 {
+  font-size: 14;
+  font-weight: 500;
+}
+
+body {
+  font-size: 16;
+  font-weight: normal;
+}
+
+.body2 {
+  font-size: 14;
+  font-weight: 500;
+}
+
+.headline {
+  font-size: 24;
+  font-weight: bold;
+}
+
+.subHeadline {
+  font-size: 20;
+  font-weight: normal;
+}
+
+*::-webkit-input-placeholder {
+  font-size: 1.0rem;
+}
