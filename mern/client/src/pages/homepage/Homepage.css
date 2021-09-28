@@ -97,6 +97,7 @@
 .SubListTd{
     width: 200px;
     height: 220px;
+    margin-top: 100px;
     border: 1px solid rgb(216, 215, 215);
     background-color: white;
 }
@@ -104,9 +105,10 @@
     border: 1.5px solid rgb(109, 107, 107);
 }
 .SubListName{
-    margin-top: 12px;
-    margin-left: 40px;
+    margin-top: 20px;
+    margin-left: 20px;
     margin-bottom: 0px;
+    font-size: 13px;
 }
 .AssListStatusComp{
     margin-top: 5px;
@@ -119,4 +121,10 @@
     margin-left: 40px;
     font-size: 16px;
     color: rgba(153, 153, 153);
+}
+
+.center{
+    display: flex;
+    justify-content: center;
+    margin-left: 10px;
 }

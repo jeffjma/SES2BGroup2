@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import 'font-awesome/css/font-awesome.min.css';
 import "./Homepage.css";
+import {Link} from "react-router-dom";
+import logo from './subjectlogo.png';
 
 class Homepage extends Component{
 
@@ -10,12 +12,12 @@ class Homepage extends Component{
       //this state values are now only for test before fetching data from api
       UserName: 'TestUserName',                       // Name of User
       SubjectName: 'TestSubjectName',                 // Name of Subjects
-      AvailableSubjects: '',                               // Numbers of Assessments shown in table
-      AllSubjects:[                              // All assessments of this Subjects (which is for test only before 
-        {id: "1", name:"Subject1", status: "1"},          // Fetching data from database)
+      AvailableSubjects: '',                               // Numbers of Subjects shown in table
+      AllSubjects:[                              // All Subjects (which is for test only before 
+        {id: "1", name:"31242 - Advanced Internet Programming - Spring 2021", status: "1"},    // Fetching data from database)
         
       ],
-      SelectedSubjects:[],                            // All selected assessment according to the filters
+      SelectedSubjects:[],                            // All selected subjects
     }
   }
 
@@ -51,16 +53,23 @@ class Homepage extends Component{
 
   
   render(){
-    let AssScript = (                                // The left table script showing the assessments details
+    let SubScript = (                                // The left table script showing the subjects details
+      <Link to = "./home/subjects">  
       <div> 
         {this.state.SelectedSubjects.map(SelectedSubject=>(
                <tr key={SelectedSubject.id}>
-                 <td className="SubListTd">{SelectedSubject.name}
-                
+                 <td className="SubListTd"> 
+                 <img src={logo} width="180" height="140" className="center" />
+                   <div className="SubListName">
+                      
+                     {SelectedSubject.name}
+                      
+                   </div>
                  </td>
                </tr>
              ))}
       </div>
+      </Link>
     );
 
     return(
@@ -96,7 +105,7 @@ class Homepage extends Component{
              Your subjects
            </p>
            <div className="LeftCube">
-             {AssScript}
+             {SubScript}
            </div>
          </div>
 
