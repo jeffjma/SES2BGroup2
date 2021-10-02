@@ -1,5 +1,5 @@
 import React from "react";
-
+import axios from "axios";
 import "./Login.css";
 import "../../App.scss";
 import { Image} from 'react-bootstrap';
@@ -9,6 +9,23 @@ import ButtonOutlined from "../../components/ButtonOutlined"
 import logo from "./logo.png";
 
 const Login = () => {
+
+    /* This is just placeholder data below, please replace with data from form */
+    const userData = {
+      email: 'main@test.com', 
+      password: 'test123'
+    };
+  
+    function handleLogin(e) {
+      axios
+        .post("http://localhost:5000/api/users/login", userData)
+        .then(res => 
+          console.log('login successful'))
+        .catch(err =>
+          console.log('there was an error')
+        );
+  
+    }
 
   return (
 
@@ -68,7 +85,8 @@ const Login = () => {
             <ButtonContained
               variant="contained" 
               color="primary" 
-              href="homepage">
+              href="homepage"
+              onClick={handleLogin}>
                 Login
             </ButtonContained>
           </div>

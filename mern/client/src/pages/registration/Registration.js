@@ -4,9 +4,31 @@ import ButtonContained from "../../components/ButtonContained";
 import ButtonOutlined from "../../components/ButtonOutlined";
 import logo from "./logo_register.png";
 import "./Registration.css";
+import axios from "axios";
+
 
 
 const Registration = () => {
+
+  /* This is just placeholder data below, please replace with data from form */
+  const userData = {
+    name: 'Bob Test', 
+    email: 'main@test.com', 
+    password: 'test123', 
+    password2: 'test123' };
+
+  function handleCreateAccount(e) {
+    console.log('Create Button Clicked');
+
+    axios
+      .post("http://localhost:5000/api/users/register", userData)
+      .then(res => 
+        console.log(res.data))
+      .catch(err =>
+        console.log('there was an error')
+      );
+
+  }
 
   return (
     <React.Fragment>
@@ -83,7 +105,8 @@ const Registration = () => {
             <ButtonContained
               variant="contained"
               color="primary"
-              href="homepage">
+              href="homepage"
+              onClick={handleCreateAccount}>
               Create Account
             </ButtonContained>
           </div>
