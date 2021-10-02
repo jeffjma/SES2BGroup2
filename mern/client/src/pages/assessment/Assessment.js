@@ -3,27 +3,36 @@ import { ButtonGroup, Form } from "react-bootstrap";
 import ButtonContained from "../../components/ButtonContained";
 import NavigationBar from "../../components/NavigationBar.js";
 import "./Assessment.css";
-import $ from 'jquery';
+import Timer from "./Timer.js"
+import QuestionData from "./QuestionData";
 
 const Assessment = () => {
   
-  $("input:radio").change(function () {$("#submit").prop("isDisabled", null);});
-
   return (
     <React.Fragment>
+
       <NavigationBar />
+
       <div className="assessment-parent">
+
+        <div className="headerObjects">
         <h3>(Subject) Test</h3>
+        <Timer />
+        </div>
+
         <h4 className="questionTitle">Question 1: </h4>
+
         <h5 className="questionDesc">Question Is Here?</h5>
+
         <Form className="multipleChoice">
           <div className="form-check">
             <input
               class="form-check-radio"
               type="radio"
               name="answer"
-              id="assessment1"
+              id="assessment"
               value="option1"
+              onclick="check()"
               required
             />
             <label class="form-check-label" for="assessment1">
@@ -36,8 +45,9 @@ const Assessment = () => {
               class="form-check-radio"
               type="radio"
               name="answer"
-              id="assessment2"
+              id="assessment"
               value="option2"
+              onclick="check()"
               required
             />
             <label class="form-check-label" for="assessment2">
@@ -50,8 +60,9 @@ const Assessment = () => {
               class="form-check-radio"
               type="radio"
               name="answer"
-              id="assessment3"
+              id="assessment"
               value="option3"
+              onclick="check()"
               required
             />
             <label class="form-check-label" for="assessment3">
@@ -64,8 +75,9 @@ const Assessment = () => {
               class="form-check-radio"
               type="radio"
               name="answer"
-              id="assessment4"
+              id="assessment"
               value="option4"
+              onclick="check()"
               required
             />
             <label className="form-check-label" for="assessment4">
@@ -74,7 +86,7 @@ const Assessment = () => {
           </div>
         </Form>
         <ButtonGroup className="button" >
-          <ButtonContained id="submit">Next</ButtonContained>
+          <ButtonContained id="submit" href="assessment">Next</ButtonContained>
         </ButtonGroup>
       </div>
       
