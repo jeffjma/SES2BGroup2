@@ -1,4 +1,4 @@
-.student-login-parent{
+.login-parent{
   padding-top: 3%;
 }
 
@@ -9,14 +9,14 @@
   margin-right: 8%;
 }
 
-.student-email {
+.email {
   width: 80%;
   height: 52px;
   filter: drop-shadow(5px 5px 12px rgba(0, 0, 0, 0.1));
   margin-top: 9%;
 }
 
-.student-password {
+.password {
   width: 80%;
   height: 52px;
   filter: drop-shadow(5px 5px 12px rgba(0, 0, 0, 0.1));

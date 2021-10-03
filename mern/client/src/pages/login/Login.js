@@ -10,20 +10,20 @@ import ButtonContained from "../../components/ButtonContained";
 import ButtonOutlined from "../../components/ButtonOutlined"
 import { Link } from "react-router-dom";
 import logo from "../../assets/logo_register.png";
-import "./ExaminerLogin.css";
+import "./Login.css";
 
-const ExaminerLogin = () => {
+const Login = () => {
 
   return (
 
     <React.Fragment>
-      <div className="examiner-login-parent">
+      <div className="login-parent">
 
       <Container>
         <Row>
           <Col md={7} sm={12} xs={12}>
             <h3 className="Title">
-              Login as an Examiner
+              Login to Testing System
             </h3>
 
             <h5 className="SecondTitle">
@@ -43,7 +43,7 @@ const ExaminerLogin = () => {
 
               <Form noValidate autoComplete="off">
 
-              <Form.Group className="examiner-email" controlID="examinerEmail">
+              <Form.Group className="email" controlID="Email">
                 <Form.Control
                   type="text"
                   size="lg"
@@ -51,7 +51,7 @@ const ExaminerLogin = () => {
                 />
               </Form.Group>
 
-              <Form.Group className="examiner-password">
+              <Form.Group className="password">
                 <Form.Control
                   type="password"
                   size="lg"
@@ -96,4 +96,4 @@ const ExaminerLogin = () => {
 
 };
 
-export default ExaminerLogin;
+export default Login;
