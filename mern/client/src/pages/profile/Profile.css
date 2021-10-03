@@ -32,14 +32,69 @@
     float: left;
     width: calc(100vw - 350px);
     height: 30vh;
-    background-color: rgb(178, 236, 236);
+
+}
+.TableStyle{
+    display: flex;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    align-items: center;
+    border: transparent;
+    flex-direction: row;
+    border-collapse: separate;
+    border-spacing: 40px 10px;
+
+}
+.TableStyle #badge{
+    height: 105px;
+    width: 75px;
+}
+.TableStyle #badge2{
+    height: 105px;;
+    width:50px;
 }
 /* Right History position */
 .RightHistory{
     float: left;
     width: calc(100vw - 350px);
     height: calc(70vh - 55px);
-    background-color: rgb(130, 243, 196);
+}
+
+.TableStyle2{
+    background: #FFFFFF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    align-items: center;
+    border-collapse: separate;
+    border-spacing: 40px 10px;
+    width: calc(100vw - 350px);
+}
+h5{
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 28px;
+    color: #1AB7BC;
+}
+.date{
+    /* Body1 */
+font-family: Roboto;
+font-style: normal;
+font-weight: normal;
+font-size: 16px;
+line-height: 19px;
+/* identical to box height */
+letter-spacing: 0.005em;
+color: #AFAFAF;
+}
+
+.result{
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 28px;
+    color: #5BC2A7;
 }
 /* ------------------------------------------------------------------------------------------------------------------ */
 /* The main content css start from here */

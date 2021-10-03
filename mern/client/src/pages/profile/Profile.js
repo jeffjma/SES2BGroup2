@@ -12,6 +12,9 @@ import thiefimage from "../../assets/Thief.png";
 import knightimage from "../../assets/Knight.png";
 import princeimage from "../../assets/Prince.png";
 import kingimage from "../../assets/King.png";
+import MathBadge from "../../assets/MathBadge.png";
+import WebProgBadge from "../../assets/WebProgBadge.png";
+
 import "./Profile.css";
 
 class Profile extends Component{
@@ -25,19 +28,22 @@ class Profile extends Component{
             EducationLastYear: "TestYear",                                    //years of education
             ProgramName: "TestProgram",                                       //array about all test history
             TestsHistoryArray:[                             
-                {id: "1", name:"Test1", data:"1-9-2021", result: "100"},          
-                {id: "2", name:"Test2", data:"9-8-2021", result: "94"},
-                {id: "3", name:"Test3", data:"21-3-2021", result: "74"},
-                {id: "4", name:"Test4", data:"17-12-2020", result: "55"},
+                {id: "4", name:"Javascript Test", data:"1-9-2021", result: "100"+"/100"},          
+                {id: "3", name:"Javascript Test", data:"9-8-2021", result: "94"+"/100"},
+                {id: "2", name:"Math test", data:"21-3-2021", result: "74"+"/100"},
+                {id: "1", name:"Physics test", data:"17-12-2020", result: "55"+"/100"},
               ],
             Percentage: "",                                                    //the percantage that user have gained
             ImageChoice: "",                                                   //the rank image src
             CurrentRank: "",                                                   //the current rank name
             TotalPoints: "",                                                   //total points from tests
             PointsToNextRank: "",                                              //required points to next level
-            NextRank: ""                                                       //the next rank name
+            NextRank: "",                                                       //the next rank name
+            
         }
     }
+
+    
 
     componentDidMount(){
         //get the total points from the test
@@ -63,6 +69,7 @@ class Profile extends Component{
         }
     }
 
+    
     //separate the username
     SeparateUserName(){
         var tempname = this.state.UserName;
@@ -82,6 +89,22 @@ class Profile extends Component{
         if(ic == 3){return(<img id="RankImage"src={princeimage}></img>)}
         if(ic == 4){return(<img id="RankImage"src={kingimage}></img>)}
     }
+
+    showBadge(){
+        const Badges = [
+            { id: 1, src:"math"},
+            { id: 2, src: "web"}
+        ]
+        return Badges;
+
+    }
+
+    showMedal(Badge){
+        if(Badge.src == "math") {return(<img id="badge2" src = {MathBadge}></img>)}
+        if(Badge.src == "web") {return(<img id = "badge" src = {WebProgBadge}></img>)}
+
+    }
+
 
     render(){
         let NameImage = ( 
@@ -130,10 +153,50 @@ class Profile extends Component{
                     </div>
 
                     {/* the right badges  */}
-                    <div className="RightBadges">Your Badges</div>
+                    <div className="RightBadges">
+                        <table className = "TableStyle">
+                            <tbody>
+                                <tr>
+                                    <th> My Badges</th>
+                                </tr>
+                                {this.showBadge().map(Badge => (
+                                  <th key = {Badge.id}> 
+                                  {this.showMedal(Badge)} 
+                                  </th > 
+                                  
+                                )) }
+                            </tbody>
+                        </table>
+                    </div>
 
                     {/* the right history table */}
-                    <div className="RightHistory">Your assessment history</div>
+                    <div className="RightHistory">
+                        <table className = "TableStyle2">
+                            <thead>
+                                <tr>
+                                    <th>My Assessment History</th>
+                                </tr>
+                                <tr className = "RowShadow">
+                                    <th style = {{width:130}}>Assessment No.</th>
+                                    <th style = {{width:200}}>Name</th>
+                                    <th>Date</th>
+                                    <th>Result</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                { this.state.TestsHistoryArray.map(hist =>(
+                                    <tr key = {hist.id}>
+                                        <td>{hist.id}</td>
+                                        <td><h5>{hist.name}</h5></td>
+                                        <td className = "date">{hist.data}</td>
+                                        <td className = "result">{hist.result}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+
+                        </table>
+                    
+                    </div>
                 </body> 
             </React.Fragment>
         )
