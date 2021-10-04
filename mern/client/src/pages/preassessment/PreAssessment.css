@@ -1,10 +1,5 @@
-.image {
-  background: red;
-  position: absolute;
-  width: 569px;
-  height: 259px;
-  left: 825px;
-  top: 489px;
+.body-main {
+  background: #E5E5E5;
 }
 
 .title {
@@ -176,4 +171,12 @@
   height: 52px;
   margin-left: 31px;
   margin-top: 235px;
+}
+
+.image {
+  position: absolute;
+  width: 569px;
+  height: 259px;
+  left: 825px;
+  top: 489px;
 }
