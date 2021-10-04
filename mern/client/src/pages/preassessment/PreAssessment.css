@@ -40,14 +40,12 @@
 .titleItem {
   /* Title: */
   position: absolute;
-  width: 28px;
   height: 14px;
   margin-left: 29px;
   margin-top: 31px;
 
   font-family: Roboto;
   font-style: normal;
-  font-weight: bold;
   font-size: 12px;
   line-height: 14px;
   /* identical to box height */
@@ -62,14 +60,12 @@
 .maxPointsItem {
   /* Max points obtainable: */
   position: absolute;
-  width: 133px;
   height: 14px;
   margin-left: 31px;
   margin-top: 68px;
 
   font-family: Roboto;
   font-style: normal;
-  font-weight: bold;
   font-size: 12px;
   line-height: 14px;
   /* identical to box height */
@@ -84,14 +80,12 @@
 .availableItem {
   /* Available: */
   position: absolute;
-  width: 59px;
   height: 35px;
   margin-left: 332px;
   margin-top: 57px;
 
   font-family: Roboto;
   font-style: normal;
-  font-weight: bold;
   font-size: 12px;
   line-height: 14px;
   display: flex;
@@ -104,14 +98,12 @@
 .timeItem {
   /* Time limit: */
   position: absolute;
-  width: 92px;
   height: 14px;
   margin-left: 31px;
   margin-top: 107px;
 
   font-family: Roboto;
   font-style: normal;
-  font-weight: bold;
   font-size: 12px;
   line-height: 14px;
   /* identical to box height */
@@ -126,14 +118,12 @@
 .attemptsItem {
   /* Allowed attempts: */
   position: absolute;
-  width: 101px;
   height: 18px;
   margin-left: 332px;
   margin-top: 101px;
 
   font-family: Roboto;
   font-style: normal;
-  font-weight: bold;
   font-size: 12px;
   line-height: 14px;
   display: flex;
@@ -146,14 +136,12 @@
 .descriptionItem {
   /* Description: */
   position: absolute;
-  width: 66px;
   height: 14px;
   margin-left: 31px;
   margin-top: 147px;
 
   font-family: Roboto;
   font-style: normal;
-  font-weight: bold;
   font-size: 12px;
   line-height: 14px;
   /* identical to box height */
