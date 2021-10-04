@@ -28,10 +28,10 @@ class Profile extends Component{
             EducationLastYear: "TestYear",                                    //years of education
             ProgramName: "TestProgram",                                       //array about all test history
             TestsHistoryArray:[                             
-                {id: "4", name:"Javascript Test", data:"1-9-2021", result: "100"+"/100"},          
-                {id: "3", name:"Javascript Test", data:"9-8-2021", result: "94"+"/100"},
-                {id: "2", name:"Math test", data:"21-3-2021", result: "74"+"/100"},
-                {id: "1", name:"Physics test", data:"17-12-2020", result: "55"+"/100"},
+                {id: "1", name:"Javascript Test", data:"1-9-2021", result: "100"},          
+                {id: "2", name:"Javascript Test", data:"9-8-2021", result: "94"},
+                {id: "3", name:"Math test", data:"21-3-2021", result: "74"},
+                {id: "4", name:"Physics test", data:"17-12-2020", result: "55"},
               ],
             Percentage: "",                                                    //the percantage that user have gained
             ImageChoice: "",                                                   //the rank image src
@@ -174,28 +174,26 @@ class Profile extends Component{
                         <table className = "TableStyle2">
                             <thead>
                                 <tr>
-                                    <th>My Assessment History</th>
+                                    <th style = {{width:200}}>My Assessment History</th>
                                 </tr>
-                                <tr className = "RowShadow">
+                                <tr>
                                     <th style = {{width:130}}>Assessment No.</th>
                                     <th style = {{width:200}}>Name</th>
                                     <th>Date</th>
                                     <th>Result</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody className="RowShadow">
                                 { this.state.TestsHistoryArray.map(hist =>(
                                     <tr key = {hist.id}>
                                         <td>{hist.id}</td>
                                         <td><h5>{hist.name}</h5></td>
                                         <td className = "date">{hist.data}</td>
-                                        <td className = "result">{hist.result}</td>
+                                        <td className = "result">{hist.result} /100</td>
                                     </tr>
                                 ))}
                             </tbody>
-
                         </table>
-                    
                     </div>
                 </body> 
             </React.Fragment>
