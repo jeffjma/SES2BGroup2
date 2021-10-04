@@ -3,10 +3,19 @@ const Schema = mongoose.Schema;
 
 //Create Schema
 const SubjectSchema = new Schema({
+    name: {
+        type: String,
+        required: true
+    },
     staff_id: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'users',
+        ref: "users",
         required: true
+    },
+    questions: {
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: "questions",
+        default: []
     }
 });
 
