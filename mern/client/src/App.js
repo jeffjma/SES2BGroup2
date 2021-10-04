@@ -12,6 +12,7 @@ import {
     Login,
     Homepage,
     Homepage2,
+    Profile
 } from "./pages/Routes";
 
 
@@ -27,6 +28,7 @@ function App() {
           <Route path="/Login" component={Login} />
           <Route exact path="/Home" component={Homepage} />
           <Route path="/Home/Subjects" exact strict component={Homepage2} />
+          <Route path="/Profile" component={Profile} />
         </Router>
 
     </div>
