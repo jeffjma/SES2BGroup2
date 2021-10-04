@@ -12,13 +12,13 @@
     "axios": "^0.22.0",
     "bootstrap": "^5.1.0",
     "font-awesome": "^4.7.0",
-    "node-sass": "^5.0.0",
     "react": "^17.0.2",
     "react-bootstrap": "^2.0.0-beta.6",
     "react-dom": "^17.0.2",
     "react-helmet": "^6.1.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
+    "sass": "^1.39.2",
     "web-vitals": "^1.0.1"
   },
   "scripts": {

@@ -11,7 +11,7 @@ import {
     Registration,
     Login,
     Homepage,
-    Homepage2
+    Homepage2,
 } from "./pages/Routes";
 
 
