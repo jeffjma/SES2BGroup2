@@ -14,55 +14,12 @@
   padding-top: 5%;
 }
 
-.questionDesc {
-  padding-top: 2%;
-}
-
-.multipleChoice {
-  padding-top: 5%;
-  margin-right: 40%;
-}
-
-.form-check {
-  padding: 3%;
-  height: 15%;
-  background-color: #e7e9eb;
-}
-
-input[type="radio"]:after {
-  width: 120%;
-  height: 120%;
-  border-radius: 100%;
-  top: -25%;
-  left: -10%;
-  position: relative;
-  background-color: solid white;
-  content: "";
-  display: inline-block;
-  visibility: visible;
-  border: solid white;
-}
-
-input[type="radio"]:checked:after {
-  width: 120%;
-  height: 120%;
-  border-radius: 100%;
-  top: -25%;
-  left: -10%;
-  position: relative;
-  background-color: #5bc2a7;
-  content: "";
-  display: inline-block;
-  visibility: visible;
-  border: solid white;
-}
-
-.form-check-label {
-  padding-top: 1%;
-  padding-left: 4%;
-}
-
 .button {
   padding-top: 5%;
   padding-bottom: 5%;
+}
+
+.nextQuestion[isDisabled] {
+  background-color: #afafaf;
+  color: white;
 }
