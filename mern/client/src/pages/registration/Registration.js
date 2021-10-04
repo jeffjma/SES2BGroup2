@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   ButtonGroup,
   Form,
@@ -9,18 +9,12 @@ import {
 } from "react-bootstrap";
 import ButtonContained from "../../components/ButtonContained";
 import ButtonOutlined from "../../components/ButtonOutlined";
-import Modal from "../../components/modal/Modal";
+import { Link } from "react-router-dom";
 import logo from "../../assets/logo_register.png";
 import "./Registration.css";
 
 
 function Registration() {
-
-  const [modal, setModal] = useState(false);
-
-  const toggleModal = () => {
-    setModal(!modal);
-  }
 
   return (
     <React.Fragment>
@@ -43,12 +37,13 @@ function Registration() {
                 {/*Buttons*/}
                 <ButtonGroup className="LoginPageButton">
                   {/*Login Button, links to Login Page*/}
-                  <ButtonOutlined
-                    onClick={toggleModal}
-                    variant="contained"
-                    color="primary">
-                    I have an account
-                  </ButtonOutlined>
+                  <Link to='/Login'>
+                    <ButtonOutlined
+                      variant="contained"
+                      color="primary">
+                      I have an account
+                    </ButtonOutlined>
+                  </Link>
                 </ButtonGroup>
 
                 {/*Registration Form*/}
@@ -100,8 +95,6 @@ function Registration() {
                 </Col>
            </Row>
           </Container>
-
-          <Modal show={modal} close={toggleModal}/>
 
       </div>
     </React.Fragment>

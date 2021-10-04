@@ -9,10 +9,9 @@ import {
 //Import pages files
 import {
     Registration,
-    StudentLogin,
+    Login,
     Homepage,
     Homepage2,
-    ExaminerLogin,
     Profile
 } from "./pages/Routes";
 
@@ -26,10 +25,9 @@ function App() {
 
         <Router>
           <Route exact path="/" component={Registration} />
-          <Route path="/StudentLogin" component={StudentLogin} />
+          <Route path="/Login" component={Login} />
           <Route exact path="/Home" component={Homepage} />
           <Route path="/Home/Subjects" exact strict component={Homepage2} />
-          <Route path="/ExaminerLogin" component={ExaminerLogin} />
           <Route path="/Profile" component={Profile} />
         </Router>
 
