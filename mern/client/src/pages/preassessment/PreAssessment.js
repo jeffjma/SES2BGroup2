@@ -54,7 +54,7 @@ export default class PreAssessment extends Component {
                             <p><b>Description:</b> {this.state.Description}</p>
                         </div>
                         <div className="beginButton">
-                            <Link to=''>
+                            <Link to='/Assessment'>
                             <ButtonOutlined
                                 variant="contained"
                                 color="primary"
