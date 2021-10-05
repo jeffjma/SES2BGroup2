@@ -83,7 +83,8 @@ export default class Assessment extends Component {
         correctAnswer: 0,
         chosenAnswer: 0,
         questionNumber: 1,
-        studentScore:0
+        studentScore:0,
+        UserName: 'John Smith',   
   }
 
 //checks if answers are correct and adds to student score 
@@ -123,7 +124,10 @@ export default class Assessment extends Component {
         {/* basically says if question number is equal to or under the length, do the quiz*/}
         {questionNumber <= Object.keys(question).length ? 
           (<>
-        <NavigationBar />
+        <NavigationBar
+          username={this.state.UserName}
+          profileClick = "/Profile">
+        </NavigationBar>
   
         <div className="assessment-parent">
           <div className="headerObjects">

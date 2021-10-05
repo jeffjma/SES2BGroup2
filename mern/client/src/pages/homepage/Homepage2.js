@@ -58,7 +58,8 @@ class Homepage2 extends Component{
   }
 
   handleToAss(e){                                     // Push to url of each Assessment
-    this.props.history.push(window.location.pathname + "/" + e)
+    /*this.props.history.push(window.location.pathname + "/" + e)*/ // Disabled for client meeting
+      this.props.history.push("/Assessment")
   }
 
   handleCompleted(){                                  //Once click checkbox("Completed"), change CompletedCheckBox
@@ -99,7 +100,9 @@ class Homepage2 extends Component{
       <div>
         {this.state.SelectedSubjects.map(SelectedSubject=>(
                <tr key={SelectedSubject.id}>
-                 <td className="AssListTd" onClick={()=>this.handleToAss(SelectedSubject.id)}><p className="AssListName">{SelectedSubject.name}</p>
+              {/*   <td className="AssListTd" onClick={()=>this.handleToAss(SelectedSubject.id)}><p className="AssListName">{SelectedSubject.name}</p>*/}
+              {/*/ this is just for the client meeting to show the assessment page */}
+                    <td className="AssListTd" onClick={()=>this.handleToAss()}><p className="AssListName">{SelectedSubject.name}</p>
                  {this.changeStatusCss(SelectedSubject.status)}
                  </td>
                </tr>
