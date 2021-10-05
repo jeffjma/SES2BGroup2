@@ -16,13 +16,18 @@ export default class PreAssessment extends Component {
             TimeLimit: '60 Minutes',
             Attempts: '3',
             Description: 'For this assessment, you will be tested on your knowledge of Javascript.',
+            SubjectName: 'TestSubjectName'
         }
     }
 
     render() {
         return (
             <React.Fragment>
-                <NaviBar username={this.state.UserName}></NaviBar>
+                <NaviBar 
+                    username={this.state.UserName}
+                    hasSubHeader = "true"
+                    subjectName = {this.state.SubjectName}
+                ></NaviBar>
 
                 <div className="body-main">
                     <div className="title">
