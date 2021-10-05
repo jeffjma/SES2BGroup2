@@ -1,0 +1,48 @@
+const express = require("express");
+const router = express.Router();
+// Load Question Model
+const Subject = require("../../models/Subject");
+const Question = require("../../models/Question");
+
+// @route POST api/subjects/create
+// @desc Create a new subject
+// @access Public
+router.post("/create", (req, res) => {
+    const newSubject = new Subject(req.body);
+    try {
+        newSubject.save();
+        res.send(newSubject);
+    } catch (err) {
+        res.status(500).send(err);
+    }
+});
+
+// @route POST api/subjects/add
+// @desc Add a question to a subject
+// @access Public
+router.post("/add", async (req, res) => {
+    const subject = await Subject.findOne(req.body.find);
+    const question = await Question.findById(req.body.question);
+    subject.questions.push(question._id);
+    try {
+        subject.save();
+        res.send(subject.questions);
+    } catch (err) {
+        res.status(500).send(err);
+    }
+})
+
+// @route GET api/subjects/getQuestions
+// @desc Get all the questions for this subject
+// @access Public
+router.get("/getQuestions", async (req, res) => {
+    const questions = (await Subject.findOne(req.body).populate("questions")).questions;
+
+    try {
+        res.send(questions);
+    } catch (err) {
+        res.status(500).send(err);
+    }
+});
+
+module.exports = router;
