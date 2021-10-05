@@ -4,3 +4,5 @@ export { default as Homepage }  from "./homepage/Homepage";
 export { default as Homepage2 }  from "./homepage/Homepage2";
 export { default as Profile }  from "./profile/Profile";
 export { default as Assessment } from "./assessment/Assessment";
+export { default as Background } from "./bg/Background";
+

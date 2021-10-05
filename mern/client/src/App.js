@@ -13,7 +13,8 @@ import {
     Homepage,
     Homepage2,
     Profile,
-    Assessment
+    Assessment,
+    Background
 } from "./pages/Routes";
 
 
@@ -31,6 +32,7 @@ function App() {
           <Route path="/Home/Subjects" exact strict component={Homepage2} />
           <Route path="/Profile" component={Profile} />
           <Route path="/Assessment" component={Assessment} />
+          <Route path="/Background" component={Background} />
         </Router>
 
     </div>
