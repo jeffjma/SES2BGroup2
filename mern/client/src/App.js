@@ -14,7 +14,8 @@ import {
     Homepage2,
     Profile,
     Assessment,
-    Background
+    Background,
+    PreAssessment
 } from "./pages/Routes";
 
 
@@ -33,6 +34,7 @@ function App() {
           <Route path="/Profile" component={Profile} />
           <Route path="/Assessment" component={Assessment} />
           <Route path="/Background" component={Background} />
+          <Route path="/PreAssessment" component={PreAssessment} />
         </Router>
 
     </div>
