@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 
-const NavigationBar = ({ username, hasSubHeader, subjectName }) => {
+const NavigationBar = ({ username, hasSubHeader, subjectName, profileClick }) => {
   /**
    * @param {String} username Current username display on right side of navigation bar
    * @param {String} subjectName Current subject name displayed
@@ -16,16 +16,16 @@ const NavigationBar = ({ username, hasSubHeader, subjectName }) => {
     <React.Fragment>
       <Navbar bg="dark" variant="dark">
         <Container>
-          <Navbar.Brand href="#home">Testing System</Navbar.Brand>
+          <Navbar.Brand href="/Home">Testing System</Navbar.Brand>
           <Navbar.Collapse className="justify-content-end">
             <Navbar.Text>
-              <a href="#login">
+              <a href={profileClick}>
                 <FontAwesomeIcon icon={faUser} />
               </a>
             </Navbar.Text>
             <Navbar.Text>
               <a
-                href="#login"
+                href={profileClick}
                 style={{ textDecoration: "none", marginLeft: "10px" }}
               >
                 {username}
@@ -47,7 +47,7 @@ const SubHeader = ({ subjectName }) => {
     <Container className={styles.subHeader} fluid>
       <Row className="headline">
         <Col className={styles.section1}>
-          <a href="#main">Dashboard</a>
+          <a href="/Home">Dashboard</a>
           <FontAwesomeIcon icon={faChevronRight} />
         </Col>
         {/* 

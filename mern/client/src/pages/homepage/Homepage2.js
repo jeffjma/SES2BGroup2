@@ -14,7 +14,7 @@ class Homepage2 extends Component{
     super(props)
     this.state = {
       //this state values are now only for test before fetching data from api
-      UserName: 'TestUserName',                       // Name of User
+      UserName: 'John Smith',                       // Name of User
       SubjectName: 'TestSubjectName',                 // Name of Subjects
       AvailableAss: '',                               // Numbers of Assessments shown in table
       CompletedCheckBox: false,                       // Boolean for check whether checkbox("Completed") is clicked
@@ -58,7 +58,8 @@ class Homepage2 extends Component{
   }
 
   handleToAss(e){                                     // Push to url of each Assessment
-    this.props.history.push(window.location.pathname + "/" + e)
+    /*this.props.history.push(window.location.pathname + "/" + e)*/ // Disabled for client meeting
+      this.props.history.push("/PreAssessment")
   }
 
   handleCompleted(){                                  //Once click checkbox("Completed"), change CompletedCheckBox
@@ -99,7 +100,9 @@ class Homepage2 extends Component{
       <div>
         {this.state.SelectedSubjects.map(SelectedSubject=>(
                <tr key={SelectedSubject.id}>
-                 <td className="AssListTd" onClick={()=>this.handleToAss(SelectedSubject.id)}><p className="AssListName">{SelectedSubject.name}</p>
+              {/*   <td className="AssListTd" onClick={()=>this.handleToAss(SelectedSubject.id)}><p className="AssListName">{SelectedSubject.name}</p>*/}
+              {/*/ this is just for the client meeting to show the assessment page */}
+                    <td className="AssListTd" onClick={()=>this.handleToAss()}><p className="AssListName">{SelectedSubject.name}</p>
                  {this.changeStatusCss(SelectedSubject.status)}
                  </td>
                </tr>
@@ -116,6 +119,7 @@ class Homepage2 extends Component{
               username={this.state.UserName}
               hasSubHeader = "true"
               subjectName = {this.state.SubjectName}
+              profileClick = "/Profile"
             ></NaviBar>
           </div>
 

@@ -16,7 +16,7 @@
   align-items: center;
   display: flex;
   height: 100px;
-  margin-left: 100px;
+  margin-left: 5%;
   justify-content: space-around;
 }
 
@@ -31,6 +31,7 @@
 /* Styling for the "Join button" part of subheader*/
 .section3 {
   height: 100px;
+  margin-right: 5%;
   display: flex;
   justify-content: center;
   align-items: center;
