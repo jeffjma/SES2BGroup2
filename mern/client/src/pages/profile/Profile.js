@@ -115,7 +115,10 @@ class Profile extends Component{
                 <body className="MainBody">
                     {/* the title */}
                     <div className="TitleBackground">
-                        <NaviBar username={this.state.UserName}></NaviBar>
+                        <NaviBar 
+                          username={this.state.UserName}
+                          profileClick = "/Profile"
+                        ></NaviBar>
                     </div>
 
                     {/* the left profile content */}

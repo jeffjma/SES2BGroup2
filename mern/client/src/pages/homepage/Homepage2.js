@@ -116,6 +116,7 @@ class Homepage2 extends Component{
               username={this.state.UserName}
               hasSubHeader = "true"
               subjectName = {this.state.SubjectName}
+              profileClick = "/Profile"
             ></NaviBar>
           </div>
 
