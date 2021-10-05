@@ -54,6 +54,7 @@
 .sb-main-container .sb-select-container {
     position: relative;
     padding: 0px;
+    padding-bottom: 15px;
     margin: 0px;
 }
 

@@ -38,7 +38,6 @@ class Background extends Component {
     }
 
     this.forceUpdate();
-    console.log(this.sectionToRender);
   }
 
   renderHSSection() {
@@ -47,9 +46,12 @@ class Background extends Component {
         <Row>
           <SelectBox label="Year" options={["7", "8", "9", "10", "11", "12"]}></SelectBox>
         </Row>
-        <Row>
-          <SelectBox label="Current Subjects" options={["English Advanced", "Etc."]}></SelectBox>
-        </Row>
+
+        <center>
+          <ButtonContained variant="contained" color="primary" href="homepage">
+            Save
+          </ButtonContained>
+        </center>
       </div>
     );
   }
@@ -61,14 +63,17 @@ class Background extends Component {
           <SelectBox label="Year" options={["1", "2", "3", "4", "5"]}></SelectBox>
         </Row>
         <Row>
-          <SelectBox label="Semester" options={["1", "2"]}></SelectBox>
+          <SelectBox label="Semester" options={["Autumn", "Spring", "Summer"]}></SelectBox>
         </Row>
         <Row>
           <SelectBox label="Faculty" options={["FEIT"]}></SelectBox>
         </Row>
-        <Row>
-          <SelectBox label="Completed Subjects" options={["DSA", "Etc."]}></SelectBox>
-        </Row>
+
+        <center>
+          <ButtonContained variant="contained" color="primary" href="homepage">
+            Save
+          </ButtonContained>
+        </center>
       </div>
     );
   }
@@ -84,10 +89,6 @@ class Background extends Component {
         </Row>
 
         { this.sectionToRender }
-
-        <ButtonContained variant="contained" color="primary" href="homepage">
-          Save
-        </ButtonContained>
       </div>
     );
   }
