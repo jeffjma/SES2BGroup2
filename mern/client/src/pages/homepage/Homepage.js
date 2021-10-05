@@ -11,7 +11,7 @@ class Homepage extends Component{
     super(props)
     this.state = {
       //this state values are now only for test before fetching data from api
-      UserName: 'TestUserName',                       // Name of User
+      UserName: 'John Smith',                       // Name of User
       SubjectName: 'TestSubjectName',                 // Name of Subjects
       AvailableSubjects: '',                               // Numbers of Subjects shown in table
       AllSubjects:[                              // All Subjects (which is for test only before 

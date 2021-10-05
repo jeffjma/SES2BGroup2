@@ -14,7 +14,7 @@ class Homepage2 extends Component{
     super(props)
     this.state = {
       //this state values are now only for test before fetching data from api
-      UserName: 'TestUserName',                       // Name of User
+      UserName: 'John Smith',                       // Name of User
       SubjectName: 'TestSubjectName',                 // Name of Subjects
       AvailableAss: '',                               // Numbers of Assessments shown in table
       CompletedCheckBox: false,                       // Boolean for check whether checkbox("Completed") is clicked
