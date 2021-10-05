@@ -47,7 +47,7 @@ const SubHeader = ({ subjectName }) => {
     <Container className={styles.subHeader} fluid>
       <Row className="headline">
         <Col className={styles.section1}>
-          <a href="#main">Dashboard</a>
+          <a href="/Home">Dashboard</a>
           <FontAwesomeIcon icon={faChevronRight} />
         </Col>
         {/* 

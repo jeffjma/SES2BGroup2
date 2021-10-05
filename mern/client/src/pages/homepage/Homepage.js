@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import 'font-awesome/css/font-awesome.min.css';
 import "./Homepage.css";
 import {Link} from "react-router-dom";
-import logo from './subjectlogo.png';
+import logo from '../../assets/subjectlogo.png';
+import NaviBar from "../../components/NavigationBar";
 
 class Homepage extends Component{
 
@@ -78,26 +79,14 @@ class Homepage extends Component{
         <body className="MainBody">
           {/* this is title */}
           <div className="TitleBackground">
-            <span className="Title">
-              Testing System  
-              <span className="RightUserButton">
-                <i className="fa fa-user-o fa-lg" aria-hidden="true"></i>
-                &nbsp;&nbsp;&nbsp;{this.state.UserName}
-              </span>
-            </span> 
+            <NaviBar
+                username={this.state.UserName}
+                hasSubHeader = "true"
+                subjectName = ""
+                profileClick = "/Profile"
+              ></NaviBar>
           </div>
-        
-        {/* this is secondary title */}
-        <div className="SecondTitleBackground">
-          <span className="SecondTitle">
-            Dashboard
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <i class="fa fa-angle-right" aria-hidden="true"></i>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            
-          </span>
-          <button className="JoinClassButton">JOIN CLASS</button>
-        </div>
+      
 
          {/* this is leftcontent */}
          <div className="Content">
