@@ -1,5 +1,5 @@
-/* override  */
-/* make the customizations */
+/* override react-bootstrap variables here*/
+/* to make customizations */
 
 $theme-colors: (
   "primary": #36d7dd,
@@ -24,5 +24,4 @@ $theme-colors: (
   }
 }
 
-/* import bootstrap to set changes */
 @import "~bootstrap/scss/bootstrap";
