@@ -27,4 +27,4 @@ const AwardSchema = new Schema({
     ref: 'User',
   }]
 });
-module.exports = User = mongoose.model("users", UserSchema);
+module.exports = Award = mongoose.model("awards", AwardSchema);
