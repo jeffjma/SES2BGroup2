@@ -50,7 +50,7 @@ router.post("/addNew", async (req, res) => {
     } catch (err) {
         res.status(500).send(err);
     }
-})
+});
 
 // @route GET api/subjects/getQuestions
 // @desc Get all the questions for this subject
@@ -60,6 +60,20 @@ router.get("/getQuestions", async (req, res) => {
 
     try {
         res.send(questions);
+    } catch (err) {
+        res.status(500).send(err);
+    }
+});
+
+router.get("/getFilteredQuestions", async (req, res) => {
+    subject = await Subject.
+        findById(req.body.subject).
+        populate({
+            path: "questions",
+            match: req.body.match
+        });
+    try {
+        res.send(subject.questions);
     } catch (err) {
         res.status(500).send(err);
     }
