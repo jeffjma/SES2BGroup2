@@ -21,9 +21,29 @@ router.post("/create", (req, res) => {
 // @desc Add a question to a subject
 // @access Public
 router.post("/add", async (req, res) => {
-    const subject = await Subject.findOne(req.body.find);
+    const subject = await Subject.findOne(req.body.subject);
     const question = await Question.findById(req.body.question);
     subject.questions.push(question._id);
+    try {
+        subject.save();
+        res.send(subject.questions);
+    } catch (err) {
+        res.status(500).send(err);
+    }
+})
+
+// @route POST api/subjects/addNew
+// @desc Create and add a question to a subject
+// @access Public
+router.post("/addNew", async (req, res) => {
+    const subject = await Subject.findById(req.body.subject);
+    const newQuestion = new Question(req.body.question)
+    try {
+        newQuestion.save();
+    } catch (err) {
+        res.status(500).send(err)
+    }
+    subject.questions.push(newQuestion._id);
     try {
         subject.save();
         res.send(subject.questions);
