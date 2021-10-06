@@ -30,4 +30,17 @@ router.get("/getAll", async (req, res) => {
     }
 });
 
+// @route POST api/questions/edit
+// @desc Get all the questions in the question bank
+// @access Public
+router.post("/edit", (req, res) => {
+    Question.findByIdAndUpdate(req.body.questionId, req.body.updates, function(err, result) {
+        if (err) {
+            res.send(err);
+        } else {
+            res.send(result);
+        }
+    });
+})
+
 module.exports = router;
