@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "jquery": "^3.6.0",
-    "react-timer-hook": "^3.0.5"
-  }
-}
