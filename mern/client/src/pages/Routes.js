@@ -6,3 +6,5 @@ export { default as Profile }  from "./profile/Profile";
 export { default as Assessment } from "./assessment/Assessment";
 export { default as Background } from "./bg/Background";
 export { default as PreAssessment }  from "./preassessment/PreAssessment";
+export { default as ExaminerHome }  from "./examinerhome/ExaminerHome";
+export { default as ExaminerHome2 }  from "./examinerhome/ExaminerHome2";

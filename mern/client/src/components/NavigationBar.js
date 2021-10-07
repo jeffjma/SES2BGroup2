@@ -6,17 +6,21 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 
-const NavigationBar = ({ username, hasSubHeader, subjectName, profileClick }) => {
+const NavigationBar = ({ username, hasSubHeader, subjectName, profileClick, logoClick, dashboardClick, buttonName }) => {
   /**
    * @param {String} username Current username display on right side of navigation bar
    * @param {String} subjectName Current subject name displayed
    * @param {bool} hasSubHeader Whether the disabled or not
+   * @param {String} profileClick redirect to correct profile
+   * @param {String} logoClick redirect to correct homepage
+   * @param {String} dashboardClick redirect to correct homepage
+   * @param {String} buttonName different button for student and examiner
    */
   return (
     <React.Fragment>
       <Navbar bg="dark" variant="dark">
         <Container>
-          <Navbar.Brand href="/Home">Testing System</Navbar.Brand>
+          <Navbar.Brand href={logoClick}>Testing System</Navbar.Brand>
           <Navbar.Collapse className="justify-content-end">
             <Navbar.Text>
               <a href={profileClick}>
@@ -37,17 +41,21 @@ const NavigationBar = ({ username, hasSubHeader, subjectName, profileClick }) =>
       {/* 
       If false, subheader is not displayed
      */}
-      {hasSubHeader ? <SubHeader subjectName={subjectName} /> : null}
+      {hasSubHeader ? <SubHeader 
+                          subjectName={subjectName} 
+                          buttonName={buttonName} 
+                          dashboardClick={dashboardClick}/> : null}
     </React.Fragment>
   );
 };
 
-const SubHeader = ({ subjectName }) => {
+const SubHeader = ({ subjectName, buttonName, dashboardClick }) => {
+
   return (
     <Container className={styles.subHeader} fluid>
       <Row className="headline">
         <Col className={styles.section1}>
-          <a href="/Home">Dashboard</a>
+          <a href={dashboardClick}>Dashboard</a>
           <FontAwesomeIcon icon={faChevronRight} />
         </Col>
         {/* 
@@ -58,9 +66,11 @@ const SubHeader = ({ subjectName }) => {
             <a href="#subject">{subjectName}</a>
           </Col>
         ) : null}
-        <Col className={styles.section3}>
-          <ButtonOutlined>Join Class</ButtonOutlined>
-        </Col>
+        {buttonName != null ? (
+          <Col className={styles.section3}>
+            <ButtonOutlined>{buttonName}</ButtonOutlined>
+          </Col>
+        ) : null}
       </Row>
     </Container>
   );

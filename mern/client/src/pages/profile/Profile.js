@@ -118,6 +118,7 @@ class Profile extends Component{
                         <NaviBar 
                           username={this.state.UserName}
                           profileClick = "/Profile"
+                          logoClick = "/Home"
                         ></NaviBar>
                     </div>
 

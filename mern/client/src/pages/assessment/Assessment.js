@@ -126,7 +126,8 @@ export default class Assessment extends Component {
           (<>
         <NavigationBar
           username={this.state.UserName}
-          profileClick = "/Profile">
+          profileClick = "/Profile"
+          logoClick = "/Home">
         </NavigationBar>
   
         <div className="assessment-parent">

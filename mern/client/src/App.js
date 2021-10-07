@@ -15,7 +15,9 @@ import {
     Profile,
     Assessment,
     Background,
-    PreAssessment
+    PreAssessment,
+    ExaminerHome,
+    ExaminerHome2
 } from "./pages/Routes";
 
 
@@ -35,6 +37,8 @@ function App() {
           <Route path="/Assessment" component={Assessment} />
           <Route path="/Background" component={Background} />
           <Route path="/PreAssessment" component={PreAssessment} />
+          <Route exact path="/ExaminerHome" component={ExaminerHome} />
+          <Route path="/ExaminerHome/Subjects" cexact strict component={ExaminerHome2} />
         </Router>
 
     </div>

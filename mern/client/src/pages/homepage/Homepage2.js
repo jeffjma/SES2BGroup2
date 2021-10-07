@@ -120,6 +120,9 @@ class Homepage2 extends Component{
               hasSubHeader = "true"
               subjectName = {this.state.SubjectName}
               profileClick = "/Profile"
+              buttonName = "Join Class"
+              dashboardClick = "/Home"
+              logoClick = "/Home"
             ></NaviBar>
           </div>
 
