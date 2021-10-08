@@ -17,7 +17,8 @@ import {
     Background,
     PreAssessment,
     ExaminerHome,
-    ExaminerHome2
+    ExaminerHome2,
+    QuestionPool
 } from "./pages/Routes";
 
 
@@ -39,6 +40,7 @@ function App() {
           <Route path="/PreAssessment" component={PreAssessment} />
           <Route exact path="/ExaminerHome" component={ExaminerHome} />
           <Route path="/ExaminerHome/Subjects" cexact strict component={ExaminerHome2} />
+          <Route path="/QuestionPool" component={QuestionPool} />
         </Router>
 
     </div>
