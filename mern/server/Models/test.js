@@ -3,29 +3,38 @@ const Schema = mongoose.Schema;
 // Create Schema
 const TestSchema = new Schema({
   questions: {
-    type: String,
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: "questions",
+    default: []
+  },
+  subject: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "subjects",
     required: true
   },
-  answer: {
-    type: String,
-    required: false
-  },
-  points: { //Total marks that can be achieved
-    type: number,
-    required: true
-  },
-  results: { //Number of marks received at the end of the test
+  total_marks: { //Number of marks received at the end of the test
     type: number,
     required: false
   },
-  topic: {
+  title: {
     type: String,
     required: true
   },
-  subject_id: {
-    type: number,
+  description: {
+    type: String,
     required: true
   },
+  availability: {
+    start_date: {
+      type: Date,
+      required: true
+    },
+    end_date: {
+      type: Date,
+      required: true
+    }
+  }
+  
 });
 
 module.exports = Test = mongoose.model("test", TestSchema);
