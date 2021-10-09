@@ -27,7 +27,8 @@ router.post("/register", (req, res) => {
         const newUser = new User({
           name: req.body.name,
           email: req.body.email,
-          password: req.body.password
+          password: req.body.password,
+          userType: 'student',
         });
   // Hash password before saving in database
         bcrypt.genSalt(10, (err, salt) => {
@@ -94,4 +95,45 @@ router.post("/login", (req, res) => {
     });
 });
 
-  module.exports = router;
+// @route POST api/users/background
+// @desc Add background info of student
+// @access Public
+router.post("/background", (req, res) => {
+// Getting info from request body
+  const email = req.body.email;
+  const educationLevel = req.body.educationLevel;
+  const year = req.body.year;
+  const currentSubjects = req.body.year;
+  const faculty = req.body.faculty;
+  const completedSubjects = req.body.completedSubjects;
+  // Find user by email
+  User.findOne({ email }).then(user => {
+    updatedUser = user;
+    updatedUser.educationLevel = educationLevel;
+    updatedUser.year = year;
+    updatedUser.currentSubjects = currentSubjects;
+    updatedUser.faculty = faculty;
+    updatedUser.completedSubjects = completedSubjects;
+    updatedUser.save();
+    return res.json(user);
+  });
+});
+
+// @route POST api/users/profile
+// @desc Get user profile details
+// @access Public
+// Lowkey incomplete, will be updated
+router.post("/profile", (req, res) => {
+  const email = req.body.email;
+  //Find user by email
+  User.findOne({ email }).then(user => {
+    profile = {
+      name: user.name,
+      educationLevel: user.educationLevel,
+      currentSubjects: user.currentSubjects
+    }
+    return res.json(profile);
+  });
+});
+
+module.exports = router;
