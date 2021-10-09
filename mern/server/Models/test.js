@@ -6,6 +6,18 @@ const TestSchema = new Schema({
     type: [mongoose.Schema.Types.ObjectId],
     ref: "questions",
     default: []
+<<<<<<< HEAD
+=======
+  },
+  subject: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: "subjects",
+    required: true
+  },
+  answer: {
+    type: String,
+    required: true
+>>>>>>> Backend-TestModel
   },
   subject: {
     type: mongoose.Schema.Types.ObjectId,
@@ -20,6 +32,7 @@ const TestSchema = new Schema({
     type: String,
     required: true
   },
+<<<<<<< HEAD
   description: {
     type: String,
     required: true
@@ -34,6 +47,8 @@ const TestSchema = new Schema({
       required: true
     }
   }
+=======
+>>>>>>> Backend-TestModel
   
 });
 
