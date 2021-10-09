@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import 'font-awesome/css/font-awesome.min.css';
 import "./Homepage.css";
-import {Link} from "react-router-dom";
-import logo from '../../assets/subjectlogo.png';
 import NaviBar from "../../components/NavigationBar";
+import CardSubject from "../../components/CardSubject";
+import { Col, Row, Container } from "react-bootstrap";
 
 class Homepage extends Component{
 
@@ -16,7 +16,9 @@ class Homepage extends Component{
       AvailableSubjects: '',                               // Numbers of Subjects shown in table
       AllSubjects:[                              // All Subjects (which is for test only before 
         {id: "1", name:"31242 - Advanced Internet Programming - Spring 2021", status: "1"},    // Fetching data from database)
-        
+        {id: "2", name:"31242 - Advanced Internet Programming - Spring 2021", status: "1"}, 
+        {id: "3", name:"31242 - Advanced Internet Programming - Spring 2021", status: "1"}, 
+        {id: "4", name:"31242 - Advanced Internet Programming - Spring 2021", status: "1"}, 
       ],
       SelectedSubjects:[],                            // All selected subjects
     }
@@ -54,23 +56,21 @@ class Homepage extends Component{
 
   
   render(){
-    let SubScript = (                                // The left table script showing the subjects details
-      <Link to = "./home/subjects">  
-      <div> 
+    let SubScript = (                                // The left table script showing the subjects details  
+        <Row>
+          <tr>
         {this.state.SelectedSubjects.map(SelectedSubject=>(
-               <tr key={SelectedSubject.id}>
-                 <td className="SubListTd"> 
-                 <img src={logo} width="180" height="140" className="center" />
-                   <div className="SubListName">
-                      
-                     {SelectedSubject.name}
-                      
-                   </div>
-                 </td>
-               </tr>
+               <td key={SelectedSubject.id}>   
+               <Col md>             
+                 <CardSubject path="./home/subjects" assetImage={SelectedSubject.logo}>
+                   {SelectedSubject.name}
+                  </CardSubject>  
+                  </Col>         
+               </td>
              ))}
-      </div>
-      </Link>
+            </tr>
+        </Row>
+   
     );
 
     return(
@@ -95,13 +95,11 @@ class Homepage extends Component{
          <div className="Content">
            <p className="AssessmentTitle">
              Your subjects
-           </p>
-           <div className="LeftCube">
-             {SubScript}
-           </div>
-         </div>
-
-         
+           </p>          
+             <Container>
+               {SubScript}
+             </Container>
+         </div>      
         </body>
       </React.Fragment>
     )
