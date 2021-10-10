@@ -53,9 +53,9 @@ class ExaminerHome extends Component {
 
   render() {
     let SubScript = ( // The left table script showing the subjects details
-      <Row sm={1} xl={2} xxl={4}>
+      <Row>
         {this.state.subjects.map((subject) => (
-          <Col md className="subject">
+          <Col xs="auto" md="auto" className="subject">
             <CardSubjectExaminer
               path="/ExaminerHome/Subjects"
               studentCount={subject.studentCount}
