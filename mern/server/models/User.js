@@ -42,6 +42,13 @@ const UserSchema = new Schema({
     type: [String],
     required: false
   },
+  //Added an array of what award each user has
+  hasAward: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: "award",
+    default: [],
+    required: false
+  },
 });
 
 // Extend function
