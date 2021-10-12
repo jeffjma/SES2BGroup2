@@ -25,10 +25,10 @@ router.post("/create", (req, res) => {
 router.post("/add", async (req, res) => {
     const test = await Test.findOne(req.body.test);
     const subject = await Subject.findOne(req.body.subject);
-    test.subjects.push(subject._id);
+    test.subject = subject._id;
     try {
         test.save();
-        res.send(test.subjects);
+        res.send(test.subject);
     } catch (err) {
         res.status(500).send(err);
     }
@@ -64,7 +64,7 @@ router.get("/getQuestions", async (req, res) => {
 
 router.get("/getFilteredQuestions", async (req, res) => {
     test = await Test.
-        findById(req.body.subject).
+        findById(req.body.test).
         populate({
             path: "questions",
             match: req.body.match
