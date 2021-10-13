@@ -37,7 +37,7 @@ router.post("/add", async (req, res) => {
 // @route POST api/test/add
 // @desc Add a question to a test
 // @access Public
-router.post("/add", async (req, res) => {
+router.post("/addquestion", async (req, res) => {
     const test = await Test.findOne(req.body.test);
     const question = await Question.findById(req.body.question);
     test.questions.push(question._id);
