@@ -2,9 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 // Load Question Model
-const Subject = require("../../Models/Subject");
-const Question = require("../../Models/Question");
-const Test = require("../../Models/test");
+const Test = require("../../Models/Test");
 
 // @route POST api/test/create
 // @desc create a new test
@@ -18,7 +16,7 @@ router.post("/create", (req, res) => {
         res.status(500).send(err);
     }
 });
-
+/*
 // @route POST api/test/add
 // @desc Add a subject to a test
 // @access Public
@@ -32,15 +30,14 @@ router.post("/add", async (req, res) => {
     } catch (err) {
         res.status(500).send(err);
     }
-})
+})*/
 
 // @route POST api/test/add
 // @desc Add a question to a test
 // @access Public
 router.post("/addquestion", async (req, res) => {
     const test = await Test.findOne(req.body.test);
-    const question = await Question.findById(req.body.question);
-    test.questions.push(question._id);
+    test.questions.push(req.body.question);
     try {
         test.save();
         res.send(test.questions);
@@ -75,3 +72,5 @@ router.get("/getFilteredQuestions", async (req, res) => {
         res.status(500).send(err);
     }
 });
+
+module.exports = router;
