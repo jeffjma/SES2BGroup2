@@ -12,10 +12,6 @@ const TestSchema = new Schema({
     ref: "subjects",
     required: true
   },
-  total_marks: { //Number of marks received at the end of the test
-    type: number,
-    required: false
-  },
   title: {
     type: String,
     required: true
