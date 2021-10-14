@@ -2,6 +2,7 @@ from math import exp
 from numpy import random
 from numpy import linalg
 from numpy import argmax
+import sys
 
 R =[1,2,3,4,5,6,7]
 
@@ -89,7 +90,11 @@ def select(input):
         ps = [exponential(input, r, cms) for r in R]
         ps = ps/linalg.norm(ps, ord=1)
         if ps[argmax(ps)] > 0.5:
+            print(False)
+            print(R[argmax(ps)])
             return (False, R[argmax(ps)])
+        print(True)
+        print(random.choice(R, 1, p=ps)[0])
         return (True, random.choice(R, 1, p=ps)[0])
 
 
@@ -108,3 +113,9 @@ def select(input):
 #print(scores)
 #print(ps)
 #print(select(i1))
+
+levelArg = [int(x) for x in sys.argv[1].split(',')]
+resultArg = [True if x == 'true' else False for x in sys.argv[2].split(',')]
+iArgs = list(zip(levelArg, resultArg))
+select(iArgs)
+#print(select(iArgs))
