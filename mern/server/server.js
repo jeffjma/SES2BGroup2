@@ -9,6 +9,7 @@ const questions = require("./routes/api/questions");
 const subjects = require("./routes/api/subjects");
 const results = require("./routes/api/results");
 const test = require("./routes/api/test");
+const exp = require("./routes/api/exponential");
 
 const app = express();
 app.use(cors({ origin: "http://localhost:3000", withoutPreflight: true, credentials: true }));
@@ -41,7 +42,7 @@ app.use("/api/questions", questions);
 app.use("/api/subjects", subjects);
 app.use("/api/results", results)
 app.use("/api/test", test);
-
+app.use("/api/exponential", exp);
 
 const port = process.env.PORT || 5000; // process.env.port is Heroku's port if you choose to deploy the app there
 app.listen(port, () => console.log(`Server up and running on port ${port} !`));
