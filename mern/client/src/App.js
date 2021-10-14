@@ -15,7 +15,8 @@ import {
     Profile,
     Assessment,
     Background,
-    PreAssessment
+    PreAssessment,
+    QuestionEditor
 } from "./pages/Routes";
 
 
@@ -35,6 +36,7 @@ function App() {
           <Route path="/Assessment" component={Assessment} />
           <Route path="/Background" component={Background} />
           <Route path="/PreAssessment" component={PreAssessment} />
+          <Route path="/QuestionEditor" component={QuestionEditor} />
         </Router>
 
     </div>

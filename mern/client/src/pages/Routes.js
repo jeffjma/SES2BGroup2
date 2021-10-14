@@ -6,3 +6,4 @@ export { default as Profile }  from "./profile/Profile";
 export { default as Assessment } from "./assessment/Assessment";
 export { default as Background } from "./bg/Background";
 export { default as PreAssessment }  from "./preassessment/PreAssessment";
+export { default as QuestionEditor } from "./question-editor/question-editor";
