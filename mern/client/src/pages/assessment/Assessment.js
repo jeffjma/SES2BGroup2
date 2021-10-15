@@ -10,6 +10,9 @@ import Timer from "./Timer.js";
 import Question from "./attributes/Question";
 import Answer from "./attributes/Answer";
 import { Redirect } from "react-router";
+import RadioAnswer from "./attributes/radioAnswer"
+import CheckboxAnswer from "./attributes/checkboxAnswer"
+import { Homepage } from "../Routes";
 
 class Assessment extends Component {
   static propTypes = {
@@ -66,6 +69,19 @@ class Assessment extends Component {
     this.setState({
       chosenAnswer: answer
     })
+  }
+
+  //checks what kind of question it is 
+  checkQuestionType = type => {
+    const{ questionTypes, questionNumber } = this.state;
+
+    if(type === questionTypes[questionNumber] && type === 'mc'){
+        this.setState({ type: 'radio' });
+    }
+
+    else if( type === questionTypes[questionNumber] && type === 'cb'){
+      this.setState({ type: 'checkbox' });
+    }
   }
 
 // makes button move onto the next question
