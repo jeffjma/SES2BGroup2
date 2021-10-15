@@ -10,11 +10,11 @@
 }
 
 input[type="radio"]:after {
-  width: 120%;
-  height: 120%;
+  width: 130%;
+  height: 130%;
   border-radius: 100%;
-  top: -25%;
-  left: -10%;
+  top: -15%;
+  left: -15%;
   position: relative;
   background-color: solid white;
   content: "";
@@ -24,11 +24,39 @@ input[type="radio"]:after {
 }
 
 input[type="radio"]:checked:after {
-  width: 120%;
-  height: 120%;
+  width: 130%;
+  height: 130%;
   border-radius: 100%;
-  top: -25%;
-  left: -10%;
+  top: -15%;
+  left: -15%;
+  position: relative;
+  background-color: #5bc2a7;
+  content: "";
+  display: inline-block;
+  visibility: visible;
+  border: solid white;
+}
+
+input[type="checkbox"]:after {
+  width: 130%;
+  height: 130%;
+  border-radius: 100%;
+  top: -15%;
+  left: -15%;
+  position: relative;
+  background-color: solid white;
+  content: "";
+  display: inline-block;
+  visibility: visible;
+  border: solid white;
+}
+
+input[type="checkbox"]:checked:after {
+  width: 130%;
+  height: 130%;
+  border-radius: 100%;
+  top: -15%;
+  left: -15%;
   position: relative;
   background-color: #5bc2a7;
   content: "";

@@ -5,96 +5,63 @@ import NavigationBar from "../../components/NavigationBar.js";
 import "./Assessment.css";
 import Timer from "./Timer.js";
 import Question from "./attributes/Question";
-import Answer from "./attributes/Answer"
+import RadioAnswer from "./attributes/radioAnswer"
+import CheckboxAnswer from "./attributes/checkboxAnswer"
 import { Homepage } from "../Routes";
 
 export default class Assessment extends Component {
 
 // dummy code, i had a seperate .js file before but too much of a hassle to use it. i just put it in here knowing it'll be gone
   state = {
-        question: {
-          1:'What is 2+2?',
-          2:'What colour is the sky?',
-          3:'Between music, theater, and chariot racing, which sport did Nero win when he participated in the Olympics?',
-          4:'If angle C is 28 degrees, and angles A + D are equal to 88 degrees, what is the angle of B + E?',
-          5:'What’s one of the origins for the phrase “cat got your tongue”?',
-          6:'If we use “three watermelons in the sun” to visualize a certain matter’s size against the universe’s, what are the melons?',
-          7:'Counting both black and white surfaces, how many surfaces are there in total on a soccer ball?',
-        },
-        answers: {
-          1: {
-            1:'2',
-            2:'3',
-            3:'4',
-            4:'1'
-          },
+    id: 'tycvbSkSHM',
+    questionNumber: 1,
+    question: {
+      1:'What is 2+2?',
+      2:'Which out of these birds are corvid birds?',
+    },
+    questionTypes:{
+      1: 'mc',
+      2: 'cb',
+    },
+    answers: {
+      1: {
+        1:'2',
+        2:'3',
+        3:'4',
+        4:'1'
+      },
 
-          2: {
-            1:'Hot Pink',
-            2:'Light Blue',
-            3:'Blood Red',
-            4:'Lime Green'
-          },
+      2: {
+        1:'Raven',
+        2:'Crow',
+        3:'Owl',
+        4:'Magpie'
+      },
 
-          3: {
-            1:'Music',
-            2:'Theatre', 
-            3:'Chariot Racing', 
-            4:'All of them'
-          },
+    },
+    correctAnswers: {
+      1:'3',
+      2:['1','2','4'],
+    },
+    correctAnswer: 0,
+    difficulty: {
+      1: 'primary',
+      2: 'secondary',
+    },
+    chosenAnswer: 0,
+    studentScore:0
 
-          4: {
-            1:'74',
-            2:'64', 
-            3:'62', 
-            4:'40'
-          },
-
-          5: {
-            1:'Wild cats who don’t meow',
-            2:'Tongues are the same texture as a cat’s skin', 
-            3:'A breed of cat with no tongue', 
-            4:'Cats eating human tongues'
-          },
-
-          6: {
-            1:'Stars',
-            2:'Moons', 
-            3:'Galaxies', 
-            4:'People'
-          },
-
-          7: {
-            1:'26',
-            2:'34', 
-            3:'32', 
-            4:'22'
-          }, 
-        },
-        correctAnswers: {
-          1:'3',
-          2:'2',
-          3:'4',
-          4:'2',
-          5:'4',
-          6:'1',
-          7:'3'
-        },
-        correctAnswer: 0,
-        chosenAnswer: 0,
-        questionNumber: 1,
-        studentScore:0
   }
 
 //checks if answers are correct and adds to student score 
   checkAnswer = answer => {
     const{ correctAnswers, questionNumber, studentScore } = this.state;
-
+    
     if(answer === correctAnswers[questionNumber]){
       this.setState({
-        studentScore: studentScore + 1,
-        correctAnswer: correctAnswers[questionNumber],
-        chosenAnswer: answer
+          studentScore: studentScore + 1,
+          correctAnswer: correctAnswers[questionNumber],
+          chosenAnswer: answer
       });
     }
 
@@ -103,6 +70,19 @@ export default class Assessment extends Component {
           correctAnswer: 0,
           chosenAnswer: answer
       });
+    }
+  }
+
+  //checks what kind of question it is 
+  checkQuestionType = type => {
+    const{ questionTypes, questionNumber } = this.state;
+
+    if(type === questionTypes[questionNumber] && type === 'mc'){
+        this.setState({ type: 'radio' });
+    }
+
+    else if( type === questionTypes[questionNumber] && type === 'cb'){
+      this.setState({ type: 'checkbox' });
     }
   }
 
@@ -116,7 +96,28 @@ export default class Assessment extends Component {
   }
 
   render() {
-    let { question, answers, correctAnswer, chosenAnswer, questionNumber} = this.state;
+    let { question, answers, correctAnswer, chosenAnswer, questionTypes, questionNumber} = this.state;
+
+    var ShowAnswer;
+    if(questionTypes[questionNumber] === 'mc'){
+      ShowAnswer = <RadioAnswer
+                      answer={answers[questionNumber]}
+                      questionNumber={questionNumber}
+                      checkAnswer={this.checkAnswer}
+                      correctAnswer={correctAnswer}
+                      chosenAnswer={chosenAnswer}
+                    />;
+    }
+
+    else if (questionTypes[questionNumber] === 'cb') {
+      ShowAnswer = <CheckboxAnswer
+                      answer={answers[questionNumber]}
+                      questionNumber={questionNumber}
+                      checkAnswer={this.checkAnswer}
+                      correctAnswer={correctAnswer}
+                      chosenAnswer={chosenAnswer}
+                    />;
+    }
 
     return (
       <React.Fragment>
@@ -135,14 +136,9 @@ export default class Assessment extends Component {
   
           <Question question={question[questionNumber]} />
 
-          {/* looks over which answers need to be put for which question number + tracking the chosen answers*/}
-          <Answer
-                            answer={answers[questionNumber]}
-                            questionNumber={questionNumber}
-                            checkAnswer={this.checkAnswer}
-                            correctAnswer={correctAnswer}
-                            chosenAnswer={chosenAnswer}
-                        />
+          {/* looks over which answers need to be put for which question number + tracking the chosen answers*/} 
+
+          {ShowAnswer}
           
           <ButtonGroup className="button" >
           <ButtonContained
@@ -152,7 +148,6 @@ export default class Assessment extends Component {
                           chosenAnswer && Object.keys(question).length >= questionNumber
                             ? false : true
                         }
-
                         // moves to the next question in dummy data
                         onClick={() => this.nextQuestion(questionNumber)}>Next</ButtonContained>
           </ButtonGroup>
@@ -160,10 +155,8 @@ export default class Assessment extends Component {
 
         {/* the 'else' statement: what happens after the question length goes over aka moving to post-assessment page */}
         </>) : (
-
           //change to post-assessment but i used homepage to test functionality
           <Homepage />
-
          )
         }
       </React.Fragment>
