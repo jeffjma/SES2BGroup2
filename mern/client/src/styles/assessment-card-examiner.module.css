@@ -1,16 +1,12 @@
 .card {
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   display: flex;
-  height: 250px !important;
-  width: 350px !important;
-  padding-top: 20px !important;
-  margin: 15px !important;
+  height: 400px !important;
+  width: 800px !important;
+  padding: 20px !important;
+  margin: 12px !important;
   box-shadow: 0 5px 5px #d8d8d8;
-}
-
-.card:hover {
-  filter: brightness(95%);
 }
 
 /*Makes the whole card clickable*/
@@ -23,22 +19,17 @@
   z-index: 1;
 }
 
-.stats {
-  margin-top: 20px !important;
-  margin-left: 10px !important;
-}
-
-.test {
+.questions {
   width: 60px !important;
   height: 60px !important;
-  background: #fda57d;
+  background: #6c63ff;
   border-radius: 50%;
   align-items: center;
   justify-content: center;
   display: flex;
 }
 
-.student {
+.attempts {
   width: 60px !important;
   height: 60px !important;
   background: #53c1de;
@@ -46,4 +37,27 @@
   align-items: center;
   justify-content: center;
   display: flex;
+}
+
+.chart {
+  padding-top: 2em;
+  height: 250px !important;
+  width: 250x !important;
+}
+
+.stats {
+  padding: 10px;
+}
+
+.edit {
+  justify-content: flex-end !important;
+  display: flex !important;
+}
+
+.edit a {
+  color: #808080;
+}
+
+.edit a:hover {
+  color: #174661;
 }

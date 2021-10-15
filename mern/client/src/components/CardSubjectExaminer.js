@@ -12,7 +12,6 @@ const CardSubjectExaminer = ({
   assessmentCount,
 }) => {
   /**
-   * @param {String} assetImage url of the subject's image
    * @param {String} children The name of the subject
    * @param {String} path url to subject's page
    * @param {Int} studentCount Number of students enrolled in the subject
@@ -26,11 +25,7 @@ const CardSubjectExaminer = ({
           <Col>
             <Row className="part1">
               <div className={styles.student}>
-                <FontAwesomeIcon
-                  icon={faUsers}
-                  size="2x"
-                  className={styles.icon}
-                />
+                <FontAwesomeIcon icon={faUsers} size="2x" color="white" />
               </div>
               {/* 
       If no {numberStudents} is given, the value is 0 by default
@@ -47,7 +42,7 @@ const CardSubjectExaminer = ({
                 <FontAwesomeIcon
                   icon={faClipboardList}
                   size="2x"
-                  className={styles.icon}
+                  color="white"
                 />
               </div>
               {/* 
