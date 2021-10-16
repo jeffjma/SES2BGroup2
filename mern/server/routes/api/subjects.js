@@ -21,7 +21,7 @@ router.post("/create", (req, res) => {
 // @desc Add a question to a subject
 // @access Public
 router.post("/add", async (req, res) => {
-    const subject = await Subject.findOne(req.body.subject);
+    const subject = await Subject.findById(req.body.subject);
     const question = await Question.findById(req.body.question);
     subject.questions.push(question._id);
     try {
