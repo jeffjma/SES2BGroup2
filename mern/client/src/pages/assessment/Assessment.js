@@ -7,6 +7,7 @@ import Timer from "./Timer.js";
 import Question from "./attributes/Question";
 import RadioAnswer from "./attributes/radioAnswer"
 import CheckboxAnswer from "./attributes/checkboxAnswer"
+import TextAnswer from "./attributes/textAnswer"
 import { Homepage } from "../Routes";
 
 export default class Assessment extends Component {
@@ -18,10 +19,12 @@ export default class Assessment extends Component {
     question: {
       1:'What is 2+2?',
       2:'Which out of these birds are corvid birds?',
+      3:'Complete the sentence: "Advancement cannot occur without both thesis..."'
     },
     questionTypes:{
       1: 'mc',
       2: 'cb',
+      3: 'sa'
     },
     answers: {
       1: {
@@ -37,16 +40,18 @@ export default class Assessment extends Component {
         3:'Owl',
         4:'Magpie'
       },
-
+      3:' ',
     },
     correctAnswers: {
       1:'3',
       2:['1','2','4'],
+      3:['and Antithesis']
     },
     correctAnswer: 0,
     difficulty: {
       1: 'primary',
       2: 'secondary',
+      3: 'senior secondary'
     },
     chosenAnswer: 0,
     studentScore:0
@@ -73,19 +78,6 @@ export default class Assessment extends Component {
     }
   }
 
-  //checks what kind of question it is 
-  checkQuestionType = type => {
-    const{ questionTypes, questionNumber } = this.state;
-
-    if(type === questionTypes[questionNumber] && type === 'mc'){
-        this.setState({ type: 'radio' });
-    }
-
-    else if( type === questionTypes[questionNumber] && type === 'cb'){
-      this.setState({ type: 'checkbox' });
-    }
-  }
-
 // makes button move onto the next question
   nextQuestion = (questionNumber) => {
     this.setState({
@@ -96,7 +88,7 @@ export default class Assessment extends Component {
   }
 
   render() {
-    let { question, answers, correctAnswer, chosenAnswer, questionTypes, questionNumber} = this.state;
+    let { question, answers, correctAnswer, chosenAnswer, questionTypes, questionNumber, studentScore} = this.state;
 
     var ShowAnswer;
     if(questionTypes[questionNumber] === 'mc'){
@@ -111,6 +103,16 @@ export default class Assessment extends Component {
 
     else if (questionTypes[questionNumber] === 'cb') {
       ShowAnswer = <CheckboxAnswer
+                      answer={answers[questionNumber]}
+                      questionNumber={questionNumber}
+                      checkAnswer={this.checkAnswer}
+                      correctAnswer={correctAnswer}
+                      chosenAnswer={chosenAnswer}
+                    />;
+    }
+
+    else if (questionTypes[questionNumber] === 'sa'){
+      ShowAnswer = <TextAnswer
                       answer={answers[questionNumber]}
                       questionNumber={questionNumber}
                       checkAnswer={this.checkAnswer}
@@ -156,7 +158,11 @@ export default class Assessment extends Component {
         {/* the 'else' statement: what happens after the question length goes over aka moving to post-assessment page */}
         </>) : (
           //change to post-assessment but i used homepage to test functionality
-          <Homepage />
+          // <Homepage />
+          <div className="finalPage">
+            <p>Student Score is {studentScore} of {Object.keys(question).length}</p>
+          </div>
+          
          )
         }
       </React.Fragment>
