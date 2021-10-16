@@ -2,8 +2,6 @@ const {PythonShell} =  require("python-shell");
 const {resolve} = require("path");
 const express = require("express");
 const router = express.Router();
-// Load Question Model
-//const Question = require("../../models/Question");
 
 // @route GET api/exponential/getNext
 // @desc Add a new question to the bank
