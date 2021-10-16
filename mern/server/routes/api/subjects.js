@@ -56,7 +56,7 @@ router.post("/addNew", async (req, res) => {
 // @desc Get all the questions for this subject
 // @access Public
 router.get("/getQuestions", async (req, res) => {
-    const questions = (await Subject.findOne(req.body).populate("questions")).questions;
+    const questions = (await Subject.findById(req.body.subject).populate("questions")).questions;
 
     try {
         res.send(questions);
