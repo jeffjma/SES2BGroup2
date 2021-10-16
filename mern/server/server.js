@@ -8,7 +8,7 @@ const users = require("./routes/api/users");
 const questions = require("./routes/api/questions");
 const subjects = require("./routes/api/subjects");
 const results = require("./routes/api/results");
-const test = require("./routes/api/test");
+const test = require("./routes/api/tests");
 const exp = require("./routes/api/exponential");
 
 const app = express();
@@ -40,8 +40,8 @@ require("./config/passport")(passport);
 app.use("/api/users", users);
 app.use("/api/questions", questions);
 app.use("/api/subjects", subjects);
-app.use("/api/results", results)
-app.use("/api/test", test);
+app.use("/api/results", results);
+app.use("/api/tests", test);
 app.use("/api/exponential", exp);
 
 const port = process.env.PORT || 5000; // process.env.port is Heroku's port if you choose to deploy the app there

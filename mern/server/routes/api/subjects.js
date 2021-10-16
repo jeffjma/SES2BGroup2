@@ -65,6 +65,9 @@ router.get("/getQuestions", async (req, res) => {
     }
 });
 
+// @route GET api/subjects/getFilteredQuestions
+// @desc Get a filtered list of questions for this subject
+// @access Public
 router.get("/getFilteredQuestions", async (req, res) => {
     subject = await Subject.
         findById(req.body.subject).
