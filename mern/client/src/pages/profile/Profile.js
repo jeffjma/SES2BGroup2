@@ -142,7 +142,7 @@ class Profile extends Component{
                     
                     {/* the right rank image */}
                     <div className="RightRankImage">
-                        <p id="CurrentRank">Your Currnet Rank is {this.state.CurrentRank}</p>
+                        <p id="CurrentRank">Your Current Rank is {this.state.CurrentRank}</p>
                         <div id="CircleLayout">
                             <CircularProgressbarWithChildren 
                                 value={this.state.Percentage} 
