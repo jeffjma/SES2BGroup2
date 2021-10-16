@@ -49,6 +49,7 @@ router.post("/register", (req, res) => {
 // @desc Login user and return JWT token
 // @access Public
 router.post("/login", (req, res) => {
+  console.log(req.body);
     // Form validation
   const { errors, isValid } = validateLoginInput(req.body);
   // Check validation
@@ -82,7 +83,8 @@ router.post("/login", (req, res) => {
             (err, token) => {
               res.json({
                 success: true,
-                token: "Bearer " + token
+                token: "Bearer " + token,
+                user: user
               });
             }
           );
@@ -99,15 +101,16 @@ router.post("/login", (req, res) => {
 // @desc Add background info of student
 // @access Public
 router.post("/background", (req, res) => {
+  console.log(req.body);
 // Getting info from request body
-  const email = req.body.email;
+  const userID = req.body.userID;
   const educationLevel = req.body.educationLevel;
   const year = req.body.year;
   const currentSubjects = req.body.year;
   const faculty = req.body.faculty;
   const completedSubjects = req.body.completedSubjects;
-  // Find user by email
-  User.findOne({ email }).then(user => {
+  // Find user by userID
+  User.findOne({ _id: userID }).then(user => {
     updatedUser = user;
     updatedUser.educationLevel = educationLevel;
     updatedUser.year = year;
@@ -124,15 +127,35 @@ router.post("/background", (req, res) => {
 // @access Public
 // Lowkey incomplete, will be updated
 router.post("/profile", (req, res) => {
-  const email = req.body.email;
-  //Find user by email
-  User.findOne({ email }).then(user => {
+  const userID = req.body.userID;
+  //Find user by userID
+  User.findOne({ _id: userID }).then(user => {
     profile = {
       name: user.name,
       educationLevel: user.educationLevel,
       currentSubjects: user.currentSubjects
     }
     return res.json(profile);
+  });
+});
+
+// @route POST api/users/newTestResult
+// @desc Add a test result for a user
+// @access Public
+router.post("/newTestResult", (req, res) => {
+  const userID = req.body.userID;
+  const testID = req.body.testID;
+  const result = req.body.result;
+  //Find user by userID
+  User.findOne({ _id: userID }).then(user => {
+    updatedUser = user;
+    testResult = {
+      testID: testID,
+      result: result
+    }
+    updatedUser.testResult = testResult;
+    updatedUser.save()
+    return res.json(user);
   });
 });
 

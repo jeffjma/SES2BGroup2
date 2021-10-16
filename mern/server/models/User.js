@@ -42,6 +42,16 @@ const UserSchema = new Schema({
     type: [String],
     required: false
   },
+  testResults: {
+    testID: {
+      type: String,
+      required: false
+    },
+    result: {
+      type: Number,
+      required: false
+    }
+  }
 });
 
 // Extend function
