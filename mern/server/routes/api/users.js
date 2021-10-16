@@ -159,4 +159,15 @@ router.post("/newTestResult", (req, res) => {
   });
 });
 
+// @route POST api/users/subjects
+// @desc Get user's subjects
+// @access Public
+router.post("/subjects", (req, res) => {
+  const userID = req.body.userID;
+  //Find user by userID
+  User.findOne({ _id: userID }).then(user => {
+    return res.json(user.currentSubjects);
+  });
+});
+
 module.exports = router;
