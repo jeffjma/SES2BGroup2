@@ -84,7 +84,8 @@ def exponential(input, r, cms):
 
 def select(input, stop):
     if len(input) < 7 and not stop:
-        return random.randint(1,8)
+        print(True)
+        print(random.randint(1,8))
     else:
         cms = confidenceMultiplier(input)
         ps = [exponential(input, r, cms) for r in R]
@@ -117,7 +118,6 @@ def select(input, stop):
 levelArg = [int(x) for x in sys.argv[1].split(',')]
 resultArg = [True if x == 'true' else False for x in sys.argv[2].split(',')]
 iArgs = list(zip(levelArg, resultArg))
-
 stopArg = True if sys.argv[3] == 'true' else False
 select(iArgs, stopArg)
 #print(select(iArgs))
