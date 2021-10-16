@@ -11,7 +11,7 @@ router.get("/getNext", async (req, res) => {
     results = req.body.results;
     options = {
         scriptPath: resolve("functions/"),
-        args: [levels, results]
+        args: [levels, results, false]
     };
     PythonShell.run("exponential.py", options, (err, result) => {
         if (err) {

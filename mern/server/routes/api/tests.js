@@ -1,3 +1,6 @@
+const {PythonShell} =  require("python-shell");
+const {resolve} = require("path");
+
 const express = require("express");
 const router = express.Router();
 
@@ -82,6 +85,44 @@ router.get("/getFilteredQuestions", async (req, res) => {
                 match: req.body.match
             });
         res.send(test.questions);
+    } catch (err) {
+        res.status(500).send(err);
+    }
+});
+
+// @route GET api/test/getNextQuestion
+// @desc Get the next question during a test.
+// @access Public
+router.get("/getNextQuestion", async (req, res) => {
+    const levels = req.body.levels;
+    const results = req.body.results;
+    try {
+        const questions = (await Test.
+            findById(req.body.test, 'questions').
+            populate({
+                path: "questions",
+                match: {_id: {$nin: req.body.questions}}
+            })).questions;
+        options = {
+            scriptPath: resolve("functions/"),
+            args: [levels, results, questions.length == 0]
+        };
+        PythonShell.run("exponential.py", options, async (err, result) => {
+            if (err) throw err
+            else {
+                //res.send(result)
+                obj = {
+                    continueTest: result[0] == 'True',
+                    level: parseInt(result[1]),
+                    question: null
+                }
+                if (obj.continueTest) {
+                    qs = questions.filter(q => q.difficulty == obj.level);
+                    obj.question = qs[Math.floor(Math.random() * qs.length)];
+                }
+                res.send(obj);
+            }
+        });
     } catch (err) {
         res.status(500).send(err);
     }
