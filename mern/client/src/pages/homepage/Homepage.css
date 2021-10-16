@@ -24,11 +24,7 @@
     font-size: 16px;
     color: black; 
 }
-.LeftCube{
-    margin-left: 12%;
-    margin-top: 30px;
-    overflow-y: hidden;
-}
+
 .SubListTd{
     width: 200px;
     height: 220px;

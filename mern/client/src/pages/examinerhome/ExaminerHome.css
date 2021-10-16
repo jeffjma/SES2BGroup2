@@ -3,10 +3,11 @@
     display: none;
 }
 
-.dashboard-container {
-    margin: 3% 11% 0 11%;
-}
-
 .dashboard-container h6{
     font-weight: bold;
+    margin: 3% 9.5% 0 9.5%;
+}
+
+.dashboard-container .subjects {
+    margin: 1.5% 0% 0% 7.5%;
 }
