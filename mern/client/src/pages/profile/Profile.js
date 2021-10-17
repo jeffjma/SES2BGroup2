@@ -8,6 +8,7 @@ import { CircularProgressbarWithChildren,buildStyles  } from 'react-circular-pro
 //import NavigationBar from components
 import NaviBar from "../../components/NavigationBar";
 import { withCookies, Cookies } from 'react-cookie';
+import { instanceOf } from 'prop-types';
 //import images
 import farmerimage from "../../assets/Farmer.png";
 import thiefimage from "../../assets/Thief.png";
@@ -24,6 +25,9 @@ const api = axios.create({
 })
 
 class Profile extends Component{
+    static propTypes = {
+        cookies: instanceOf(Cookies).isRequired
+      };
 
     constructor(props){
         super(props)
@@ -60,7 +64,13 @@ class Profile extends Component{
         })
     }
 
-    
+    handleLogout(e) {
+        console.log('Logout Button Clicked')
+        const { cookies } = this.props;
+        cookies.remove('userid');
+        window.location.href = '/';
+    }
+
 
     componentDidMount(){
         //get the total points from the test
@@ -155,6 +165,7 @@ class Profile extends Component{
                         <p id="ProfileContent">{this.state.EducationLastYear}</p>
                         <p id="ProfileTitle">Program</p>
                         <p id="ProfileContent">{this.state.ProgramName}</p>
+                        <button className="logout-btn" onClick={this.handleLogout.bind(this)}> Logout </button>
                     </div>
                     
                     {/* the right rank image */}

@@ -5,6 +5,7 @@ import "./Homepage.css";
 import NaviBar from "../../components/NavigationBar";
 import CardSubject from "../../components/CardSubject";
 import { withCookies, Cookies } from 'react-cookie';
+import { instanceOf } from 'prop-types';
 import { Col, Row, Container } from "react-bootstrap";
 
 const api = axios.create({
@@ -12,6 +13,9 @@ const api = axios.create({
 })
 
 class Homepage extends Component{
+  static propTypes = {
+    cookies: instanceOf(Cookies).isRequired
+  };
 
   constructor(props){
     super(props)
