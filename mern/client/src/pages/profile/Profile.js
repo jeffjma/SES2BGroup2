@@ -1,11 +1,13 @@
 //this page is Tester Profile Page 8.0 in figma
 import React, {Component} from 'react';
+import axios from "axios";
 //import font-awesome icons
 import 'font-awesome/css/font-awesome.min.css';
 //import the percentage circle
 import { CircularProgressbarWithChildren,buildStyles  } from 'react-circular-progressbar';
 //import NavigationBar from components
 import NaviBar from "../../components/NavigationBar";
+import { withCookies, Cookies } from 'react-cookie';
 //import images
 import farmerimage from "../../assets/Farmer.png";
 import thiefimage from "../../assets/Thief.png";
@@ -17,14 +19,20 @@ import WebProgBadge from "../../assets/WebProgBadge.png";
 
 import "./Profile.css";
 
+const api = axios.create({
+    baseURL: `http://localhost:5000/api/users/profile`
+})
+
 class Profile extends Component{
 
     constructor(props){
         super(props)
+        const { cookies } = props;
         this.state = {
-            UserName: 'John Smith',                                           //user name
+            userID: cookies.get('userid'),
+            UserName: '',                                                      //user name
             CubeUserName: "",                                                 //name in left title e.g. john smith => JS
-            CurrentEducation: "TestUniversity",                               //education 
+            CurrentEducation: "",                                             //education 
             EducationLastYear: "TestYear",                                    //years of education
             ProgramName: "TestProgram",                                       //array about all test history
             TestsHistoryArray:[                             
@@ -39,8 +47,17 @@ class Profile extends Component{
             TotalPoints: "",                                                   //total points from tests
             PointsToNextRank: "",                                              //required points to next level
             NextRank: "",                                                       //the next rank name
-            
         }
+        console.log(this.state.userID)
+        api.post('/', {
+            userID: this.state.userID
+        })
+        .then(res => {
+            console.log(res.data)
+            this.setState({ 
+                UserName: res.data.name,
+            })
+        })
     }
 
     
@@ -205,4 +222,4 @@ class Profile extends Component{
     }
 }
 
-export default Profile;
+export default withCookies(Profile);

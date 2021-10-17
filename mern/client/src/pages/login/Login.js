@@ -11,12 +11,18 @@ import ButtonContained from "../../components/ButtonContained";
 import ButtonOutlined from "../../components/ButtonOutlined"
 import { Link } from "react-router-dom";
 import logo from "../../assets/logo_register.png";
+import { instanceOf } from 'prop-types';
+import { withCookies, Cookies } from 'react-cookie';
 import "./Login.css";
 
 class Login extends Component{
+  static propTypes = {
+    cookies: instanceOf(Cookies).isRequired
+  };
 
   constructor(props){
     super(props);
+    const { cookies } = props;
     this.state = {
       email: '',
       password: ''
@@ -25,12 +31,13 @@ class Login extends Component{
   
   handleLogin(e) {
     console.log('Login Button Clicked')
-
+    const { cookies } = this.props;
     axios
       .post("http://localhost:5000/api/users/login", this.state)
       .then(res => {
         console.log(res.data);
-        this.props.history.push("/Home");
+        cookies.set("userid", res.data.user._id, { path: '/'});
+        this.props.history.push('/Home');
       })
       .catch(err =>
         console.log(err.response.data)
@@ -128,10 +135,11 @@ class Login extends Component{
   
           </Row>
          </Container>
+
         </div>
       </React.Fragment>
     );
   }
 }
 
-export default Login;
+export default withCookies(Login);

@@ -1,17 +1,25 @@
 import React, {Component} from 'react';
+import axios from "axios";
 import 'font-awesome/css/font-awesome.min.css';
 import "./Homepage.css";
 import NaviBar from "../../components/NavigationBar";
 import CardSubject from "../../components/CardSubject";
+import { withCookies, Cookies } from 'react-cookie';
 import { Col, Row, Container } from "react-bootstrap";
+
+const api = axios.create({
+  baseURL: `http://localhost:5000/api/users/profile`
+})
 
 class Homepage extends Component{
 
   constructor(props){
     super(props)
+    const { cookies } = props;
     this.state = {
       //this state values are now only for test before fetching data from api
-      UserName: 'John Smith',                       // Name of User
+      userID: cookies.get('userid'),
+      UserName: '',                       // Name of User
       SubjectName: 'TestSubjectName',                 // Name of Subjects
       AvailableSubjects: '',                               // Numbers of Subjects shown in table
       AllSubjects:[                              // All Subjects (which is for test only before 
@@ -22,6 +30,15 @@ class Homepage extends Component{
       ],
       SelectedSubjects:[],                            // All selected subjects
     }
+    api.post('/', {
+      userID: this.state.userID
+    })
+    .then(res => {
+        console.log(res.data)
+        this.setState({ 
+            UserName: res.data.name,
+        })
+    })
   }
 
   componentDidMount(){
@@ -106,4 +123,4 @@ class Homepage extends Component{
   }
 };
 
-export default Homepage;
+export default withCookies(Homepage);
