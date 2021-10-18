@@ -1,0 +1,59 @@
+.container {
+  align-items: center;
+  justify-content: flex-start !important;
+  display: flex !important;
+  max-width: 850px !important;
+  height: 110px !important;
+  background-color: white;
+  box-shadow: 0 5px 5px #d8d8d8;
+  margin: 1px;
+  flex-direction: row !important;
+}
+
+.container:hover {
+  filter: brightness(95%);
+}
+
+.title {
+  color: #1ab7bc;
+  margin-left: 30px;
+}
+
+.status[data-state="not-attempted"]::after {
+  content: "Not attempted" !important;
+  color: #afafaf !important;
+  margin-left: 30px;
+}
+
+.status[data-state="completed"]::after {
+  content: "Completed" !important;
+  color: #5bc2a7 !important;
+  margin-left: 30px;
+}
+
+.score {
+  justify-content: flex-end;
+  display: flex;
+  margin-right: 30px;
+  color: #5bc2a7;
+}
+
+.no_score {
+  display: none;
+}
+
+.score:empty + .no_score {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 30px;
+  color: #afafaf;
+}
+
+.container a span {
+  position: absolute !important;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}

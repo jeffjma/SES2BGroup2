@@ -1,0 +1,39 @@
+.login-parent{
+  padding-top: 3%;
+}
+
+.registerButton{
+  width: 40%;
+  height: 52px;
+  margin-top: 6%;
+  margin-right: 8%;
+}
+
+.email {
+  width: 80%;
+  height: 52px;
+  filter: drop-shadow(5px 5px 12px rgba(0, 0, 0, 0.1));
+  margin-top: 9%;
+}
+
+.password {
+  width: 80%;
+  height: 52px;
+  filter: drop-shadow(5px 5px 12px rgba(0, 0, 0, 0.1));
+  margin-top: 5%;
+}
+
+.forgot-pword {
+  font-size: 1rem;
+  color: #36d7dd;
+  text-decoration: none;
+}
+
+.forgot-pword:hover{
+  color: #36d7dd;
+  text-decoration: underline;
+}
+
+#submit-row{
+  margin-top: 10%;
+}

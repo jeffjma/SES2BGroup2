@@ -54,7 +54,7 @@ h6 {
   font-weight: 500;
 }
 
-body {
+.body1 {
   font-size: 16;
   font-weight: normal;
 }
@@ -74,6 +74,12 @@ body {
   font-weight: normal;
 }
 
+.caption{
+  font-size: 12 !important;
+  font-weight: 400;;
+  color: #929393;
+}
+
 *::-webkit-input-placeholder {
-  font-size: 1.0rem;
+  font-size: 1rem;
 }

@@ -1,0 +1,228 @@
+/* this css page is only for design Profile.js */
+/* Set the main position of this page */
+.MainBody{
+    width: 100vw;
+    height: 150vh;
+    overflow-x: hidden;
+    background-color: #F8FCFF;
+}
+/* The title position */
+.TitleBackground{
+    width: 100vw;
+    height: 55px;
+    background-color: brown;
+}
+/* left profile position */
+.LeftProfile{
+    float: left;
+    width: 350px;
+    height: calc(150vh - 55px);
+}
+/* Right rank image position */
+.RightRankImage{
+    float: left;
+    width: calc(100vw - 350px);
+    height: 50vh;
+
+    text-align: center;
+    align-content: center;
+}
+/* Right Badges position */
+.RightBadges{
+    float: left;
+    width: calc(100vw - 350px);
+    height: 30vh;
+
+}
+
+/* Right History position */
+.RightHistory{
+    float: left;
+    width: calc(100vw - 350px);
+    height: calc(70vh - 55px);
+}
+/* ------------------------------------------------------------------------------------------------------------------ */
+/* The main content css start from here */
+/* ------------------------------------------------------------------------------------------------------------------ */
+
+/* the left profile */
+.LeftProfile #NameCube{
+    height: 150px;
+    width: 150px;
+    margin-top: 50px;
+    margin-left: 50px;
+    border-radius: 0.3ex;
+    box-shadow:4px 4px 5px  #AAACAC;
+
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-weight: 700;
+    font-size: 40px;
+    text-align: center;
+
+    color: #366E52;
+    background-color: #D1EBDE;
+}
+.LeftProfile #NameCube p{
+    line-height: 150px;
+}
+.LeftProfile #UserName{
+    margin-top: 15px;
+    margin-left: 50px;
+
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-weight: 700;
+    font-size: 22px;
+    color: black;
+}
+.LeftProfile #SeparateLine{
+    height: 0px;
+    width: 250px;
+    margin-top: 30px;
+    margin-left: 50px;
+    border: #AAACAC  solid 1px;
+    background-color: #AAACAC;
+}
+.LeftProfile #AboutMe{
+    margin-top: 25px;
+    margin-left: 50px;
+    margin-bottom: 35px;
+
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 22px;
+    color: black;
+}
+.LeftProfile #ProfileTitle{
+    margin-left: 50px;
+
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 15px;
+    color: rgba(153, 153, 153);
+}
+.LeftProfile #ProfileContent{
+    margin-top: -10px;
+    margin-bottom: 25px;
+    margin-left: 50px;
+
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 15px;
+    color: black;
+}
+
+/*the Right rank image */
+.RightRankImage #CurrentRank{
+    margin-top: 15px;
+    margin-bottom: 10px;
+    
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    color: black;
+}
+
+.RightRankImage #CircleLayout{
+    width: 30vh;
+    height: 30vh;
+
+    margin-left: calc(43vw - 175px);
+}
+.RightRankImage #RankImage{
+    height:18vh;
+    width: 10vw;
+}
+
+.RightRankImage #RankDescription{
+    margin-top: 10px;
+
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-size: 18px;
+    color: black;
+}
+
+/* Right Badges Content */
+.TableStyle{
+    height: 200px;
+
+    display: flex;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    align-items: center;
+    border: transparent;
+    flex-direction: row;
+    border-collapse: separate;
+    border-spacing: 40px 10px;
+
+}
+.TableStyle #badge{
+    height: 105px;
+    width: 75px;
+}
+.TableStyle #badge2{
+    height: 105px;;
+    width:50px;
+}
+
+/* Right Histroy content */
+.TableStyle2{
+    width: calc(100vw - 350px);
+    margin-top: 50px;
+
+    background: #FFFFFF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    align-items: center;
+    border-collapse: separate;
+    border-spacing: 40px 10px;
+}
+.RightHistory .RowShadow h5{
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    height: 28px;
+    color: #1AB7BC;
+}
+.date{
+    /* Body1 */
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 19px;
+    /* identical to box height */
+    letter-spacing: 0.005em;
+    color: #AFAFAF;
+}
+
+.result{
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 28px;
+    color: #5BC2A7;
+}
+
+.LeftProfile .logout-btn{
+    margin-left: 14%;
+    font-size: 15px;
+    border-radius: 18px;
+    width: auto;
+    height: auto;
+    background: transparent;
+    border: solid 1px black;
+}
+
+.LeftProfile .logout-btn:hover{
+    background: #dfdfdf;
+}

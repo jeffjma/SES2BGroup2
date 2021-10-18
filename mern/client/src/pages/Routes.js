@@ -1,6 +1,11 @@
 export { default as Registration } from "./registration/Registration";
-export { default as StudentLogin }  from "./studentlogin/StudentLogin";
+
+export { default as Login }  from "./login/Login";
 export { default as Homepage }  from "./homepage/Homepage";
 export { default as Homepage2 }  from "./homepage/Homepage2";
-export { default as ExaminerLogin }  from "./examinerlogin/ExaminerLogin";
-export { default as Post }  from "./post_assessment/Post";
+export { default as Profile }  from "./profile/Profile";
+export { default as Assessment } from "./assessment/Assessment";
+export { default as Background } from "./bg/Background";
+export { default as PreAssessment }  from "./preassessment/PreAssessment";
+export { default as ExaminerHome }  from "./examinerhome/ExaminerHome";
+export { default as ExaminerHome2 }  from "./examinerhome/ExaminerHome2";

@@ -1,0 +1,13 @@
+.examiner-home-container
+.navbar-container button {
+    display: none;
+}
+
+.dashboard-container h6{
+    font-weight: bold;
+    margin: 3% 9.5% 0 9.5%;
+}
+
+.dashboard-container .subjects {
+    margin: 1.5% 0% 0% 7.5%;
+}

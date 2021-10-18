@@ -1,0 +1,25 @@
+.assessment-parent {
+  padding-left: 9%;
+  padding-top: 5%;
+}
+
+.headerObjects {
+  padding-right: 20%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.questionTitle {
+  padding-top: 5%;
+}
+
+.button {
+  padding-top: 5%;
+  padding-bottom: 5%;
+}
+
+.nextQuestion[isDisabled] {
+  background-color: #afafaf;
+  color: white;
+}
