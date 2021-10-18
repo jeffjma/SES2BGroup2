@@ -1,3 +1,21 @@
+<<<<<<< HEAD
+import React from "react";
+
+import "./Homepage.css";
+
+const Homepage = () => {
+
+  return (
+    <React.Fragment>
+      <div className="home-parent">
+        <p> Home ... To be completed </p>
+      </div>
+    </React.Fragment>
+  );
+};
+
+export default Homepage;
+=======
 import React, {Component} from 'react';
 import axios from "axios";
 import 'font-awesome/css/font-awesome.min.css';
@@ -128,3 +146,4 @@ class Homepage extends Component{
 };
 
 export default withCookies(Homepage);
+>>>>>>> frontend-develop

@@ -9,12 +9,11 @@ import {
 } from "react-bootstrap";
 import ButtonContained from "../../components/ButtonContained";
 import ButtonOutlined from "../../components/ButtonOutlined";
+
 import { Link } from "react-router-dom";
 import logo from "../../assets/logo_register.png";
 import "./Registration.css";
 import axios from "axios";
-
-
 
 class Registration extends Component{
 
