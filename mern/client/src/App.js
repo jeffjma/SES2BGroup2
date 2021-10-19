@@ -17,7 +17,8 @@ import {
     Background,
     PreAssessment,
     ExaminerHome,
-    ExaminerHome2
+    ExaminerHome2,
+    Post
 } from "./pages/Routes";
 import { CookiesProvider } from 'react-cookie';
 
@@ -41,6 +42,7 @@ class App extends Component {
               <Route path="/Assessment" component={Assessment} />
               <Route path="/Background" component={Background} />
               <Route path="/PreAssessment" component={PreAssessment} />
+              <Route path="/Post" component={Post} />
             </CookiesProvider>
             <Route exact path="/ExaminerHome" component={ExaminerHome} />
             <Route path="/ExaminerHome/Subjects" exact strict component={ExaminerHome2} />

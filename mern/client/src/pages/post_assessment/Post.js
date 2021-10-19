@@ -115,14 +115,17 @@ class Post extends Component {
     return (
       <React.Fragment>
         {/* this is main content */}
-        <body className="MainBody">
+        <body className="PostMainBody">
           {/* this is title */}
           <div className="TitleBackground">
             <NaviBar
               username={this.state.UserName}
               hasSubHeader="true"
               subjectName={this.state.SubjectName}
-              btnTxt="JOIN"
+              buttonName = "Join Class"
+              profileClick = "/Profile"
+              dashboardClick = "/Home"
+              logoClick = "/Home"
             ></NaviBar>
           </div>
 

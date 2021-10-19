@@ -14,15 +14,9 @@
 /* Styling for the "Dashboard" part of subheader*/
 .section1 {
   align-items: center;
-<<<<<<< HEAD
-  display: flex;
-  height: 100px;
-  margin-left: 100px;
-=======
   margin-left: 3%;
   display: flex;
   height: 100px;
->>>>>>> frontend-develop
   justify-content: space-around;
 }
 
@@ -38,10 +32,7 @@
 .section3 {
   height: 100px;
   display: flex;
-<<<<<<< HEAD
-=======
   margin-right: 6%;
->>>>>>> frontend-develop
   justify-content: center;
   align-items: center;
 }
