@@ -144,16 +144,11 @@ router.post("/profile", (req, res) => {
 // @access Public
 router.post("/newTestResult", (req, res) => {
   const userID = req.body.userID;
-  const testID = req.body.testID;
-  const result = req.body.result;
+  const resultID = req.body.resultID;
   //Find user by userID
   User.findOne({ _id: userID }).then(user => {
     updatedUser = user;
-    testResult = {
-      testID: testID,
-      result: result
-    }
-    updatedUser.testResult = testResult;
+    updatedUser.testResults = resultID;
     updatedUser.save()
     return res.json(user);
   });
