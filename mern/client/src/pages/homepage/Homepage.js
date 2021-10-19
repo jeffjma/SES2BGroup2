@@ -30,7 +30,7 @@ class Homepage extends Component{
         {id: "1", name:"31242 - Advanced Internet Programming - Spring 2021", status: "1"},    // Fetching data from database)
         {id: "2", name:"31242 - Advanced Internet Programming - Spring 2021", status: "1"}, 
         {id: "3", name:"31242 - Advanced Internet Programming - Spring 2021", status: "1"}, 
-        {id: "4", name:"31242 - Advanced Internet Programming - Spring 2021", status: "1"}, 
+        {id: "4", name:"31242 - Advanced Internet Programming - Spring 2021", status: "1"},
       ],
       SelectedSubjects:[],                            // All selected subjects
     }
@@ -97,7 +97,7 @@ class Homepage extends Component{
     return(
       <React.Fragment>
         {/* this is main content */}
-        <body className="MainBody">
+        <body className="Home-MainBody">
           {/* this is title */}
           <div className="TitleBackground">
             <NaviBar
@@ -113,13 +113,15 @@ class Homepage extends Component{
       
 
          {/* this is leftcontent */}
-         <div className="Content">
-           <p className="AssessmentTitle">
+         <div className="HomeContent">
+          <Container>
+            <p className="home-title">
              Your subjects
-           </p>          
-             <Container>
-               {SubScript}
-             </Container>
+            </p>
+            <div className="Subject-Cards">
+                {SubScript}
+            </div> 
+           </Container>         
          </div>      
         </body>
       </React.Fragment>

@@ -1,61 +1,16 @@
-.MainBody{
+.Home-MainBody{
     width: 100vw;
     height: 100vh;
     background-color: #F8FCFF;
 }
 
 /* The left content position */
-.Content{
-    position: absolute;
-    width: 100vw;
-    top: 160px;
-    bottom: 0px;
+.HomeContent{
+    margin: auto;
+    margin-top: 130px;
+    width: 75%;
 }
 
-/* the left content (the table for showing assessments) */
-.AssessmentTitle{
-    margin-left: 12%;
-    margin-top: 40px;
-
-    font-family: 'Roboto', sans-serif;
-    font-style: normal;
+.HomeContent .home-title{
     font-weight: bold;
-    font-weight: 700;
-    font-size: 16px;
-    color: black; 
-}
-
-.SubListTd{
-    width: 200px;
-    height: 220px;
-    margin-top: 100px;
-    border: 1px solid rgb(216, 215, 215);
-    background-color: white;
-}
-.AssListTd:hover{
-    border: 1.5px solid rgb(109, 107, 107);
-}
-.SubListName{
-    margin-top: 20px;
-    margin-left: 20px;
-    margin-bottom: 0px;
-    font-size: 13px;
-}
-.AssListStatusComp{
-    margin-top: 5px;
-    margin-left: 40px;
-    font-size: 16px;
-    color: rgb(34, 151, 5);
-}
-.AssListStatusNotAtt{
-    margin-top: 5px;
-    margin-left: 40px;
-    font-size: 16px;
-    color: rgba(153, 153, 153);
-}
-
-.center{
-    display: flex;
-    justify-content: center;
-    margin-left: 10px;
 }
