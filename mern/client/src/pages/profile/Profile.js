@@ -37,7 +37,7 @@ class Profile extends Component{
             UserName: '',                                                      //user name
             CubeUserName: "",                                                 //name in left title e.g. john smith => JS
             CurrentEducation: "",                                             //education 
-            EducationLastYear: "TestYear",                                    //years of education
+            EducationLastYear: "",                                    //years of education
             ProgramName: "TestProgram",                                       //array about all test history
             TestsHistoryArray:[                             
                 {id: "1", name:"Javascript Test", data:"1-9-2021", result: "100"},          
@@ -60,6 +60,7 @@ class Profile extends Component{
             console.log(res.data)
             this.setState({ 
                 UserName: res.data.name,
+                CurrentEducation: res.data.educationLevel,
             })
         })
     }

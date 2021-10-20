@@ -27,10 +27,10 @@ class Homepage extends Component{
       SubjectName: 'TestSubjectName',                 // Name of Subjects
       AvailableSubjects: '',                               // Numbers of Subjects shown in table
       AllSubjects:[                              // All Subjects (which is for test only before 
-        {id: "1", name:"31242 - Advanced Internet Programming - Spring 2021", status: "1"},    // Fetching data from database)
-        {id: "2", name:"31242 - Advanced Internet Programming - Spring 2021", status: "1"}, 
-        {id: "3", name:"31242 - Advanced Internet Programming - Spring 2021", status: "1"}, 
-        {id: "4", name:"31242 - Advanced Internet Programming - Spring 2021", status: "1"},
+        {id: "1", name:"test", status: "1"},          // Fetching data from database)
+        {id: "2", name:"test", status: "1"},
+        {id: "3", name:"test", status: "1"},
+        {id: "4", name:"test", status: "1"},
       ],
       SelectedSubjects:[],                            // All selected subjects
     }
@@ -43,7 +43,7 @@ class Homepage extends Component{
             UserName: res.data.name,
         })
     })
-  }
+  }  
 
   componentDidMount(){
     var Sub= this.state.AllSubjects;             // Temporary array for AllAssOfSubjects value
