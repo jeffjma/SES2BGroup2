@@ -19,7 +19,7 @@ const QuestionSchema = new Schema ({
     required: true,
   },
   difficulty: { //The questions difficulty rating for the adaptive mechanism
-    type: String,
+    type: Number,
     required: true,
   },
   subtopic: { //The subtopic within the subject the question falls under. It is potentially unnecessary depending on how subjects are structured
