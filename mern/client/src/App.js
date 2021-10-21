@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 //Helmet is used to set the title tag of the web page
 import { Helmet } from "react-helmet";
 //Routing between different pages
@@ -20,37 +20,57 @@ import {
     ExaminerHome2,
     Post
 } from "./pages/Routes";
-import { CookiesProvider } from 'react-cookie';
+import { CookiesProvider, useCookies } from 'react-cookie';
+import ProtectedRoute from './ProtectedRoute';
 
+function GetStuType() {
+  const [cookies, setCookie] = useCookies();
+  const usertype = cookies.usertype;
+    if(usertype === "student"){
+      return true;
+    }
+  return false;
+}
 
-class App extends Component {
+function GetExaType() {
+  const [cookies, setCookie] = useCookies();
+  const usertype = cookies.usertype;
+    if(usertype === "examiner"){
+      return true;
+    }
+  return false;
+}
+
+function App() {
   
-  render() {
+  const stutype = GetStuType();
+  const exatype = GetExaType();
+
     return (
       <div className="App">
           <Helmet>
             <title>Adaptive Testing System</title>
           </Helmet>
-
+          {/* protected route not working for page after login as the cookies aren't set yet so still need 
+              to figure that out */}
           <Router>
               <Route exact path="/" component={Registration} />
             <CookiesProvider>
               <Route path="/Login" component={Login} /> 
-              <Route exact path="/Home" component={Homepage} />
-              <Route path="/Home/Subjects" exact strict component={Homepage2} />
-              <Route path="/Profile" component={Profile} />
-              <Route path="/Assessment" component={Assessment} />
-              <Route path="/Background" component={Background} />
-              <Route path="/PreAssessment" component={PreAssessment} />
-              <Route path="/Post" component={Post} />
+              <Route exact path="/Home" component={Homepage} isAuth={stutype}/>
+              <ProtectedRoute path="/Home/Subjects" exact strict component={Homepage2} isAuth={stutype}/>
+              <ProtectedRoute path="/Profile" component={Profile} isAuth={stutype}/>
+              <ProtectedRoute path="/Assessment" component={Assessment} isAuth={stutype}/>
+              <ProtectedRoute path="/Background" component={Background} isAuth={stutype}/>
+              <ProtectedRoute path="/PreAssessment" component={PreAssessment} isAuth={stutype}/>
+              <ProtectedRoute path="/Post" component={Post} isAuth={stutype}/>
+              <Route exact path="/ExaminerHome" component={ExaminerHome} isAuth={exatype}/>
+              <ProtectedRoute path="/ExaminerHome/Subjects" exact strict component={ExaminerHome2} isAuth={exatype}/>
             </CookiesProvider>
-            <Route exact path="/ExaminerHome" component={ExaminerHome} />
-            <Route path="/ExaminerHome/Subjects" exact strict component={ExaminerHome2} />
           </Router>
 
       </div>
     );  
-  }
 }
 
 export default App;

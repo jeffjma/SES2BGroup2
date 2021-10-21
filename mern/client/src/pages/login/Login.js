@@ -37,12 +37,16 @@ class Login extends Component{
       .then(res => {
         console.log(res.data);
         cookies.set("userid", res.data.user._id, { path: '/'});
-        this.props.history.push('/Home');
+        cookies.set("usertype", res.data.user.userType, { path: '/'});
+        if(res.data.user.userType === "student"){
+          this.props.history.push('/Home');
+        } else {
+          this.props.history.push('/ExaminerHome')
+        }
       })
       .catch(err =>
-        console.log(err.response.data)
+        alert('Login Failed. Try Again')
       );
-  
     }
 
   handleChangeEmail(e) {

@@ -69,6 +69,7 @@ class Profile extends Component{
         console.log('Logout Button Clicked')
         const { cookies } = this.props;
         cookies.remove('userid');
+        cookies.remove('usertype');
         window.location.href = '/';
     }
 

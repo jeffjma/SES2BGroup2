@@ -34,7 +34,7 @@ class Registration extends Component{
       .post("http://localhost:5000/api/users/register", this.state)
       .then(res => {
         console.log(res.data);
-        this.props.history.push("/Login");
+        this.props.history.push("/Background");
       })
       .catch(err =>
         console.log(err.response.data)

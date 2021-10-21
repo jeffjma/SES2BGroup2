@@ -59,7 +59,7 @@ class Homepage2 extends Component{
 
   handleToAss(e){                                     // Push to url of each Assessment
     /*this.props.history.push(window.location.pathname + "/" + e)*/ // Disabled for client meeting
-      this.props.history.push("/PreAssessment")
+      this.props.history.push('/PreAssessment')
   }
 
   handleCompleted(){                                  //Once click checkbox("Completed"), change CompletedCheckBox
