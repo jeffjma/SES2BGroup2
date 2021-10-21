@@ -1,7 +1,7 @@
-import React, { Component, useState } from 'react';
-import { Button, Modal, Row } from 'react-bootstrap';
-import { Col } from 'react-bootstrap';
+import React, { Component } from 'react';
+import { Button, Modal } from 'react-bootstrap';
 import { Form } from 'react-bootstrap';
+import ButtonContained from "../../components/ButtonContained";
 import "./question-editor.css";
 
 
@@ -9,31 +9,133 @@ class QuestionEditor extends Component {
 
   constructor() {
     super();
-
-    [ this.question, this.answers ] = this.getData();
-
+    
     this.state = {
+      question: {
+        name: "Some question.",
+        challenge: "Basic"
+      },
+      answers: [
+        ["Answer goes here.", true],
+        ["Answer goes here.", false],
+        ["Answer goes here.", false],
+        ["Answer goes here.", false]
+      ],
+
+      editValue: "",
+      editTarget: "",
       isEditing: false
     };
 
+    [ this.state.question, this.state.answers ] = this.getData();
+    
+    this.setCorrectAnswer = this.setCorrectAnswer.bind(this);
+    this.setChallenge = this.setChallenge.bind(this);
+    this.doEdit = this.doEdit.bind(this);
+    this.saveToDatabase = this.saveToDatabase.bind(this);
     this.openEditor = this.openEditor.bind(this);
     this.closeEditor = this.closeEditor.bind(this);
   }
 
   getData() {
-    var question = "Question goes here.";
+    var question = {
+      name: "Question goes here.",
+      challenge: "Basic"
+    };
+
     var answers = [
-      "Answer goes here.",
-      "Answer goes here.",
-      "Answer goes here.",
-      "Answer goes here."
+      ["Answer goes here.", true],
+      ["Answer goes here.", false],
+      ["Answer goes here.", false],
+      ["Answer goes here.", false],
     ];
 
     return [question, answers];
   };
 
-  openEditor() {
-    this.setState({ isEditing: true });
+  setCorrectAnswer(e) {
+    var answerID = e.target.id.slice(-1);
+    var temp = this.state.answers;
+
+    temp.map((answer, index) => (
+      answer[1] = (answerID == index)
+    ));
+
+    this.setState({ answers: temp });
+  }
+
+  setChallenge(e) {
+    var temp = this.state.question;
+    temp["challenge"] = e.target.value;
+
+    this.setState({ question: temp });
+  }
+
+  doEdit() {
+    var tempQuestion = this.state.question;
+    var tempAnswers = this.state.answers;
+
+    switch (this.state.editTarget) {
+      case "Q":
+        tempQuestion["name"] = this.state.editValue;
+        break;
+      case "A0":
+        tempAnswers[0][0] = this.state.editValue;
+        break;
+      case "A1":
+        tempAnswers[1][0] = this.state.editValue;
+        break;
+      case "A2":
+        tempAnswers[2][0] = this.state.editValue;
+        break;
+      case "A3":
+        tempAnswers[3][0] = this.state.editValue;
+        break;
+    }
+
+    this.setState({
+      question: tempQuestion,
+      answers: tempAnswers,
+      editValue: ""
+    });
+    this.closeEditor();
+  }
+
+  doClear(target) {
+    var tempAnswers = this.state.answers;
+
+    switch (target) {
+      case "D0":
+        tempAnswers[0][0] = " ";
+        break;
+      case "D1":
+        tempAnswers[1][0] = " ";
+        break;
+      case "D2":
+        tempAnswers[2][0] = " ";
+        break;
+      case "D3":
+        tempAnswers[3][0] = " ";
+        break;
+    }
+
+    this.setState({
+      answers: tempAnswers,
+      editValue: ""
+    });
+    this.closeEditor();
+  }
+
+  // TODO
+  saveToDatabase() {
+    console.log("TODO: Save to database.");
+  }
+
+  openEditor(target) {
+    this.setState({
+      editTarget: target,
+      isEditing: true
+    });
   };
 
   closeEditor() {
@@ -50,11 +152,11 @@ class QuestionEditor extends Component {
           <div class="row QuestionRow">
             <div class="col-10">
               <p class="pageQuestion">
-                {this.question} <Icon icon="edit" colour="#CCCCCC" action={this.openEditor} class="pageQuestionIcon"></Icon>
+                { this.state.question.name } <Icon icon="edit" colour="#CCCCCC" action={() => this.openEditor("Q")} class="pageQuestionIcon"></Icon>
               </p>
             </div>
             <div class="col">
-              <Form.Select bsPrefix="form-select centerV">
+              <Form.Select bsPrefix="form-select centerV" value={this.state.question.challenge} onChange={this.setChallenge}>
                 <option value="Basic">Basic</option>
                 <option value="Intermediate">Intermediate</option>
                 <option value="Advanced">Advanced</option>
@@ -63,17 +165,17 @@ class QuestionEditor extends Component {
           </div>
 
           {
-            this.answers.map(answer => (
+            this.state.answers.map((answer, index) => (
               <div class="row AnswerRow">
                 <div class="col-11">
-                  <input type="radio" name="answers" value={answer} />
-                  <span>{answer}</span>
+                  <input id={"Answer" + index} type="radio" name="answers" value={answer} onClick={this.setCorrectAnswer} checked={this.state.answers[index][1]} />
+                  <label for={"Answer" + index}>{answer}</label>
                 </div>
                 <div class="col">
-                  <Icon icon="edit" colour="#7EB9DB" action={this.openEditor}></Icon>
+                  <Icon icon="edit" colour="#7EB9DB" action={() => this.openEditor("A" + index)}></Icon>
                 </div>
                 <div class="col">
-                  <Icon icon="delete" colour="#B00020"></Icon>
+                  <Icon icon="delete" colour="#B00020" action={() => this.doClear("D" + index)}></Icon>
                 </div>
               </div>
             ))
@@ -86,11 +188,28 @@ class QuestionEditor extends Component {
               <Form>
                 <Form.Group controlID="editorForm.new">
                   <Form.Label>New Value</Form.Label>
-                  <Form.Control type="text" />
+                  <Form.Control value={this.state.editValue} onChange={e => this.setState({editValue: e.target.value})} type="text" />
+
+                  <div class="row">
+                    <div class="col"></div>
+                    <div class="col-5 closeSaveButtonRow">
+                      <Button bsPrefix="btn closeButton" onClick={this.closeEditor}>Close</Button>
+                      <Button bsPrefix="btn saveButton" onClick={this.doEdit}>Save</Button>
+                    </div>
+                  </div>
                 </Form.Group>
               </Form>
             </Modal.Body>
           </Modal>
+        </div>
+
+        <div class="row saveButtonRow">
+          <div class="col"></div>
+          <div class="col-4">
+            <ButtonContained variant="contained" color="primary" onClick={this.saveToDatabase}>
+              Save
+            </ButtonContained>
+          </div>
         </div>
 
       </div>
