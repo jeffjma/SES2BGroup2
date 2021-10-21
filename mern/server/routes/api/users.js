@@ -126,7 +126,7 @@ router.post("/background", (req, res) => {
 // @desc Get user profile details
 // @access Public
 // Lowkey incomplete, will be updated
-router.post("/profile", (req, res) => {
+router.get("/profile", (req, res) => {
   const userID = req.body.userID;
   //Find user by userID
   User.findOne({ _id: userID }).then(user => {
@@ -154,14 +154,22 @@ router.post("/newTestResult", (req, res) => {
   });
 });
 
-// @route POST api/users/subjects
+// @route GET api/users/subjects
 // @desc Get user's subjects
 // @access Public
-router.post("/subjects", (req, res) => {
+router.get("/subjects", (req, res) => {
   const userID = req.body.userID;
   //Find user by userID
-  User.findOne({ _id: userID }).then(user => {
-    return res.json(user.currentSubjects);
+  User.findOne({ _id: userID }).populate('currentSubjects').then(user => {
+    let subject = {
+      name: [],
+      subjectID: []
+    }
+    user.currentSubjects.forEach(element => {
+      subject.name.push(element.name);
+      subject.subjectID.push(element._id)
+    });
+    return res.json(subject);
   });
 });
 
