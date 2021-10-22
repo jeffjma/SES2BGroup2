@@ -18,7 +18,7 @@ import {
     PreAssessment,
     ExaminerHome,
     ExaminerHome2,
-    Post
+    QuestionPool
 } from "./pages/Routes";
 import { CookiesProvider, useCookies } from 'react-cookie';
 import ProtectedRoute from './ProtectedRoute';
@@ -45,7 +45,7 @@ function App() {
   
   const stutype = GetStuType();
   const exatype = GetExaType();
-
+  
     return (
       <div className="App">
           <Helmet>
@@ -66,6 +66,7 @@ function App() {
               <ProtectedRoute path="/Post" component={Post} isAuth={stutype}/>
               <Route exact path="/ExaminerHome" component={ExaminerHome}/>
               <ProtectedRoute path="/ExaminerHome/Subjects" exact strict component={ExaminerHome2} isAuth={exatype}/>
+              <ProtectedRoute path="/QuestionPool" component={QuestionPool} isAuth={exatype}/>
             </CookiesProvider>
           </Router>
 

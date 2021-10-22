@@ -8,4 +8,5 @@ export { default as Background } from "./bg/Background";
 export { default as PreAssessment }  from "./preassessment/PreAssessment";
 export { default as ExaminerHome }  from "./examinerhome/ExaminerHome";
 export { default as ExaminerHome2 }  from "./examinerhome/ExaminerHome2";
+export { default as QuestionPool }  from "./questionpool/QuestionPool";
 export { default as Post }  from "./post_assessment/Post";

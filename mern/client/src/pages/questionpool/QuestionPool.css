@@ -1,0 +1,70 @@
+/* Set the main position of this page */
+.QPMainBody{
+    width: 100vw;
+    height: 1000px;
+    background-color: #F8FCFF;
+}
+.TitleBg{
+    height: 150px;
+    width: 100vw;
+}
+.QPTableBg{
+    height: 750px;
+    width: 100vw;
+}
+.QPFooter{
+    height: 100px;
+    width: 100vw;
+}
+
+/* start from here-------------------------------------------------- */
+.QPTableBg #TableTitle{
+    margin-top: 20px;
+    margin-left: 90px;
+
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-weight: 700;
+    font-size: 20px;
+}
+.QPMainTable{
+    position: absolute;
+    width: 80%;
+    height: 680px;
+    left: 10%;
+    right: 10%;
+    margin-top: 10px;
+
+    background-color: rgba(209, 216, 224, 0.3);
+}
+.QPMainTable table{
+    width: calc(100% - 40px);
+    height: 100px;
+
+    margin-left: 20px;
+    margin-top: 20px;
+}
+.QPMainTable table tr{
+    height: 70px;
+    border: 0px solid black;
+}
+.QPMainTable table tr:nth-child(odd){
+    background-color: white;
+}
+.QPMainTable table tr:nth-child(even){
+    background-color: #F6F6F6;
+}
+.QPMainTable #QPContenttr:hover{
+    background-color: rgba(209, 216, 224, 1);
+}
+.QPMainTable table td{
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+}
+.QPFooter #PageSelector{
+    margin-top: 15px;
+    justify-content: center;
+}
