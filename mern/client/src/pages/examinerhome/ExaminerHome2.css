@@ -1,7 +1,11 @@
 .overview-container {
-    margin: 3% 11% 0 11%;
+  margin: 3% 11% 0 11%;
 }
 
-.overview-container h6{
-    font-weight: bold;
+.overview-container h6 {
+  font-weight: bold;
+}
+
+.overview-container .subjects {
+  margin: 1.5% 0% 0% 7.5%;
 }

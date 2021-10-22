@@ -1,0 +1,169 @@
+/* this css page is only for design Homepage2.js */
+/* Set the main position of this page */
+.PostMainBody{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+}
+/* The title position */
+.PostMainBody .TitleBackground {
+    height: 150px;
+    width: 100vw;
+}
+/* The left content position */
+.PostMainBody .LeftContent{
+    position: absolute;
+    width: 70vw;
+    top: 150px;
+    bottom: 0px;
+}
+/* The Right content position */
+.PostMainBody .RightContent{
+    position: absolute;
+    float: right;
+    right: 0px;
+    width: 30vw;
+    top: 160px;
+    bottom: 0px;
+}
+/* ------------------------------------------------------------------------------------------------------------------ */
+/* the right content (filters) */
+.PostMainBody .RightCube{
+    width: 300px;
+    height: 310px;
+    margin-left: 10px;
+    margin-top: 90px;
+    background-color: rgba(237, 242, 248, 0.877);
+
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-weight: 700;
+    font-size: 24px;
+    color: rgb(121, 118, 118); 
+}
+.PostMainBody .FilterTitle{
+    margin-left: 40px;
+}
+.PostMainBody .FilterSubtitle{
+    margin-left: 40px;
+    margin-top: 30px;
+    margin-bottom: 0px;
+    font-size: 15px;
+}
+.PostMainBody .FilterCheckbox{
+    margin-left: 40px; 
+}
+.PostMainBody .FilterCheckboxName{
+    margin-left: 20px;
+    font-size: 15px;
+    display: inline;
+    color: #36D7DD;
+}
+/* the left content (the table for showing assessments) */
+.PostMainBody .AssessmentTitle{
+    margin-left: 12%;
+    margin-top: 40px;
+
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-weight: 700;
+    font-size: 16px;
+    color: black; 
+}
+.PostMainBody .LeftCube{
+    height: 400px;
+    width: 780px;
+    margin-left: 12%;
+    margin-top: 30px;
+    overflow-x: hidden;
+}
+.PostMainBody .AssListTd{
+    width: 760px;
+    height: 80px;
+    border: 1px solid rgb(216, 215, 215);
+    background-color: white;
+
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-weight: 500;
+    font-size: 24px;
+    color: #36D7DD;
+}
+.PostMainBody .AssListTd:hover{
+    border: 1.5px solid rgb(109, 107, 107);
+    background-color: #36d7dd07;
+}
+.PostMainBody .AssListName{
+    margin-top: 12px;
+    margin-left: 40px;
+    margin-bottom: 0px;
+}
+.PostMainBody .AssListStatusComp{
+    margin-top: 5px;
+    margin-left: 40px;
+    font-size: 16px;
+    color: #5bc2a7;
+}
+.PostMainBody .AssListStatusNotAtt{
+    margin-top: 5px;
+    margin-left: 40px;
+    font-size: 16px;
+    color: rgba(153, 153, 153);
+}
+
+.PostMainBody .box{
+    display: flex;
+    flex: 1;
+    /* width: 100%; */
+    /* height: 100%; */
+}
+
+.PostMainBody .box-left{
+    width: 330px;
+    padding: 0 40px;
+    height: 100%;
+    background: rgb(249,252,254);
+}
+
+.PostMainBody .txt-1{
+    color: #666;
+}
+
+.PostMainBody .btn-p{
+    background: rgb(106,212,222);
+    width: 200px;
+    height: 40px;
+    color: white;
+    text-align: center;
+    line-height: 40px;
+    border-radius: 15px;
+}
+
+.PostMainBody .questionBox{
+    /* border: 1px solid red; */
+    padding: 0 20px;
+    height: 150px;
+    overflow-y: auto;
+}
+.PostMainBody .questionItem{
+    color: #36d7dd;
+}
+.PostMainBody .box-right{
+    flex: 1;
+    /* border: 2px solid red; */
+    padding: 25px 60px;
+}
+.PostMainBody .score-box{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 70px 0 75px;
+}
+.PostMainBody .score-img{
+    width: 100px;
+}

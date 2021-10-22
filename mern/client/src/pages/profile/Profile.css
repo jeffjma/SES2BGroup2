@@ -212,3 +212,17 @@
     line-height: 28px;
     color: #5BC2A7;
 }
+
+.LeftProfile .logout-btn{
+    margin-left: 14%;
+    font-size: 15px;
+    border-radius: 18px;
+    width: auto;
+    height: auto;
+    background: transparent;
+    border: solid 1px black;
+}
+
+.LeftProfile .logout-btn:hover{
+    background: #dfdfdf;
+}

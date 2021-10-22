@@ -1,26 +1,49 @@
 import React, {Component} from 'react';
+import axios from "axios";
 import 'font-awesome/css/font-awesome.min.css';
 import "./Homepage.css";
-import {Link} from "react-router-dom";
-import logo from '../../assets/subjectlogo.png';
 import NaviBar from "../../components/NavigationBar";
+import CardSubject from "../../components/CardSubject";
+import { withCookies, Cookies } from 'react-cookie';
+import { instanceOf } from 'prop-types';
+import { Col, Row, Container } from "react-bootstrap";
+
+const api = axios.create({
+  baseURL: `http://localhost:5000/api/users/profile`
+})
 
 class Homepage extends Component{
+  static propTypes = {
+    cookies: instanceOf(Cookies).isRequired
+  };
 
   constructor(props){
     super(props)
+    const { cookies } = props;
     this.state = {
       //this state values are now only for test before fetching data from api
-      UserName: 'John Smith',                       // Name of User
+      userID: cookies.get('userid'),
+      UserName: '',                       // Name of User
       SubjectName: 'TestSubjectName',                 // Name of Subjects
       AvailableSubjects: '',                               // Numbers of Subjects shown in table
       AllSubjects:[                              // All Subjects (which is for test only before 
-        {id: "1", name:"31242 - Advanced Internet Programming - Spring 2021", status: "1"},    // Fetching data from database)
-        
+        {id: "1", name:"test", status: "1"},          // Fetching data from database)
+        {id: "2", name:"test", status: "1"},
+        {id: "3", name:"test", status: "1"},
+        {id: "4", name:"test", status: "1"},
       ],
       SelectedSubjects:[],                            // All selected subjects
     }
-  }
+    api.post('/', {
+      userID: this.state.userID
+    })
+    .then(res => {
+        console.log(res.data)
+        this.setState({ 
+            UserName: res.data.name,
+        })
+    })
+  }  
 
   componentDidMount(){
     var Sub= this.state.AllSubjects;             // Temporary array for AllAssOfSubjects value
@@ -54,29 +77,27 @@ class Homepage extends Component{
 
   
   render(){
-    let SubScript = (                                // The left table script showing the subjects details
-      <Link to = "./home/subjects">  
-      <div> 
+    let SubScript = (                                // The left table script showing the subjects details  
+        <Row>
+          <tr>
         {this.state.SelectedSubjects.map(SelectedSubject=>(
-               <tr key={SelectedSubject.id}>
-                 <td className="SubListTd"> 
-                 <img src={logo} width="180" height="140" className="center" />
-                   <div className="SubListName">
-                      
-                     {SelectedSubject.name}
-                      
-                   </div>
-                 </td>
-               </tr>
+               <td key={SelectedSubject.id}>   
+               <Col md>             
+                 <CardSubject path="./home/subjects" assetImage={SelectedSubject.logo}>
+                   {SelectedSubject.name}
+                  </CardSubject>  
+                  </Col>         
+               </td>
              ))}
-      </div>
-      </Link>
+            </tr>
+        </Row>
+   
     );
 
     return(
       <React.Fragment>
         {/* this is main content */}
-        <body className="MainBody">
+        <body className="Home-MainBody">
           {/* this is title */}
           <div className="TitleBackground">
             <NaviBar
@@ -92,20 +113,20 @@ class Homepage extends Component{
       
 
          {/* this is leftcontent */}
-         <div className="Content">
-           <p className="AssessmentTitle">
+         <div className="HomeContent">
+          <Container>
+            <p className="home-title">
              Your subjects
-           </p>
-           <div className="LeftCube">
-             {SubScript}
-           </div>
-         </div>
-
-         
+            </p>
+            <div className="Subject-Cards">
+                {SubScript}
+            </div> 
+           </Container>         
+         </div>      
         </body>
       </React.Fragment>
     )
   }
 };
 
-export default Homepage;
+export default withCookies(Homepage);

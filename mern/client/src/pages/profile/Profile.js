@@ -1,11 +1,14 @@
 //this page is Tester Profile Page 8.0 in figma
 import React, {Component} from 'react';
+import axios from "axios";
 //import font-awesome icons
 import 'font-awesome/css/font-awesome.min.css';
 //import the percentage circle
 import { CircularProgressbarWithChildren,buildStyles  } from 'react-circular-progressbar';
 //import NavigationBar from components
 import NaviBar from "../../components/NavigationBar";
+import { withCookies, Cookies } from 'react-cookie';
+import { instanceOf } from 'prop-types';
 //import images
 import farmerimage from "../../assets/Farmer.png";
 import thiefimage from "../../assets/Thief.png";
@@ -17,15 +20,24 @@ import WebProgBadge from "../../assets/WebProgBadge.png";
 
 import "./Profile.css";
 
+const api = axios.create({
+    baseURL: `http://localhost:5000/api/users/profile`
+})
+
 class Profile extends Component{
+    static propTypes = {
+        cookies: instanceOf(Cookies).isRequired
+      };
 
     constructor(props){
         super(props)
+        const { cookies } = props;
         this.state = {
-            UserName: 'John Smith',                                           //user name
+            userID: cookies.get('userid'),
+            UserName: '',                                                      //user name
             CubeUserName: "",                                                 //name in left title e.g. john smith => JS
-            CurrentEducation: "TestUniversity",                               //education 
-            EducationLastYear: "TestYear",                                    //years of education
+            CurrentEducation: "",                                             //education 
+            EducationLastYear: "",                                    //years of education
             ProgramName: "TestProgram",                                       //array about all test history
             TestsHistoryArray:[                             
                 {id: "1", name:"Javascript Test", data:"1-9-2021", result: "100"},          
@@ -39,11 +51,29 @@ class Profile extends Component{
             TotalPoints: "",                                                   //total points from tests
             PointsToNextRank: "",                                              //required points to next level
             NextRank: "",                                                       //the next rank name
-            
         }
+        console.log(this.state.userID)
+        api.post('/', {
+            userID: this.state.userID
+        })
+        .then(res => {
+            console.log(res.data)
+            this.setState({ 
+                UserName: res.data.name,
+                CurrentEducation: res.data.educationLevel,
+                EducationLastYear: res.data.year
+            })
+        })
     }
 
-    
+    handleLogout(e) {
+        console.log('Logout Button Clicked')
+        const { cookies } = this.props;
+        cookies.remove('userid');
+        cookies.remove('usertype');
+        window.location.href = '/';
+    }
+
 
     componentDidMount(){
         //get the total points from the test
@@ -138,11 +168,12 @@ class Profile extends Component{
                         <p id="ProfileContent">{this.state.EducationLastYear}</p>
                         <p id="ProfileTitle">Program</p>
                         <p id="ProfileContent">{this.state.ProgramName}</p>
+                        <button className="logout-btn" onClick={this.handleLogout.bind(this)}> Logout </button>
                     </div>
                     
                     {/* the right rank image */}
                     <div className="RightRankImage">
-                        <p id="CurrentRank">Your Currnet Rank is {this.state.CurrentRank}</p>
+                        <p id="CurrentRank">Your Current Rank is {this.state.CurrentRank}</p>
                         <div id="CircleLayout">
                             <CircularProgressbarWithChildren 
                                 value={this.state.Percentage} 
@@ -205,4 +236,4 @@ class Profile extends Component{
     }
 }
 
-export default Profile;
+export default withCookies(Profile);
