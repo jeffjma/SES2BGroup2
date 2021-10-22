@@ -57,14 +57,14 @@ function App() {
               <Route exact path="/" component={Registration} />
             <CookiesProvider>
               <Route path="/Login" component={Login} /> 
-              <Route exact path="/Home" component={Homepage} isAuth={stutype}/>
+              <Route exact path="/Home" component={Homepage}/>
               <ProtectedRoute path="/Home/Subjects" exact strict component={Homepage2} isAuth={stutype}/>
               <ProtectedRoute path="/Profile" component={Profile} isAuth={stutype}/>
               <ProtectedRoute path="/Assessment" component={Assessment} isAuth={stutype}/>
-              <ProtectedRoute path="/Background" component={Background} isAuth={stutype}/>
+              <Route path="/Background" component={Background}/>
               <ProtectedRoute path="/PreAssessment" component={PreAssessment} isAuth={stutype}/>
               <ProtectedRoute path="/Post" component={Post} isAuth={stutype}/>
-              <Route exact path="/ExaminerHome" component={ExaminerHome} isAuth={exatype}/>
+              <Route exact path="/ExaminerHome" component={ExaminerHome}/>
               <ProtectedRoute path="/ExaminerHome/Subjects" exact strict component={ExaminerHome2} isAuth={exatype}/>
             </CookiesProvider>
           </Router>

@@ -61,6 +61,7 @@ class Profile extends Component{
             this.setState({ 
                 UserName: res.data.name,
                 CurrentEducation: res.data.educationLevel,
+                EducationLastYear: res.data.year
             })
         })
     }

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from "axios";
 import { Row } from 'react-bootstrap';
 import ButtonContained from "../../components/ButtonContained";
 import "./Background.css";
@@ -6,16 +7,68 @@ import "./Background.css";
 
 class Background extends Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.sectionToRender = null;
 
     this.renderAppropriateSection = this.renderAppropriateSection.bind(this);
     this.renderHSSection = this.renderHSSection.bind(this);
     this.renderUniSection = this.renderUniSection.bind(this);
+
+    this.state = {
+      userID: '',
+      educationLevel: '',
+      year: '',
+      currentSubjects: [],
+      faculty: '',
+      completedSubjects: [],
+    }
   }
 
+  handleCurrentSub(selection) {
+    console.log(selection)
+    this.setState({currentSubjects: selection});
+  }
+
+  handleYear(selection) {
+    this.setState({year: selection});
+  }
+
+  handleFaculty(selection) {
+    console.log(selection)
+    this.setState({faculty: selection});
+  }
+
+  handleCompletedSub(selection) {
+    console.log(selection)
+    this.setState({completedSubjects: selection});
+  }
+
+  handleSave(e) {
+    console.log('save btn clicked')
+    axios
+      .post("http://localhost:5000/api/users/background", this.state)
+      .then(res => {
+        console.log(res.data);
+        this.props.history.push('/Login')
+      })
+      .catch(err =>
+        alert('Login Failed. Try Again')
+      );
+  }
+
+  // Getting user id from registration page
+  componentDidMount () {
+    if(this.props.location.state != null) {
+      const { userid } = this.props.location.state
+
+      this.setState({ 
+        userID: userid,
+      })
+    }
+  }
+  
   /**
    * Render appropriate section depending on selection in 'Past
    * Education' input.
@@ -36,6 +89,7 @@ class Background extends Component {
       default:
         break;
     }
+    this.setState({educationLevel: selection});
 
     this.forceUpdate();
     console.log(this.sectionToRender);
@@ -48,7 +102,10 @@ class Background extends Component {
           <SelectBox label="Year" options={["7", "8", "9", "10", "11", "12"]}></SelectBox>
         </Row>
         <Row>
-          <SelectBox label="Current Subjects" options={["English Advanced", "Etc."]}></SelectBox>
+          <SelectBox 
+            label="Current Subjects" 
+            options={["English Advanced", "Etc."]}>
+          </SelectBox>
         </Row>
       </div>
     );
@@ -58,16 +115,32 @@ class Background extends Component {
     return (
       <div>
         <Row>
-          <SelectBox label="Year" options={["1", "2", "3", "4", "5"]}></SelectBox>
+          <SelectBox 
+            label="Year" 
+            options={["1", "2", "3", "4", "5"]}
+            callback={this.handleYear.bind(this)} >
+          </SelectBox>
         </Row>
         <Row>
-          <SelectBox label="Semester" options={["1", "2"]}></SelectBox>
+          <SelectBox 
+              label="Current Subjects" 
+              options={["English Advanced", "Etc."]}
+              callback={this.handleCurrentSub.bind(this)}>
+            </SelectBox>
         </Row>
         <Row>
-          <SelectBox label="Faculty" options={["FEIT"]}></SelectBox>
+          <SelectBox 
+            label="Faculty" 
+            options={["FEIT"]}
+            callback={this.handleFaculty.bind(this)}>
+          </SelectBox>
         </Row>
         <Row>
-          <SelectBox label="Completed Subjects" options={["DSA", "Etc."]}></SelectBox>
+          <SelectBox 
+            label="Completed Subjects" 
+            options={["DSA", "Etc."]}
+            callback={this.handleCompletedSub.bind(this)}>
+          </SelectBox>
         </Row>
       </div>
     );
@@ -80,12 +153,16 @@ class Background extends Component {
           <span class="bg-title">Your Background</span>
         </Row>
         <Row>
-          <SelectBox label="Past Education" options={["Secondary", "Tertiary"]} callback={ this.renderAppropriateSection }></SelectBox>
+          <SelectBox 
+            label="Past Education" 
+            options={["Secondary", "Tertiary"]} 
+            callback={ this.renderAppropriateSection }>
+          </SelectBox>
         </Row>
 
         { this.sectionToRender }
 
-        <ButtonContained variant="contained" color="primary" href="homepage">
+        <ButtonContained variant="contained" color="primary" onClick={this.handleSave.bind(this)}>
           Save
         </ButtonContained>
       </div>

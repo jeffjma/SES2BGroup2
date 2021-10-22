@@ -10,7 +10,7 @@ import {
 import ButtonContained from "../../components/ButtonContained";
 import ButtonOutlined from "../../components/ButtonOutlined";
 
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import logo from "../../assets/logo_register.png";
 import "./Registration.css";
 import axios from "axios";
@@ -34,10 +34,14 @@ class Registration extends Component{
       .post("http://localhost:5000/api/users/register", this.state)
       .then(res => {
         console.log(res.data);
-        this.props.history.push("/Background");
+        //Passing userid to background page
+        this.props.history.push({
+          pathname: '/Background',
+          state: {userid: res.data._id}
+        });
       })
       .catch(err =>
-        console.log(err.response.data)
+        alert('Registration Failed. Try Again')
       );
   }
 
