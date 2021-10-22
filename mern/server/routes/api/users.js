@@ -8,6 +8,8 @@ const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
 // Load User model
 const User = require("../../models/User");
+const Award = require("../../models/Award");
+
 
 // @route POST api/users/register
 // @desc Register user
@@ -126,7 +128,7 @@ router.post("/background", (req, res) => {
 // @desc Get user profile details
 // @access Public
 // Lowkey incomplete, will be updated
-router.post("/profile", (req, res) => {
+router.get("/profile", (req, res) => {
   const userID = req.body.userID;
   //Find user by userID
   User.findOne({ _id: userID }).then(user => {
@@ -154,15 +156,70 @@ router.post("/newTestResult", (req, res) => {
   });
 });
 
-// @route POST api/users/subjects
+// @route GET api/users/subjects
 // @desc Get user's subjects
 // @access Public
-router.post("/subjects", (req, res) => {
+router.get("/subjects", (req, res) => {
   const userID = req.body.userID;
   //Find user by userID
-  User.findOne({ _id: userID }).then(user => {
-    return res.json(user.currentSubjects);
+  User.findOne({ _id: userID }).populate('currentSubjects').then(user => {
+    let subject = {
+      name: [],
+      subjectID: []
+    }
+    user.currentSubjects.forEach(element => {
+      subject.name.push(element.name);
+      subject.subjectID.push(element._id)
+    });
+    return res.json(subject);
   });
 });
 
+// @route POST api/users/addAward
+// @desc Add a award to a user
+// @access Public
+router.post("/addAward", async (req, res) => {
+  const user = await User.findById(req.body.subject);
+  const award = await Award.findById(req.body.question);
+  user.awards.push(award._id);
+  try {
+    user.save();
+      res.send(user.awards);
+  } catch (err) {
+      res.status(500).send(err);
+  }
+})
+
+// @route POST api/subjects/addNewAward
+// @desc Create and add a award to a user
+// @access Public
+router.post("/addNewAward", async (req, res) => {
+  const user = await User.findById(req.body.subject);
+  const newAward = new Award(req.body.question)
+  try {
+      newAward.save();
+  } catch (err) {
+      res.status(500).send(err)
+  }
+  user.awards.push(newAward._id);
+  try {
+    user.save();
+      res.send(user.awards);
+  } catch (err) {
+      res.status(500).send(err);
+  }
+});
+
+// @route GET api/subjects/getAwards
+// @desc Get all the awards for this user
+// @access Public
+router.get("/getAward", async (req, res) => {
+  const awards = (await Subject.findById(req.body.subject).populate("awards")).awards;
+
+  try {
+      res.send(awards);
+  } catch (err) {
+      res.status(500).send(err);
+  }
+});
 module.exports = router;

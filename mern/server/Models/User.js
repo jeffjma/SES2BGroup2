@@ -31,7 +31,8 @@ const UserSchema = new Schema({
     required: false
   },
   currentSubjects: {
-    type: [String],
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: "subjects",
     required: false
   },
   faculty: {
@@ -42,8 +43,14 @@ const UserSchema = new Schema({
     type: [String],
     required: false
   },
+  currentSubjects: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: "awards",
+    required: false
+  },
   testResults: {
     type: [mongoose.Schema.Types.ObjectId],
+    ref: "tests",
     required: false
   }
 });

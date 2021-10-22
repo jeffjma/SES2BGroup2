@@ -23,9 +23,11 @@
     "mongoose": "^6.0.4",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
-    "validator": "^13.6.0"
+    "validator": "^13.6.0",
+    "yarn": "^1.22.15",
+    "python-shell": "^3.0.1"
   },
   "devDependencies": {
-    "nodemon": "^2.0.12"
+    "nodemon": "^2.0.13"
   }
 }

@@ -21,7 +21,7 @@ router.post("/create", (req, res) => {
 // @desc Add a question to a subject
 // @access Public
 router.post("/add", async (req, res) => {
-    const subject = await Subject.findOne(req.body.subject);
+    const subject = await Subject.findById(req.body.subject);
     const question = await Question.findById(req.body.question);
     subject.questions.push(question._id);
     try {
@@ -56,7 +56,7 @@ router.post("/addNew", async (req, res) => {
 // @desc Get all the questions for this subject
 // @access Public
 router.get("/getQuestions", async (req, res) => {
-    const questions = (await Subject.findOne(req.body).populate("questions")).questions;
+    const questions = (await Subject.findById(req.body.subject).populate("questions")).questions;
 
     try {
         res.send(questions);
@@ -65,6 +65,9 @@ router.get("/getQuestions", async (req, res) => {
     }
 });
 
+// @route GET api/subjects/getFilteredQuestions
+// @desc Get a filtered list of questions for this subject
+// @access Public
 router.get("/getFilteredQuestions", async (req, res) => {
     subject = await Subject.
         findById(req.body.subject).
