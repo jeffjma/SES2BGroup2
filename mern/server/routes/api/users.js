@@ -128,7 +128,7 @@ router.post("/background", (req, res) => {
 // @desc Get user profile details
 // @access Public
 // Lowkey incomplete, will be updated
-router.get("/profile", (req, res) => {
+router.post("/profile", (req, res) => {
   const userID = req.body.userID;
   //Find user by userID
   User.findOne({ _id: userID }).then(user => {
@@ -159,7 +159,7 @@ router.post("/newTestResult", (req, res) => {
 // @route GET api/users/subjects
 // @desc Get user's subjects
 // @access Public
-router.get("/subjects", (req, res) => {
+router.post("/subjects", (req, res) => {
   const userID = req.body.userID;
   //Find user by userID
   User.findOne({ _id: userID }).populate('currentSubjects').then(user => {
@@ -213,7 +213,7 @@ router.post("/addNewAward", async (req, res) => {
 // @route GET api/subjects/getAwards
 // @desc Get all the awards for this user
 // @access Public
-router.get("/getAward", async (req, res) => {
+router.post("/getAward", async (req, res) => {
   const awards = (await Subject.findById(req.body.subject).populate("awards")).awards;
 
   try {

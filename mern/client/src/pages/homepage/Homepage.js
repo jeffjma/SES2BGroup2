@@ -34,18 +34,19 @@ class Homepage extends Component{
       ],
       SelectedSubjects:[],                            // All selected subjects
     }
+  }  
+
+  componentDidMount(){
     api.post('/', {
       userID: this.state.userID
-    })
+   })
     .then(res => {
         console.log(res.data)
         this.setState({ 
             UserName: res.data.name,
         })
     })
-  }  
 
-  componentDidMount(){
     var Sub= this.state.AllSubjects;             // Temporary array for AllAssOfSubjects value
     this.setState({SelectedSubjects: []});            // Set SelectedSubjects to null before running
     
@@ -72,8 +73,6 @@ class Homepage extends Component{
     }
     Sub = [];                                         // Set Sub to null before next running
   }
-
-  
 
   
   render(){

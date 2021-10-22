@@ -18,6 +18,7 @@ import {
     PreAssessment,
     ExaminerHome,
     ExaminerHome2,
+    Post,
     QuestionPool
 } from "./pages/Routes";
 import { CookiesProvider, useCookies } from 'react-cookie';
