@@ -31,4 +31,4 @@ const AwardSchema = new Schema({
     }
 });
 
-module.exports = Award = mongoose.model("award", AwardSchema);
+module.exports = Award = mongoose.model("awards", AwardSchema);

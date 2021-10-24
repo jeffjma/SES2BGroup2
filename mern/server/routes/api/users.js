@@ -162,7 +162,7 @@ router.post("/newTestResult", (req, res) => {
 router.post("/subjects", (req, res) => {
   const userID = req.body.userID;
   //Find user by userID
-  User.findOne({ _id: userID }).populate('currentSubjects').then(user => {
+  const subjects = User.findOne({ _id: userID }).populate('currentSubjects').then(user => {
     let subject = {
       name: [],
       subjectID: []
