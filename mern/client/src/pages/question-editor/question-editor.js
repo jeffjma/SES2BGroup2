@@ -32,7 +32,7 @@ class QuestionEditor extends Component {
     this.setCorrectAnswer = this.setCorrectAnswer.bind(this);
     this.setChallenge = this.setChallenge.bind(this);
     this.doEdit = this.doEdit.bind(this);
-    this.saveToDatabase = this.saveToDatabase.bind(this);
+    this.handlesaveToDatabase = this.handlesaveToDatabase.bind(this);
     this.openEditor = this.openEditor.bind(this);
     this.closeEditor = this.closeEditor.bind(this);
   }
@@ -131,7 +131,7 @@ class QuestionEditor extends Component {
     console.log("Save to database.");
 
     axios
-      .post("http://localhost:5000/api/Question/add", this.state)
+      .post("http://localhost:5000/api/questions/add", this.state)
       .then(res => {
         console.log(res.data);
       })
