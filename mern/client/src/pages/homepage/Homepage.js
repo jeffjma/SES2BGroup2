@@ -26,12 +26,7 @@ class Homepage extends Component{
       UserName: '',                       // Name of User
       SubjectName: 'TestSubjectName',                 // Name of Subjects
       AvailableSubjects: '',                               // Numbers of Subjects shown in table
-      AllSubjects:[                              // All Subjects (which is for test only before 
-        {id: "1", name:"test", status: "1"},          // Fetching data from database)
-        {id: "2", name:"test", status: "1"},
-        {id: "3", name:"test", status: "1"},
-        {id: "4", name:"test", status: "1"},
-      ],
+      AllSubjects:[],
       SelectedSubjects:[],                            // All selected subjects
     }
   }  
@@ -45,6 +40,11 @@ class Homepage extends Component{
         this.setState({ 
             UserName: res.data.name,
         })
+        for (var i = 0; i < res.data.currentSubjects.length; i++) {
+          let { AllSubjects } = this.state;
+          AllSubjects.push({id: i, name: res.data.currentSubjects[i], status: 1})
+          this.setState({ AllSubjects: AllSubjects});
+        }
     })
 
     var Sub= this.state.AllSubjects;             // Temporary array for AllAssOfSubjects value
