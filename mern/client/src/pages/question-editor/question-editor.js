@@ -126,7 +126,7 @@ class QuestionEditor extends Component {
     this.closeEditor();
   }
 
-  // TODO
+  // Save Question
   handlesaveToDatabase(e) {
     console.log("Save to database.");
 
@@ -138,6 +138,23 @@ class QuestionEditor extends Component {
       .catch(err =>
         alert('Question Error. Try again')
       );
+
+      this.state = {
+        question: {
+          name: "Some question.",
+          challenge: "Basic"
+        },
+        answers: [
+          ["Answer goes here.", true],
+          ["Answer goes here.", false],
+          ["Answer goes here.", false],
+          ["Answer goes here.", false]
+        ],
+  
+        editValue: "",
+        editTarget: "",
+        isEditing: false
+      };
   }
 
   openEditor(target) {
