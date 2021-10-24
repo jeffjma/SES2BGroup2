@@ -3,7 +3,7 @@ import { Button, Modal } from 'react-bootstrap';
 import { Form } from 'react-bootstrap';
 import ButtonContained from "../../components/ButtonContained";
 import "./question-editor.css";
-
+import axios from "axios";
 
 class QuestionEditor extends Component {
 
@@ -127,8 +127,17 @@ class QuestionEditor extends Component {
   }
 
   // TODO
-  saveToDatabase() {
-    console.log("TODO: Save to database.");
+  handlesaveToDatabase(e) {
+    console.log("Save to database.");
+
+    axios
+      .post("http://localhost:5000/api/Question/add", this.state)
+      .then(res => {
+        console.log(res.data);
+      })
+      .catch(err =>
+        alert('Question Error. Try again')
+      );
   }
 
   openEditor(target) {
@@ -206,7 +215,7 @@ class QuestionEditor extends Component {
         <div class="row saveButtonRow">
           <div class="col"></div>
           <div class="col-4">
-            <ButtonContained variant="contained" color="primary" onClick={this.saveToDatabase}>
+            <ButtonContained variant="contained" color="primary" onClick={this.handlesaveToDatabase}>
               Save
             </ButtonContained>
           </div>
