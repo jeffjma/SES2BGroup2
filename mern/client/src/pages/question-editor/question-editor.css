@@ -143,3 +143,7 @@ input[type="radio"]:checked + label:after {
     margin-top: 50px !important;
     text-align: center;
 }
+
+.bottomDropdowns {
+    margin-top: 10px;
+}

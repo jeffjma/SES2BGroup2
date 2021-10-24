@@ -13,7 +13,9 @@ class QuestionEditor extends Component {
     this.state = {
       question: {
         name: "Some question.",
-        challenge: "Basic"
+        challenge: "Basic",
+        type: "mc",
+        subtopic: ""
       },
       answers: [
         ["Answer goes here.", true],
@@ -28,9 +30,13 @@ class QuestionEditor extends Component {
     };
 
     [ this.state.question, this.state.answers ] = this.getData();
-    
+
+    this.subtopics = this.getSubtopics();
+
     this.setCorrectAnswer = this.setCorrectAnswer.bind(this);
     this.setChallenge = this.setChallenge.bind(this);
+    this.setType = this.setType.bind(this);
+    this.setSubtopic = this.setSubtopic.bind(this);
     this.doEdit = this.doEdit.bind(this);
     this.saveToDatabase = this.saveToDatabase.bind(this);
     this.openEditor = this.openEditor.bind(this);
@@ -40,7 +46,9 @@ class QuestionEditor extends Component {
   getData() {
     var question = {
       name: "Question goes here.",
-      challenge: "Basic"
+      challenge: "Basic",
+      type: "mc",
+      subtopic: ""
     };
 
     var answers = [
@@ -52,6 +60,18 @@ class QuestionEditor extends Component {
 
     return [question, answers];
   };
+
+  getSubtopics() {
+    // (database value, shown value) 
+
+    return [
+      ["Algebra", "Algebra"],
+      ["arithmetic", "Arithmetic"],
+      ["calculus", "Calculus"],
+      ["Chemistry", "Chemistry"],
+      ["Biology", "Biology"]
+    ];
+  }
 
   setCorrectAnswer(e) {
     var answerID = e.target.id.slice(-1);
@@ -67,6 +87,20 @@ class QuestionEditor extends Component {
   setChallenge(e) {
     var temp = this.state.question;
     temp["challenge"] = e.target.value;
+
+    this.setState({ question: temp });
+  }
+
+  setType(e) {
+    var temp = this.state.question;
+    temp["type"] = e.target.value;
+
+    this.setState({ question: temp });
+  }
+
+  setSubtopic(e) {
+    var temp = this.state.question;
+    temp["subtopic"] = e.target.value;
 
     this.setState({ question: temp });
   }
@@ -180,6 +214,29 @@ class QuestionEditor extends Component {
               </div>
             ))
           }
+
+          <div class="row">
+            <div class="col-9"></div>
+            <div class="col">
+              <Form.Select bsPrefix="form-select centerV bottomDropdowns" value={this.state.question.type} onChange={this.setType}>
+                <option value="mc">Multiple Choice</option>
+                <option value="sa">Short Answer</option>
+                <option value="cb">Checkbox</option>
+              </Form.Select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-9"></div>
+            <div class="col">
+              <Form.Select bsPrefix="form-select centerV bottomDropdowns" value={this.state.question.subtopic} onChange={this.setSubtopic}>
+                {
+                  this.subtopics.map(subtopic => (
+                    <option value={subtopic[0]}>{subtopic[1]}</option>
+                  ))
+                }
+              </Form.Select>
+            </div>
+          </div>
         </div>
 
         <div>
