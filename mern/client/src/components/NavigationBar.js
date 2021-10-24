@@ -64,7 +64,7 @@ const SubHeader = ({ subjectName, buttonName, dashboardClick, buttonClick }) => 
      */}
         {subjectName != null ? (
           <Col xs={6} className={styles.section2}>
-            <a href="#subject">{subjectName}</a>
+            <a href="">{subjectName}</a>
           </Col>
         ) : null}
         {buttonName != null ? (

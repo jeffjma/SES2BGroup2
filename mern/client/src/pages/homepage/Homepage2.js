@@ -28,7 +28,7 @@ class Homepage2 extends Component{
     this.state = {
       userID: cookies.get('userid'),
       UserName: '',                                   // Name of User
-      SubjectName: 'TestSubjectName',                 // Name of Subjects
+      SubjectName: '',                                // Name of Subjects
       AvailableAss: '',                               // Numbers of Assessments shown in table
       CompletedCheckBox: false,                       // Boolean for check whether checkbox("Completed") is clicked
       NotAttemptedCheckBox: false,                    // Boolean for check whether checkbox("NotAttempted") is clicked
@@ -55,7 +55,11 @@ class Homepage2 extends Component{
     })
 
     if(this.props.location?.state?.subjectID != null) {
-      console.log(this.props.location?.state?.subjectID.path)
+      console.log(this.props.location?.state?.subjectID)
+      console.log(this.props.location?.state?.subjectName)
+      this.setState({
+        SubjectName: this.props.location?.state?.subjectName.subname
+      })
     }
 
     var Sub= this.state.AllAssOfSubjects;             // Temporary array for AllAssOfSubjects value

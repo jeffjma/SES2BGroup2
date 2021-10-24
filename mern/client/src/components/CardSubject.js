@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import styles from "../styles/card.module.css";
 import placeholderImage from "../assets/placeholder-card.png";
 
-const CardSubject = ({ children, path, assetImage }) => {
+const CardSubject = ({ children, path, assetImage, subname }) => {
   /**
    * @param {String} assetImage url of the subject's image
    * @param {String} children The name of the subject
@@ -30,7 +30,8 @@ const CardSubject = ({ children, path, assetImage }) => {
           <Link to={{
             pathname: '/home/subjects', 
             state: {
-              subjectID: {path}
+              subjectID: {path},
+              subjectName: {subname}
             }
           }}>
             <span></span>
