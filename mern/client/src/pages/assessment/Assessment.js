@@ -72,7 +72,7 @@ class Assessment extends Component {
     })
   }
 
-// makes button move onto the next question
+  // makes button move onto the next question
   nextQuestion = (questionNumber) => {
     this.state.levels.push(this.state.question.difficulty);
     this.state.results.push(this.state.chosenAnswer === this.state.question.correctAnswer[0]);
