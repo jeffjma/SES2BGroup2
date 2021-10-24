@@ -40,11 +40,19 @@ class Homepage extends Component{
         this.setState({ 
             UserName: res.data.name,
         })
-        for (var i = 0; i < res.data.currentSubjects.length; i++) {
-          let { AllSubjects } = this.state;
-          AllSubjects.push({id: i, name: res.data.currentSubjects[i], status: 1})
-          this.setState({ AllSubjects: AllSubjects});
-        }
+    })
+
+    axios
+    .post("http://localhost:5000/api/users/subjects", {
+      userID: this.state.userID
+    })
+    .then(res => {
+      console.log(res.data.subjectID.length);
+      for (var i = 0; i < res.data.subjectID.length; i++) {
+        let { AllSubjects } = this.state;
+        AllSubjects.push({id: i, name: res.data.name[i], status: res.data.subjectID[i]})
+        this.setState({ AllSubjects: AllSubjects});
+      }
     })
 
     var Sub= this.state.AllSubjects;             // Temporary array for AllAssOfSubjects value
@@ -82,7 +90,7 @@ class Homepage extends Component{
         {this.state.SelectedSubjects.map(SelectedSubject=>(
                <td key={SelectedSubject.id}>   
                <Col md>             
-                 <CardSubject path={SelectedSubject.name} assetImage={SelectedSubject.logo}>
+                 <CardSubject path={SelectedSubject.status} assetImage={SelectedSubject.logo}>
                    {SelectedSubject.name}
                   </CardSubject>  
                   </Col>         
