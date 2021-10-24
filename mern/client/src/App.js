@@ -19,7 +19,8 @@ import {
     ExaminerHome,
     ExaminerHome2,
     Post,
-    QuestionPool
+    QuestionPool,
+    QuestionEditor
 } from "./pages/Routes";
 import { CookiesProvider, useCookies } from 'react-cookie';
 import ProtectedRoute from './ProtectedRoute';
@@ -68,9 +69,9 @@ function App() {
               <Route exact path="/ExaminerHome" component={ExaminerHome}/>
               <ProtectedRoute path="/ExaminerHome/Subjects" exact strict component={ExaminerHome2} isAuth={exatype}/>
               <ProtectedRoute path="/QuestionPool" component={QuestionPool} isAuth={exatype}/>
+              <ProtectedRoute path="/QuestionEditor" component={QuestionEditor} isAuth={exatype}/>
             </CookiesProvider>
           </Router>
-
       </div>
     );  
 }
