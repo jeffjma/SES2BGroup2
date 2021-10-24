@@ -45,7 +45,7 @@ export default class Assessment extends Component {
     correctAnswers: {
       1:'3',
       2:['1','2','4'],
-      3:['and Antithesis']
+      3:'and Antithesis'
     },
     correctAnswer: 0,
     difficulty: {
@@ -55,18 +55,54 @@ export default class Assessment extends Component {
     },
     chosenAnswer: 0,
     studentScore:0
-
   }
 
-//checks if answers are correct and adds to student score 
+  //checks if answers are correct and adds to student score 
   checkAnswer = answer => {
-    const{ correctAnswers, questionNumber, studentScore } = this.state;
+    const{ correctAnswers, questionNumber, questionTypes, studentScore } = this.state;
+
+    if(questionTypes[questionNumber] === 'mc'){
+      if(answer === correctAnswers[questionNumber]){
+        this.setState({
+            studentScore: studentScore + 1,
+            correctAnswer: correctAnswers[questionNumber],
+            chosenAnswer: answer
+        });
+      }
+
+      else{
+        this.setState({
+            correctAnswer: 0,
+            chosenAnswer: answer
+        });
+      }
+    }
     
-    if(answer === correctAnswers[questionNumber]){
+    else if(questionTypes[questionNumber] === 'cb'){
+      var selectedAnswers = []; 
+      for(var i = 0; i < correctAnswers[questionNumber].length; i++){
+        if(answer === selectedAnswers[i] && (selectedAnswers[i] === correctAnswers[questionNumber])){
+          this.setState({
+            studentScore: studentScore + 1,
+            correctAnswer: correctAnswers[questionNumber],
+            chosenAnswer: selectedAnswers[i]
+          });
+        }
+        
+        else{
+          this.setState({
+              correctAnswer: 0,
+              chosenAnswer: answer
+          });
+        }
+      }
+    }
+
+    else if(questionTypes[questionNumber] === 'sa'){
       this.setState({
-          studentScore: studentScore + 1,
-          correctAnswer: correctAnswers[questionNumber],
-          chosenAnswer: answer
+        studentScore: studentScore + 1,
+        correctAnswer: correctAnswers[questionNumber],
+        chosenAnswer: answer
       });
     }
 
@@ -78,7 +114,7 @@ export default class Assessment extends Component {
     }
   }
 
-// makes button move onto the next question
+  // makes button move onto the next question
   nextQuestion = (questionNumber) => {
     this.setState({
         questionNumber: questionNumber + 1,
