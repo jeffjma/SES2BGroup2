@@ -40,7 +40,7 @@ function GetExaType() {
     if(usertype === "examiner"){
       return true;
     }
-  return false;
+  return true;
 }
 
 function App() {

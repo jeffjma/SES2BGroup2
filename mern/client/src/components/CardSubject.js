@@ -30,7 +30,7 @@ const CardSubject = ({ children, path, assetImage }) => {
           <Link to={{
             pathname: '/home/subjects', 
             state: {
-              subjectID: "hello"
+              subjectID: {path}
             }
           }}>
             <span></span>

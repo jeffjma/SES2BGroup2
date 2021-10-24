@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 
-const NavigationBar = ({ username, hasSubHeader, subjectName, profileClick, logoClick, dashboardClick, buttonName }) => {
+const NavigationBar = ({ username, hasSubHeader, subjectName, profileClick, logoClick, dashboardClick, buttonName, buttonClick }) => {
   /**
    * @param {String} username Current username display on right side of navigation bar
    * @param {String} subjectName Current subject name displayed
@@ -44,12 +44,13 @@ const NavigationBar = ({ username, hasSubHeader, subjectName, profileClick, logo
       {hasSubHeader ? <SubHeader 
                           subjectName={subjectName} 
                           buttonName={buttonName} 
-                          dashboardClick={dashboardClick}/> : null}
+                          dashboardClick={dashboardClick}
+                          buttonClick={buttonClick}/> : null}
     </React.Fragment>
   );
 };
 
-const SubHeader = ({ subjectName, buttonName, dashboardClick }) => {
+const SubHeader = ({ subjectName, buttonName, dashboardClick, buttonClick }) => {
 
   return (
     <Container className={styles.subHeader} fluid>
@@ -68,7 +69,7 @@ const SubHeader = ({ subjectName, buttonName, dashboardClick }) => {
         ) : null}
         {buttonName != null ? (
           <Col className={styles.section3}>
-            <ButtonOutlined>{buttonName}</ButtonOutlined>
+            <ButtonOutlined onClick={buttonClick}>{buttonName}</ButtonOutlined>
           </Col>
         ) : null}
       </Row>

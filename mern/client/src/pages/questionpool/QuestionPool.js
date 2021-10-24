@@ -4,13 +4,21 @@ import "./QuestionPool.css";
 import NaviBar from "../../components/NavigationBar";
 //import font-awesome icons
 import 'font-awesome/css/font-awesome.min.css';
+import { withCookies, Cookies } from 'react-cookie';
+import { instanceOf } from 'prop-types';
+import { withRouter } from 'react-router-dom';
+import { compose } from 'recompose';
 import { Pagination } from 'react-bootstrap';
 
 
 class QuestionPool extends Component{
+    static propTypes = {
+        cookies: instanceOf(Cookies).isRequired
+      };
     
     constructor(props){
         super(props)
+        const { cookies } = props;
         this.state = {
             UserName: "Examiner",
             SubjectName: "TestSubjectName",
@@ -87,6 +95,9 @@ class QuestionPool extends Component{
             PagesContents: this.state.QuestionsArrays.slice((n-1)*8,(n-1)*8+8)
         }); 
     }
+    redirectAddQuestion() {
+        this.props.history.push('/QuestionEditor');
+      }
 
     render(){
         return(
@@ -98,10 +109,11 @@ class QuestionPool extends Component{
                         username={this.state.UserName}
                         hasSubHeader = "true"
                         subjectName = {this.state.SubjectName}
-                        profileClick = "/Profile"
+                        profileClick = "/ExaminerHome"
                         buttonName = "Add Question"
                         dashboardClick = "/ExaminerHome"
                         logoClick = "/ExaminerHome"
+                        buttonClick={this.redirectAddQuestion.bind(this)}
                     ></NaviBar>
                     </div>
 
@@ -149,4 +161,4 @@ class QuestionPool extends Component{
     }
 }
 
-export default QuestionPool;
+export default compose(withRouter, withCookies)(QuestionPool);

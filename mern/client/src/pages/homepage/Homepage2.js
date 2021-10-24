@@ -9,6 +9,8 @@ import NaviBar from "../../components/NavigationBar";
 import ButtonOutlined from "../../components/ButtonOutlined";
 import { withCookies, Cookies } from 'react-cookie';
 import { instanceOf } from 'prop-types';
+import { withRouter } from 'react-router-dom';
+import { compose } from 'recompose';
 import "./Homepage2.css";
 
 const api = axios.create({
@@ -52,8 +54,8 @@ class Homepage2 extends Component{
         })
     })
 
-    if(this.props.location.state.subjectID != null) {
-      console.log(this.props.location.state.subjectID)
+    if(this.props.location?.state?.subjectID != null) {
+      console.log(this.props.location?.state?.subjectID.path)
     }
 
     var Sub= this.state.AllAssOfSubjects;             // Temporary array for AllAssOfSubjects value
@@ -183,4 +185,4 @@ class Homepage2 extends Component{
   }
 };
 
-export default withCookies(Homepage2);
+export default compose(withRouter, withCookies)(Homepage2);
