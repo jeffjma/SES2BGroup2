@@ -1,20 +1,31 @@
 //this page is Homepage 4.5 in figma
 import React, {Component} from 'react';
+import axios from "axios";
 //import font-awesome icons
 import 'font-awesome/css/font-awesome.min.css';
 //import NavigationBar from components
 import NaviBar from "../../components/NavigationBar";
 //import ButtonOutlined from components
 import ButtonOutlined from "../../components/ButtonOutlined";
+import { withCookies, Cookies } from 'react-cookie';
+import { instanceOf } from 'prop-types';
 import "./Homepage2.css";
 
+const api = axios.create({
+  baseURL: `http://localhost:5000/api/users/profile`
+})
+
 class Homepage2 extends Component{
+  static propTypes = {
+    cookies: instanceOf(Cookies).isRequired
+  };
 
   constructor(props){
     super(props)
+    const { cookies } = props;
     this.state = {
-      //this state values are now only for test before fetching data from api
-      UserName: 'John Smith',                       // Name of User
+      userID: cookies.get('userid'),
+      UserName: '',                                   // Name of User
       SubjectName: 'TestSubjectName',                 // Name of Subjects
       AvailableAss: '',                               // Numbers of Assessments shown in table
       CompletedCheckBox: false,                       // Boolean for check whether checkbox("Completed") is clicked
@@ -30,6 +41,21 @@ class Homepage2 extends Component{
   }
 
   componentDidMount(){
+
+    api.post('/', {
+      userID: this.state.userID
+   })
+    .then(res => {
+        console.log(res.data)
+        this.setState({ 
+            UserName: res.data.name,
+        })
+    })
+
+    if(this.props.location.state.subjectID != null) {
+      console.log(this.props.location.state.subjectID)
+    }
+
     var Sub= this.state.AllAssOfSubjects;             // Temporary array for AllAssOfSubjects value
     this.setState({SelectedSubjects: []});            // Set SelectedSubjects to null before running
     
@@ -157,4 +183,4 @@ class Homepage2 extends Component{
   }
 };
 
-export default Homepage2;
+export default withCookies(Homepage2);

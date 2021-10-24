@@ -82,7 +82,7 @@ class Homepage extends Component{
         {this.state.SelectedSubjects.map(SelectedSubject=>(
                <td key={SelectedSubject.id}>   
                <Col md>             
-                 <CardSubject path="./home/subjects" assetImage={SelectedSubject.logo}>
+                 <CardSubject path={SelectedSubject.name} assetImage={SelectedSubject.logo}>
                    {SelectedSubject.name}
                   </CardSubject>  
                   </Col>         
