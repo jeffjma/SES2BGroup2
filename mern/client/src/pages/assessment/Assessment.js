@@ -9,7 +9,8 @@ import "./Assessment.css";
 import Timer from "./Timer.js";
 import Question from "./attributes/Question";
 import Answer from "./attributes/Answer"
-import { Homepage } from "../Routes";
+import { Post } from "../Routes";
+import { Redirect } from "react-router";
 
 const api = axios.create({
   baseURL: `http://localhost:5000/api/users/profile`
@@ -25,6 +26,7 @@ class Assessment extends Component {
     const { cookies } = props;
     this.state = {
       userID: cookies.get('userid'),
+      UserName: 'John Smith',
       question: {
         1:'What is 2+2?',
         2:'What colour is the sky?',
@@ -94,15 +96,12 @@ class Assessment extends Component {
         7:'3'
       },
       correctAnswer: 0,
-      chosenAnswer: 0,
+      chosenAnswer: '',
       questionNumber: 1,
-      studentScore:0,
-      UserName: 'John Smith',   
+      difficulties:[],
+      responses:[]
     }
   }
-
-// dummy code, i had a seperate .js file before but too much of a hassle to use it. i just put it in here knowing it'll be gone
-  
 
   componentDidMount(){
     api.post('/', {
@@ -118,22 +117,9 @@ class Assessment extends Component {
 
 //checks if answers are correct and adds to student score 
   checkAnswer = answer => {
-    const{ correctAnswers, questionNumber, studentScore } = this.state;
-
-    if(answer === correctAnswers[questionNumber]){
-      this.setState({
-        studentScore: studentScore + 1,
-        correctAnswer: correctAnswers[questionNumber],
-        chosenAnswer: answer
-      });
-    }
-
-    else{
-      this.setState({
-          correctAnswer: 0,
-          chosenAnswer: answer
-      });
-    }
+    const{ questionNumber } = this.state;
+    this.state.chosenAnswer = this.state.answers[questionNumber][answer];
+    console.log(this.state.chosenAnswer);
   }
 
 // makes button move onto the next question
@@ -194,10 +180,8 @@ class Assessment extends Component {
 
         {/* the 'else' statement: what happens after the question length goes over aka moving to post-assessment page */}
         </>) : (
-
           //change to post-assessment but i used homepage to test functionality
-          <Homepage />
-
+          <Redirect to='/Home'/>
          )
         }
       </React.Fragment>
