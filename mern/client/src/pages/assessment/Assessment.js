@@ -11,10 +11,6 @@ import Question from "./attributes/Question";
 import Answer from "./attributes/Answer";
 import { Redirect } from "react-router";
 
-const api = axios.create({
-  baseURL: `http://localhost:5000/api/users/profile`
-})
-
 class Assessment extends Component {
   static propTypes = {
     cookies: instanceOf(Cookies).isRequired
@@ -26,6 +22,7 @@ class Assessment extends Component {
     this.state = {
       userID: cookies.get('userid'),
       UserName: 'John Smith',
+      testId: '616abdbcbab32b5cfab1fb45',
       question: {
         1:'What is 2+2?',
         2:'What colour is the sky?',
@@ -94,17 +91,18 @@ class Assessment extends Component {
         6:'1',
         7:'3'
       },
-      correctAnswer: 0,
       chosenAnswer: '',
       questionNumber: 1,
-      difficulties:[],
-      responses:[]
+      questions:[],
+      levels:[],
+      results:[],
+      question1: {}
     }
   }
 
-  //Gets
+  //Gets username
   componentDidMount(){
-    api.post('/', {
+    axios.post('http://localhost:5000/api/users/profile', {
       userID: this.state.userID
    })
     .then(res => {
@@ -112,7 +110,20 @@ class Assessment extends Component {
         this.setState({ 
             UserName: res.data.name,
         })
+    });
+
+    axios.post('http://localhost:5000/api/tests/getNextQuestion', {
+      test: this.state.testId,
+      questions: this.state.questions,
+      levels: this.state.levels,
+      results: this.state.results
     })
+    .then(res => {
+      console.log(res.data);
+      this.setState({
+        question1: res.data.question
+      });
+    });
   }
 
 //Selects an answer by updating chosenAnswer
@@ -128,21 +139,17 @@ class Assessment extends Component {
 // makes button move onto the next question
   nextQuestion = (questionNumber) => {
     this.setState({
-        questionNumber: questionNumber + 1,
-        correctAnswer: 0,
-        clickedAnswer: 0
+        questionNumber: questionNumber + 1
     });
   }
 
   render() {
-    let { question, answers, correctAnswer, chosenAnswer, questionNumber} = this.state;
-    //Rediects if question number is greater than question length
+    let { question, answers, chosenAnswer, questionNumber} = this.state;
+    //Redirects if question number is greater than question length
     if (questionNumber > Object.keys(question).length) {
       return (
-        <React.Fragment>
-          <Redirect to='/Home'/>
-        </React.Fragment>
-      )
+        <Redirect to='/Home'/>
+      );
     }
     return (
       <React.Fragment>
@@ -159,12 +166,13 @@ class Assessment extends Component {
           </div>
   
           <h4 className="questionTitle">Question {questionNumber}: </h4>
-  
-          <Question question={question[questionNumber]} />
+
+          <Question question={this.state.question1.question} />
 
           {/* looks over which answers need to be put for which question number + tracking the chosen answers*/}
-          <Answer answer={answers[questionNumber]} selectAnswer={this.selectAnswer} />
-          
+          {(this.state.question1.questionType === 'mc') ?
+          <Answer answer={this.state.question1.answers} selectAnswer={this.selectAnswer} />:<></>
+          }
           <ButtonGroup className="button" >
             <ButtonContained 
               className="nextQuestion"

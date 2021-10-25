@@ -4,7 +4,7 @@ import { Form } from "react-bootstrap";
 
 const Answer = (props) => {
     // lets all answer keys be brought from assessment.js
-    let answer = Object.keys(props.answer)
+    let answer = props.answer
 
     // basic map of how answers should be structured in quiz
     .map((qAnswer, i)=> (
@@ -20,7 +20,7 @@ const Answer = (props) => {
             />
             <label class="form-check-label" for={i}>
                 <h5 key={qAnswer}>
-                    {props.answer[qAnswer]}
+                    {qAnswer}
                 </h5>
             </label>
         </div>
