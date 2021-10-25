@@ -11,7 +11,7 @@ const checkboxAnswer = (props) => {
             <div className="form-check">
                   <input
                     type="checkbox"
-                    name="answer"
+                    name="cbAnswer"
                     id="assessment"
                     onClick={() => props.checkAnswer(qAnswer)}
                     required

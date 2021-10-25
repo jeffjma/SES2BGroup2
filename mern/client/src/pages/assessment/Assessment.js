@@ -8,7 +8,7 @@ import Question from "./attributes/Question";
 import RadioAnswer from "./attributes/radioAnswer"
 import CheckboxAnswer from "./attributes/checkboxAnswer"
 import TextAnswer from "./attributes/textAnswer"
-import { Homepage } from "../Routes";
+// import { Homepage } from "../Routes";
 
 export default class Assessment extends Component {
 
@@ -45,7 +45,7 @@ export default class Assessment extends Component {
     correctAnswers: {
       1:'3',
       2:['1','2','4'],
-      3:'and Antithesis'
+      3:"and Antithesis"
     },
     correctAnswer: 0,
     difficulty: {
@@ -80,30 +80,53 @@ export default class Assessment extends Component {
     
     else if(questionTypes[questionNumber] === 'cb'){
       var selectedAnswers = []; 
-      for(var i = 0; i < correctAnswers[questionNumber].length; i++){
-        if(answer === selectedAnswers[i] && (selectedAnswers[i] === correctAnswers[questionNumber])){
-          this.setState({
-            studentScore: studentScore + 1,
-            correctAnswer: correctAnswers[questionNumber],
-            chosenAnswer: selectedAnswers[i]
-          });
+      let index = selectedAnswers.indexOf(answer);
+      
+      for(var i = 0; i < answer.length; i++){
+        if(answer[i] === correctAnswers[questionNumber]){
+          selectedAnswers.push(answer[i]);
         }
-        
         else{
-          this.setState({
-              correctAnswer: 0,
-              chosenAnswer: answer
-          });
+          if(index !== -1){
+            selectedAnswers.splice(index, 1);
+          }
         }
+      }
+
+      if(selectedAnswers.value === correctAnswers[questionNumber].value){
+        this.setState({
+          studentScore: studentScore + 1,
+          correctAnswer: correctAnswers[questionNumber],
+          chosenAnswer: answer[i]
+        });
+      }
+
+      else{
+        this.setState({
+          correctAnswer: 0,
+          chosenAnswer: answer
+        });
       }
     }
 
     else if(questionTypes[questionNumber] === 'sa'){
-      this.setState({
-        studentScore: studentScore + 1,
-        correctAnswer: correctAnswers[questionNumber],
-        chosenAnswer: answer
-      });
+      var textAnswer = correctAnswers[questionNumber];
+      var textValue = answer.value;
+
+      if(answer === textValue && (textValue.indexOf(textAnswer) !== -1)){
+        this.setState({
+          studentScore: studentScore + 1,
+          correctAnswer: correctAnswers[questionNumber],
+          chosenAnswer: answer
+        });
+      }
+
+      else{
+        this.setState({
+          correctAnswer: 0,
+          chosenAnswer: answer
+        });
+      }
     }
 
     else{
@@ -196,7 +219,7 @@ export default class Assessment extends Component {
           //change to post-assessment but i used homepage to test functionality
           // <Homepage />
           <div className="finalPage">
-            <p>Student Score is {studentScore} of {Object.keys(question).length}</p>
+            <p>Student Score is {studentScore}</p>
           </div>
           
          )
