@@ -26,12 +26,7 @@ class Homepage extends Component{
       UserName: '',                       // Name of User
       SubjectName: 'TestSubjectName',                 // Name of Subjects
       AvailableSubjects: '',                               // Numbers of Subjects shown in table
-      AllSubjects:[                              // All Subjects (which is for test only before 
-        {id: "1", name:"test", status: "1"},          // Fetching data from database)
-        {id: "2", name:"test", status: "1"},
-        {id: "3", name:"test", status: "1"},
-        {id: "4", name:"test", status: "1"},
-      ],
+      AllSubjects:[],
       SelectedSubjects:[],                            // All selected subjects
     }
   }  
@@ -45,6 +40,19 @@ class Homepage extends Component{
         this.setState({ 
             UserName: res.data.name,
         })
+    })
+
+    axios
+    .post("http://localhost:5000/api/users/subjects", {
+      userID: this.state.userID
+    })
+    .then(res => {
+      console.log(res.data.subjectID.length);
+      for (var i = 0; i < res.data.subjectID.length; i++) {
+        let { AllSubjects } = this.state;
+        AllSubjects.push({id: i, name: res.data.name[i], status: res.data.subjectID[i]})
+        this.setState({ AllSubjects: AllSubjects});
+      }
     })
 
     var Sub= this.state.AllSubjects;             // Temporary array for AllAssOfSubjects value
@@ -82,7 +90,7 @@ class Homepage extends Component{
         {this.state.SelectedSubjects.map(SelectedSubject=>(
                <td key={SelectedSubject.id}>   
                <Col md>             
-                 <CardSubject path="./home/subjects" assetImage={SelectedSubject.logo}>
+                 <CardSubject path={SelectedSubject.status} subname={SelectedSubject.name} assetImage={SelectedSubject.logo}>
                    {SelectedSubject.name}
                   </CardSubject>  
                   </Col>         

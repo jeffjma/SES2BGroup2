@@ -1,14 +1,16 @@
 import React from "react";
 import { Card } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import styles from "../styles/card.module.css";
 import placeholderImage from "../assets/placeholder-card.png";
 
-const CardSubject = ({ children, path, assetImage }) => {
+const CardSubject = ({ children, path, assetImage, subname }) => {
   /**
    * @param {String} assetImage url of the subject's image
    * @param {String} children The name of the subject
    * @param {String} path url to subject's page
    */
+
   return (
         <Card className={styles.card}>
           {/* 
@@ -25,9 +27,15 @@ const CardSubject = ({ children, path, assetImage }) => {
           If no {path} is given, a placeholder path is shown
           */}
           </Card.Body>
-          <a href={path != null ? path : "#subject-page"}>
+          <Link to={{
+            pathname: '/home/subjects', 
+            state: {
+              subjectID: {path},
+              subjectName: {subname}
+            }
+          }}>
             <span></span>
-          </a>
+          </Link>
         </Card>
   );
 };

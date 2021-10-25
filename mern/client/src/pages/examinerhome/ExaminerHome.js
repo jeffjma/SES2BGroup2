@@ -2,11 +2,18 @@ import React, { Component } from "react";
 import "./ExaminerHome.css";
 import NavBar from "../../components/NavigationBar";
 import CardSubjectExaminer from "../../components/CardSubjectExaminer.js";
+import { withCookies, Cookies } from 'react-cookie';
+import { instanceOf } from 'prop-types';
 import { Col, Row, Container } from "react-bootstrap";
 
 class ExaminerHome extends Component {
+  static propTypes = {
+    cookies: instanceOf(Cookies).isRequired
+  };
+
   constructor(props) {
     super(props);
+    const { cookies } = props;
     this.state = {
       //this state values are now only for test before fetching data from api
       username: "Examiner", // Name of User
@@ -92,4 +99,4 @@ class ExaminerHome extends Component {
   }
 }
 
-export default ExaminerHome;
+export default withCookies(ExaminerHome);

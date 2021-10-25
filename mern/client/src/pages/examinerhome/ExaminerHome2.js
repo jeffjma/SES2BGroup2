@@ -2,11 +2,20 @@ import React, { Component } from "react";
 import "./ExaminerHome2.css";
 import NavBar from "../../components/NavigationBar";
 import CardAssessmentExaminer from "../../components/CardAssessmentExaminer.js";
+import { withCookies, Cookies } from 'react-cookie';
+import { instanceOf } from 'prop-types';
+import { withRouter } from 'react-router-dom';
+import { compose } from 'recompose';
 import { Col, Row, Container } from "react-bootstrap";
 
 class ExaminerHome2 extends Component {
+  static propTypes = {
+    cookies: instanceOf(Cookies).isRequired
+  };
+
   constructor(props) {
     super(props);
+    const { cookies } = props;
     this.state = {
       //this state values are now only for test before fetching data from api
       username: "Examiner", // Name of User
@@ -107,6 +116,10 @@ class ExaminerHome2 extends Component {
     };
   }
 
+  redirectAddTest() {
+    this.props.history.push('/QuestionPool');
+  }
+
   render() {
     let SubScript = ( // The left table script showing the subjects details
       <Row>
@@ -136,6 +149,7 @@ class ExaminerHome2 extends Component {
             profileClick="/ExaminerHome"
             logoClick="/ExaminerHome"
             dashboardClick="/ExaminerHome"
+            buttonClick={this.redirectAddTest.bind(this)}
           ></NavBar>
         </div>
         <div className="overview-container">
@@ -149,4 +163,4 @@ class ExaminerHome2 extends Component {
   }
 }
 
-export default ExaminerHome2;
+export default compose(withRouter, withCookies)(ExaminerHome2);

@@ -15,7 +15,6 @@
     "chartjs-plugin-labels": "^1.1.0",
     "font-awesome": "^4.7.0",
     "jquery": "^3.6.0",
-    "node-sass": "4.14.1",
     "react": "^17.0.2",
     "react-bootstrap": "^2.0.0-beta.6",
     "react-chartjs-2": "^3.0.5",
@@ -26,6 +25,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "react-timer-hook": "^3.0.5",
+    "recompose": "^0.30.0",
     "sass": "^1.39.2",
     "web-vitals": "^1.0.1"
   },

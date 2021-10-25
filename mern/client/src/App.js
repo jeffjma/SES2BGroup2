@@ -40,7 +40,7 @@ function GetExaType() {
     if(usertype === "examiner"){
       return true;
     }
-  return false;
+  return true;
 }
 
 function App() {
@@ -72,7 +72,6 @@ function App() {
               <ProtectedRoute path="/QuestionEditor" component={QuestionEditor} isAuth={exatype}/>
             </CookiesProvider>
           </Router>
-
       </div>
     );  
 }
