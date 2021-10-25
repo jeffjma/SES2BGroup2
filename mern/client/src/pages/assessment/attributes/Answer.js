@@ -9,24 +9,23 @@ const Answer = (props) => {
     // basic map of how answers should be structured in quiz
     .map((qAnswer, i)=> (
         <div className="form-check" >
-              <input
+            <input
                 class="form-check-radio"
                 type="radio"
                 name="answer"
-                id="assessment"
+                id= {i}
                 value="option"
                 onClick={() => props.checkAnswer(qAnswer)}
                 required
-              />
-              <label class="form-check-label" for="assessment1">
-        <h5 key={qAnswer}>
-            {props.answer[qAnswer]}
-        </h5>
-        </label>
+            />
+            <label class="form-check-label" for={i}>
+                <h5 key={qAnswer}>
+                    {props.answer[qAnswer]}
+                </h5>
+            </label>
         </div>
     ));
     return(
-        
         <Form className="multipleChoice">
                 {answer}
         </Form>
