@@ -8,8 +8,7 @@ import { instanceOf } from 'prop-types';
 import "./Assessment.css";
 import Timer from "./Timer.js";
 import Question from "./attributes/Question";
-import Answer from "./attributes/Answer"
-import { Post } from "../Routes";
+import Answer from "./attributes/Answer";
 import { Redirect } from "react-router";
 
 const api = axios.create({
@@ -103,6 +102,7 @@ class Assessment extends Component {
     }
   }
 
+  //Gets
   componentDidMount(){
     api.post('/', {
       userID: this.state.userID
@@ -115,9 +115,12 @@ class Assessment extends Component {
     })
   }
 
-//checks if answers are correct and adds to student score 
-  checkAnswer = answer => {
-    const{ questionNumber } = this.state;
+//Selects an answer by updating chosenAnswer
+  selectAnswer = answer => {
+    const{answers, questionNumber } = this.state;
+    this.setState({
+      chosenAnswer: answers[questionNumber][answer]
+    })
     this.state.chosenAnswer = this.state.answers[questionNumber][answer];
     console.log(this.state.chosenAnswer);
   }
@@ -133,12 +136,16 @@ class Assessment extends Component {
 
   render() {
     let { question, answers, correctAnswer, chosenAnswer, questionNumber} = this.state;
-
+    //Rediects if question number is greater than question length
+    if (questionNumber > Object.keys(question).length) {
+      return (
+        <React.Fragment>
+          <Redirect to='/Home'/>
+        </React.Fragment>
+      )
+    }
     return (
       <React.Fragment>
-        {/* basically says if question number is equal to or under the length, do the quiz*/}
-        {questionNumber <= Object.keys(question).length ? 
-          (<>
         <NavigationBar
           username={this.state.UserName}
           profileClick = "/Profile"
@@ -147,8 +154,8 @@ class Assessment extends Component {
   
         <div className="assessment-parent">
           <div className="headerObjects">
-          <h3>Example Test</h3>
-          <Timer />
+            <h3>Example Test</h3>
+            <Timer />
           </div>
   
           <h4 className="questionTitle">Question {questionNumber}: </h4>
@@ -156,34 +163,17 @@ class Assessment extends Component {
           <Question question={question[questionNumber]} />
 
           {/* looks over which answers need to be put for which question number + tracking the chosen answers*/}
-          <Answer
-                            answer={answers[questionNumber]}
-                            questionNumber={questionNumber}
-                            checkAnswer={this.checkAnswer}
-                            correctAnswer={correctAnswer}
-                            chosenAnswer={chosenAnswer}
-                        />
+          <Answer answer={answers[questionNumber]} selectAnswer={this.selectAnswer} />
           
           <ButtonGroup className="button" >
-          <ButtonContained
-                        className="nextQuestion"
-                        isDisabled={
-                        // supposed to disable the button until question is picked. worked for the first one but not the next ones. 
-                          chosenAnswer && Object.keys(question).length >= questionNumber
-                            ? false : true
-                        }
-
-                        // moves to the next question in dummy data
-                        onClick={() => this.nextQuestion(questionNumber)}>Next</ButtonContained>
+            <ButtonContained 
+              className="nextQuestion"
+              isDisabled={chosenAnswer === '' || Object.keys(question).length < questionNumber} //Disables the button if no answer is selected
+              onClick={() => this.nextQuestion(questionNumber)}> 
+                Next
+            </ButtonContained>
           </ButtonGroup>
         </div>
-
-        {/* the 'else' statement: what happens after the question length goes over aka moving to post-assessment page */}
-        </>) : (
-          //change to post-assessment but i used homepage to test functionality
-          <Redirect to='/Home'/>
-         )
-        }
       </React.Fragment>
     );
   }

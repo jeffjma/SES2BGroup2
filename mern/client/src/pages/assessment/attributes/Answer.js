@@ -15,7 +15,7 @@ const Answer = (props) => {
                 name="answer"
                 id= {i}
                 value="option"
-                onClick={() => props.checkAnswer(qAnswer)}
+                onClick={() => props.selectAnswer(qAnswer)}
                 required
             />
             <label class="form-check-label" for={i}>
