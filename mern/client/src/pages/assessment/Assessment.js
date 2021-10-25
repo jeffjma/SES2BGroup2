@@ -13,7 +13,7 @@ import { Redirect } from "react-router";
 import RadioAnswer from "./attributes/radioAnswer"
 import CheckboxAnswer from "./attributes/checkboxAnswer"
 import TextAnswer from "./attributes/textAnswer"
-import { Homepage } from "../Routes";
+// import { Homepage } from "../Routes";
 
 class Assessment extends Component {
   static propTypes = {

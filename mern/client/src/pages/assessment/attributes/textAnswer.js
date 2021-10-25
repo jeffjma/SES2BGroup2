@@ -10,12 +10,12 @@ const textAnswer = (props) => {
         .map((qAnswer, i)=> (
             <div className="form-group">
                   <textarea
-                    name="answer"
+                    name="saAnswer"
                     id="assessment"
                     rows="7"
-                    onClick={() => props.checkAnswer(qAnswer)}
+                    onChange={() => props.checkAnswer(qAnswer)}
                     required
-                  ></textarea>
+                  >{props.answer[qAnswer]}</textarea>
             </div>
         ));
 
