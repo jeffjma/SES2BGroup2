@@ -7,6 +7,7 @@ import { instanceOf } from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
 import { Col, Row, Container } from "react-bootstrap";
+import axios from "axios";
 
 class ExaminerHome2 extends Component {
   static propTypes = {
@@ -18,9 +19,10 @@ class ExaminerHome2 extends Component {
     const { cookies } = props;
     this.state = {
       //this state values are now only for test before fetching data from api
-      username: "Examiner", // Name of User
-      subjectName: "TestSubjectName",
+      userID: cookies.get('userid'),
+      subjectName: "",
       assessments: [
+        
         // All Subjects (which is for test only before Fetching data from database)
         {
           id: "1",
@@ -115,6 +117,32 @@ class ExaminerHome2 extends Component {
       ],
     };
   }
+  
+  componentDidMount(){
+
+    axios.post('http://localhost:5000/api/users/profile', {
+      userID: this.state.userID
+    })
+    .then(res => {
+        console.log(res.data)
+        this.setState({ 
+            UserName: res.data.name,
+            subjectName: res.data.subjectName,
+        })
+    });
+
+    axios.post("http://localhost:5000/api/tests/getForSubject", {
+      subject: this.state.subjectID
+    })
+    .then(res => {
+      console.log(res.data.tests.body.length);
+      /*for (var i = 0; i < res.data.subjectID.length; i++) {
+        let { tests } = this.state;
+        tests.push({id: i, name: res.data.name[i], status: res.data.subjectID[i]})
+        this.setState({ tests: tests});
+      }*/
+    })
+  }
 
   redirectAddTest() {
     this.props.history.push('/QuestionPool');
@@ -142,7 +170,7 @@ class ExaminerHome2 extends Component {
       <div className="examiner-home2-container">
         <div className="navbar-container">
           <NavBar
-            username={this.state.username}
+            username={this.state.UserName}
             hasSubHeader="true"
             subjectName={this.state.subjectName}
             buttonName="Add Test"
