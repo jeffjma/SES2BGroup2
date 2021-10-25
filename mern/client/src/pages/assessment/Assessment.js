@@ -23,80 +23,14 @@ class Assessment extends Component {
       userID: cookies.get('userid'),
       UserName: 'John Smith',
       testId: '616abdbcbab32b5cfab1fb45',
-      question: {
-        1:'What is 2+2?',
-        2:'What colour is the sky?',
-        3:'Between music, theater, and chariot racing, which sport did Nero win when he participated in the Olympics?',
-        4:'If angle C is 28 degrees, and angles A + D are equal to 88 degrees, what is the angle of B + E?',
-        5:'What’s one of the origins for the phrase “cat got your tongue”?',
-        6:'If we use “three watermelons in the sun” to visualize a certain matter’s size against the universe’s, what are the melons?',
-        7:'Counting both black and white surfaces, how many surfaces are there in total on a soccer ball?',
-      },
-      answers: {
-        1: {
-          1:'2',
-          2:'3',
-          3:'4',
-          4:'1'
-        },
-
-        2: {
-          1:'Hot Pink',
-          2:'Light Blue',
-          3:'Blood Red',
-          4:'Lime Green'
-        },
-
-        3: {
-          1:'Music',
-          2:'Theatre', 
-          3:'Chariot Racing', 
-          4:'All of them'
-        },
-
-        4: {
-          1:'74',
-          2:'64', 
-          3:'62', 
-          4:'40'
-        },
-
-        5: {
-          1:'Wild cats who don’t meow',
-          2:'Tongues are the same texture as a cat’s skin', 
-          3:'A breed of cat with no tongue', 
-          4:'Cats eating human tongues'
-        },
-
-        6: {
-          1:'Stars',
-          2:'Moons', 
-          3:'Galaxies', 
-          4:'People'
-        },
-
-        7: {
-          1:'26',
-          2:'34', 
-          3:'32', 
-          4:'22'
-        }, 
-      },
-      correctAnswers: {
-        1:'3',
-        2:'2',
-        3:'4',
-        4:'2',
-        5:'4',
-        6:'1',
-        7:'3'
-      },
       chosenAnswer: '',
       questionNumber: 1,
       questions:[],
       levels:[],
       results:[],
-      question1: {}
+      question: {},
+      continueTest: true,
+      level:0
     }
   }
 
@@ -121,7 +55,8 @@ class Assessment extends Component {
     .then(res => {
       console.log(res.data);
       this.setState({
-        question1: res.data.question
+        question: res.data.question,
+        level: res.data.level
       });
     });
   }
@@ -135,16 +70,35 @@ class Assessment extends Component {
 
 // makes button move onto the next question
   nextQuestion = (questionNumber) => {
+    this.state.levels.push(this.state.question.difficulty);
+    this.state.results.push(this.state.chosenAnswer === this.state.question.correctAnswer[0]);
+    this.state.questions.push(this.state.question._id);
     this.setState({
-        questionNumber: questionNumber + 1,
-        chosenAnswer: ''
+      levels: this.state.levels,
+      results: this.state.results,
+      questions: this.state.questions
     });
+    axios.post('http://localhost:5000/api/tests/getNextQuestion', {
+      test: this.state.testId,
+      questions: this.state.questions,
+      levels: this.state.levels,
+      results: this.state.results
+    }).then(res => {
+      console.log(res.data);
+      this.setState({
+        question: res.data.question,
+        chosenAnswer: '',
+        questionNumber: questionNumber + 1,
+        continueTest: res.data.continueTest,
+        level: res.data.level
+      });
+    })
   }
 
   render() {
-    let { question, answers, chosenAnswer, questionNumber} = this.state;
+    let {chosenAnswer, questionNumber} = this.state;
     //Redirects if question number is greater than question length
-    if (questionNumber > Object.keys(question).length) {
+    if (!this.state.continueTest) {
       return (
         <Redirect to='/Home'/>
       );
@@ -165,16 +119,16 @@ class Assessment extends Component {
   
           <h4 className="questionTitle">Question {questionNumber}: </h4>
 
-          <Question question={this.state.question1.question} />
+          <Question question={this.state.question.question} />
 
           {/* looks over which answers need to be put for which question number + tracking the chosen answers*/}
-          {(this.state.question1.questionType === 'mc') ?
-          <Answer answer={this.state.question1.answers} selectAnswer={this.selectAnswer} chosenAnswer={this.state.chosenAnswer}/>:<></>
+          {(this.state.question.questionType === 'mc') ?
+          <Answer answer={this.state.question.answers} selectAnswer={this.selectAnswer} chosenAnswer={this.state.chosenAnswer}/>:<></>
           }
           <ButtonGroup className="button" >
             <ButtonContained 
               className="nextQuestion"
-              isDisabled={chosenAnswer === '' || Object.keys(question).length < questionNumber} //Disables the button if no answer is selected
+              isDisabled={chosenAnswer === ''} //Disables the button if no answer is selected
               onClick={() => this.nextQuestion(questionNumber)}> 
                 Next
             </ButtonContained>

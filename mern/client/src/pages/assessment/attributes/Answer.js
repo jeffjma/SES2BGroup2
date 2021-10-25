@@ -15,7 +15,7 @@ const Answer = (props) => {
                 name="answer"
                 id= {i}
                 value="option"
-                onClick={() => props.selectAnswer(qAnswer)}
+                onChange={() => props.selectAnswer(qAnswer)}
                 checked={props.chosenAnswer === qAnswer}
                 required
             />
