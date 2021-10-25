@@ -128,18 +128,16 @@ class Assessment extends Component {
 
 //Selects an answer by updating chosenAnswer
   selectAnswer = answer => {
-    const{answers, questionNumber } = this.state;
     this.setState({
-      chosenAnswer: answers[questionNumber][answer]
+      chosenAnswer: answer
     })
-    this.state.chosenAnswer = this.state.answers[questionNumber][answer];
-    console.log(this.state.chosenAnswer);
   }
 
 // makes button move onto the next question
   nextQuestion = (questionNumber) => {
     this.setState({
-        questionNumber: questionNumber + 1
+        questionNumber: questionNumber + 1,
+        chosenAnswer: ''
     });
   }
 
@@ -171,7 +169,7 @@ class Assessment extends Component {
 
           {/* looks over which answers need to be put for which question number + tracking the chosen answers*/}
           {(this.state.question1.questionType === 'mc') ?
-          <Answer answer={this.state.question1.answers} selectAnswer={this.selectAnswer} />:<></>
+          <Answer answer={this.state.question1.answers} selectAnswer={this.selectAnswer} chosenAnswer={this.state.chosenAnswer}/>:<></>
           }
           <ButtonGroup className="button" >
             <ButtonContained 

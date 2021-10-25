@@ -16,6 +16,7 @@ const Answer = (props) => {
                 id= {i}
                 value="option"
                 onClick={() => props.selectAnswer(qAnswer)}
+                checked={props.chosenAnswer === qAnswer}
                 required
             />
             <label class="form-check-label" for={i}>
