@@ -67,9 +67,16 @@ class QuestionEditor extends Component {
     return [
       ["Algebra", "Algebra"],
       ["arithmetic", "Arithmetic"],
+      ["Astronomy", "Astronomy"],
+      ["Biology", "Biology"],
       ["calculus", "Calculus"],
-      ["Chemistry", "Chemistry"],
-      ["Biology", "Biology"]
+      ["Geology", "Geology"],
+      ["Geometry", "Geometry"],
+      ["Imaginary Numbers", "Imaginary Numbers"],
+      ["Percentage", "Percentage"],
+      ["Physics", "Physics"],
+      ["Ratios", "Ratios"],
+      ["Trigonometry", "Trigonometry"]
     ];
   }
 
