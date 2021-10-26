@@ -23,6 +23,7 @@ class ExaminerHome2 extends Component {
       subjectName: "",
       subjectId: "",
       assessments: [],
+      SelectedAss:[], 
     };
   }
   
@@ -87,8 +88,32 @@ class ExaminerHome2 extends Component {
         this.forceUpdate();
       }
     })
-
     }
+    var Sub= this.state.assessments;             // Temporary array for AllAssOfSubjects value
+    this.setState({SelectedAss: []});            // Set SelectedAss to null before running
+    
+    //The process of handling filters
+    if(this.state.CompletedCheckBox){
+      if(!this.state.NotAttemptedCheckBox){           // 1: Completed = true and Not Attempted = false
+        this.setState({SelectedAss: []});
+        var TempFirstTrue=Sub.filter((element)=>{return element.status === "1"});
+        this.setState({SelectedAss: TempFirstTrue, AvailableAss:TempFirstTrue.length});
+      }
+      if(this.state.NotAttemptedCheckBox){            // 1: Completed = true and Not Attempted = true
+        this.setState({ SelectedAss: [], AvailableAss:"0" })
+      }
+    }
+    if(!this.state.CompletedCheckBox){
+      if(this.state.NotAttemptedCheckBox){            // 1: Completed = false and Not Attempted = true
+        var TempFirstFalse=Sub.filter((element)=>{return element.status === "0"});
+        this.setState({SelectedAss: TempFirstFalse, AvailableAss:TempFirstFalse.length});
+      }
+      if(!this.state.NotAttemptedCheckBox){           // 1: Completed = false and Not Attempted = false
+        this.setState({SelectedAss: []});
+        this.setState({ SelectedAss: Sub, AvailableAss:Sub.length })
+      }
+    }
+    Sub = [];                                         // Set Sub to null before next running
   }
 
   redirectAddTest() {
@@ -98,15 +123,16 @@ class ExaminerHome2 extends Component {
   render() {
     let SubScript = ( // The left table script showing the subjects details
       <Row>
-        {this.state.assessments.map((assessment) => (
+        {this.state.SelectedAss.map((SelectedAss) => (
           <Col xs="auto" md="auto" className="subject">
             <CardAssessmentExaminer
-              path="/ExaminerHome/Subjects"
-              questionCount={assessment.studentCount}
-              attemptCount={assessment.assessmentCount}
-              data={assessment.chartData}
+              questionCount={SelectedAss.studentCount}
+              attemptCount={SelectedAss.assessmentCount}
+              data={SelectedAss.chartData}
+              testID={SelectedAss.testId}
+              subName={SelectedAss.name}
             >
-              {assessment.name}
+              {SelectedAss.name}
             </CardAssessmentExaminer>
           </Col>
         ))}

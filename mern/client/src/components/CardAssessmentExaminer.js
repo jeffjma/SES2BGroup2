@@ -2,15 +2,17 @@ import React from "react";
 import { Card, Col, Row, Container } from "react-bootstrap";
 import styles from "../styles/assessment-card-examiner.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "react-router-dom";
 import { faUsers, faComments, faPen } from "@fortawesome/free-solid-svg-icons";
 import { Doughnut } from "react-chartjs-2";
 
 const CardAssessmentExaminer = ({
   children,
-  path,
   attemptCount,
   questionCount,
   data,
+  testID,
+  subName
 }) => {
   /**
    * @param {String} children The name of the assessment
@@ -28,9 +30,15 @@ const CardAssessmentExaminer = ({
               <div className="cardTitle body2">{children}</div>
             </Col>
             <Col className={styles.edit}>
-              <a href={path != null ? path : "#question-pool"}>
-                <FontAwesomeIcon icon={faPen} />
-              </a>
+              <Link to={{
+                pathname: '/QuestionPool', 
+                state: {
+                  testID: {testID},
+                  subName: {subName}
+                }
+              }}>
+                  <FontAwesomeIcon icon={faPen} />
+              </Link>
             </Col>
           </Row>
           <Row>

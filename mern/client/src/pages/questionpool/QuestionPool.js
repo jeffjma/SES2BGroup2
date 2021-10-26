@@ -22,7 +22,7 @@ class QuestionPool extends Component{
         const { cookies } = props;
         this.state = {
             UserName: "Examiner",
-            SubjectName: "TestSubjectName",
+            SubjectName: "",
             DataFromDatabase:[],
             QuestionsArrays:[], //the array used in system
             PagesContents:[],   //the table contents in each page
@@ -33,7 +33,13 @@ class QuestionPool extends Component{
 
     componentDidMount(){
 
-        axios.post("http://localhost:5000/api/tests/getQuestions", {test: '616abdbcbab32b5cfab1fb45'})
+        if(this.props.location?.state != null) {
+            console.log(this.props.location?.state?.testID.testID )
+            this.setState({
+                SubjectName: this.props.location?.state?.subName.subName
+              })
+
+        axios.post("http://localhost:5000/api/tests/getQuestions", {test: this.props.location?.state?.testID.testID})
         .then(res => {
             console.log(res.data)
             this.setState({
@@ -44,6 +50,8 @@ class QuestionPool extends Component{
             this.setState({PagesContents: this.state.QuestionsArrays.slice(0,8)});
             this.PagesNumbers();
         })
+
+        }
         
     }
 
