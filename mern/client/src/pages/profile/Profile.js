@@ -164,7 +164,7 @@ class Profile extends Component{
                         <button className="logout-btn" onClick={this.handleLogout.bind(this)}> Logout </button>
                     </div>
                     
-                    {/* the right rank image */}
+                    {/* the right rank image
                     <div className="RightRankImage">
                         <p id="CurrentRank">Your Current Rank is {this.state.CurrentRank}</p>
                         <div id="CircleLayout">
@@ -178,10 +178,10 @@ class Profile extends Component{
                         </div>
                         <p id="RankDescription" style={{marginBottom: "-15px"}}>Your Have earned <b>{this.state.TotalPoints}</b> so far</p>
                         <p id="RankDescription">Earn <b>{this.state.PointsToNextRank}</b> points to get to <b>{this.state.NextRank}</b></p>
-                    </div>
+                    </div> */}
 
                     {/* the right badges  */}
-                    <div className="RightBadges">
+                    <div className="RightBadges" style={{marginTop: "50px"}}>
                         <table className = "TableStyle">
                             <tbody>
                                 <tr>

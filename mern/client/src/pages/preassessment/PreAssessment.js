@@ -61,7 +61,9 @@ class PreAssessment extends Component {
         this.props.history.push({
             pathname: '/Assessment',
             state: {
-              testId: this.state.testID
+              testId: this.state.testID,
+              subName: this.state.SubjectName,
+              testName: this.state.Title
             }
           })
     }

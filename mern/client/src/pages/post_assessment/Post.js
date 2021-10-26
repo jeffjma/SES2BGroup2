@@ -27,7 +27,7 @@ class Post extends Component {
       //this state values are now only for test before fetching data from api
       userID: cookies.get('userid'),
       UserName: 'John Smith',                       // Name of User
-      SubjectName: '31242 - Advanced Internet Programming - Spring 2021',                 // Name of Subjects
+      SubjectName: '',                 // Name of Subjects
       AvailableAss: '',                               // Numbers of Assessments shown in table
       CompletedCheckBox: false,                       // Boolean for check whether checkbox("Completed") is clicked
       NotAttemptedCheckBox: false,                    // Boolean for check whether checkbox("NotAttempted") is clicked
@@ -40,14 +40,24 @@ class Post extends Component {
       SelectedSubjects: [],                            // All selected assessment according to the filters
       score: 100,
       testId: '',
+      time: ''
     }
   }
 
   componentDidMount() {
+    let currentTime = new Date();
+    let displayTime = 'Oct 27 at ' + currentTime.getHours() + ':' + currentTime.getMinutes() + ' am';
+    this.setState({time: displayTime});
+
     var Sub = this.state.AllAssOfSubjects;             // Temporary array for AllAssOfSubjects value
     this.setState({ SelectedSubjects: [] });            // Set SelectedSubjects to null before running
 
-    this.setState({ score: this.props.location?.state.level, testId: this.props.location?.state.testId});
+    this.setState({ 
+      score: this.props.location?.state.level, 
+      testId: this.props.location?.state.testId,
+      SubjectName: this.props.location?.state.subjectName,
+      testName: this.props.location?.state.testName
+    });
 
     axios.post("http://localhost:5000/api/results/add", {testID: this.props.location?.state.testId, result: this.props.location?.state.level})
         .then(res => {
@@ -120,6 +130,7 @@ class Post extends Component {
   }
 
   render() {
+    console.log(this.state.testName);
     let AssScript = (                                // The left table script showing the assessments details
       <div>
         {this.state.SelectedSubjects.map(SelectedSubject => (
@@ -142,7 +153,7 @@ class Post extends Component {
               username={this.state.UserName}
               hasSubHeader="true"
               subjectName={this.state.SubjectName}
-              buttonName = "Join Class"
+              // buttonName = "Join Class"
               profileClick = "/Profile"
               dashboardClick = "/Home"
               logoClick = "/Home"
@@ -159,43 +170,39 @@ class Post extends Component {
               <div className="txt-1" style={{
                 marginBottom: 40
               }}>
-                Dec 10 at 10:15 am
+                {this.state.time}
               </div>
               <div className="txt-1" style={{
                 borderBottom: '1px solid rgb(203,206,209)',
                 paddingBottom: 20,
                 marginBottom: 20
               }}>
-                Javascript Test
+                {this.state.testName}
               </div>
               <div className="txt-1" style={{
                 marginBottom: 20
               }}>
-                Questions answered
+                Questions
               </div>
 
               <div className="questionBox">
                 <div className="questionItem">
-                  Question 1 ✓
+                  Question 1 
                 </div>
                 <div className="questionItem">
-                  Question 2 ✓
-                </div>
-                <div style={{
-                  color: 'red'
-                }} className="questionItem">
-                  Question 3 x
+                  Question 2 
                 </div>
                 <div className="questionItem">
-                  Question 4 ✓
+                  Question 3 
                 </div>
                 <div className="questionItem">
-                  Question 5 ✓
+                  Question 4 
                 </div>
-                <div style={{
-                  color: 'red'
-                }} className="questionItem">
-                  Question 6 x
+                <div className="questionItem">
+                  Question 5 
+                </div>
+                <div className="questionItem">
+                  Question 6
                 </div>
                 {/* <div style={{
                   color: 'red'
@@ -214,12 +221,12 @@ class Post extends Component {
                 ...
               </div>
 
-              <div className="txt-1" style={{
+              {/* <div className="txt-1" style={{
 
                 paddingBottom: 40,
               }}>
                 Time elapsed: 5 mins, 12 seconds
-              </div>
+              </div> */}
 
               <div style={{
                 borderBottom: '1px solid rgb(203,206,209)',
@@ -230,39 +237,36 @@ class Post extends Component {
               <div style={{
                 textAlign: 'center'
               }}>
-                <Button style={{
+                {/* <Button style={{
                   width: 200,
                   borderRadius: 20
                 }} variant="outline-primary"
-                  size="sm">TRY AGAIN</Button>
+                  size="sm">TRY AGAIN</Button> */}
               </div>
             </div>
             <div className="box-right">
               <div className="txt-1">
-                Wow almost perfect score!You have earned the following rewards:
+                Congratulations on completing the test! You scored a grade of:
               </div>
               <div className="score-box">
                 <div className="score-left">
                   <div style={{
                     fontSize: 30,
                     marginRight: 50
-                  }}>+{this.state.score}</div>
-                  <div style={{
-                    fontSize: 30
-                  }}>points</div> 
+                  }}>Level {this.state.score}</div>
                 </div>
                 <div className="score-right">
-                  <img src={score >= 85 ? gold : sliver} className="score-img" />
+                  <img src={score >= 6 ? gold : sliver} className="score-img" />
                 </div>
               </div>
               <div style={{
                 textAlign: 'center'
               }}>
-                <Button style={{
+                {/* <Button style={{
                   width: 200,
                   borderRadius: 20
                 }} variant="outline-primary"
-                  size="sm">TRY AGAIN</Button>
+                  size="sm">TRY AGAIN</Button> */}
               </div>
             </div>
           </div>

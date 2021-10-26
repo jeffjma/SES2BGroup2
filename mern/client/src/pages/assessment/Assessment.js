@@ -33,7 +33,9 @@ class Assessment extends Component {
       results:[],
       question: {},
       continueTest: true,
-      level:0
+      level:0,
+      subjectName: '',
+      testName: ''
     }
     this.typeAnswer = this.typeAnswer.bind(this);
   }
@@ -44,6 +46,8 @@ class Assessment extends Component {
       console.log('LOL STATE DOESNT EXIST');
       this.setState({
         testId: this.props.location?.state.testId,
+        subjectName: this.props.location?.state.subName,
+        testName: this.props.location?.state.testName
       })
 
     axios.post('http://localhost:5000/api/users/profile', {
@@ -163,6 +167,8 @@ class Assessment extends Component {
       state: {
         testId: this.state.testId,
         level: this.state.level,
+        testName: this.state.testName,
+        subjectName: this.state.subjectName
       }
     })
   }
@@ -201,7 +207,7 @@ class Assessment extends Component {
   
         <div className="assessment-parent">
           <div className="headerObjects">
-            <h3>Example Test</h3>
+            <h3>{this.state.subjectName}</h3>
             <Timer />
           </div>
   
