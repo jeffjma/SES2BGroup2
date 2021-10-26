@@ -8,16 +8,16 @@ const radioAnswer = (props) => {
 
     // basic map of how answers should be structured in quiz
     .map((qAnswer, i)=> (
-        <div className="form-check" >
+        <div className="form-check">
             <input
                 type="radio"
-                name="answer"
+                name="mcAnswer"
                 id= {i}
                 onChange={() => props.selectAnswer(qAnswer)}
                 checked={props.chosenAnswer === qAnswer}
                 required
             />
-            <label class="form-check-label" for={i}>
+            <label className="form-check-label" for={i}>
                 <h5 key={qAnswer}>
                     {qAnswer}
                 </h5>

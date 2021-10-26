@@ -26,7 +26,7 @@ class Assessment extends Component {
       userID: cookies.get('userid'),
       UserName: 'John Smith',
       testId: '616abdbcbab32b5cfab1fb45',
-      chosenAnswer: [],
+      chosenAnswer: [''],
       questionNumber: 1,
       questions:[],
       levels:[],
@@ -82,15 +82,41 @@ class Assessment extends Component {
     }
   }
 
+  changeAnswers = answer => {
+    const ca = this.state.chosenAnswer.slice();
+    if(ca.includes('')) {
+      const i = ca.indexOf('');
+      ca.splice(i,1);
+    }
+    if(ca.includes(answer)) {
+      const i = ca.indexOf(answer);
+      ca.splice(i,1);
+      if (ca.length === 0) {
+        ca.push('');
+      }
+    } else {
+      ca.push(answer);
+    }
+    this.setState({
+      chosenAnswer: ca
+    });
+  }
+
   checkAnswer(CA) {
     switch(this.state.question.questionType) {
       case 'mc':
         return CA[0] === this.state.question.correctAnswer[0];
       case 'sa':
-        console.log(CA[0]);
-        console.log(this.state.question.correctAnswer[0]);
         return CA[0].toLowerCase() === this.state.question.correctAnswer[0].toLowerCase();
       case 'cb':
+        if (CA.length !== this.state.question.correctAnswer.length) {
+          return false;
+        }
+        for(let i = 0; i < CA.length; i++) {
+          if (!this.state.question.correctAnswer.includes(CA[i])){
+            return false;
+          }
+        }
         return true;
     }
   }
@@ -99,7 +125,6 @@ class Assessment extends Component {
   nextQuestion = (questionNumber) => {
     this.state.levels.push(this.state.question.difficulty);
     this.state.results.push(this.checkAnswer(this.state.chosenAnswer));
-    console.log(this.state.results);
     this.state.questions.push(this.state.question._id);
     this.setState({
       levels: this.state.levels,
@@ -140,7 +165,7 @@ class Assessment extends Component {
         answerEle = <TextAnswer value={chosenAnswer[0]} typeAnswer={this.typeAnswer}/>;
         break;
       case 'cb':
-        answerEle = <></>;// <checkboxAnswer/>
+        answerEle = <CheckboxAnswer answer={question.answers} changeAnswers={this.changeAnswers} chosenAnswer={chosenAnswer}/>;
         break;
       default:
         answerEle = <p>{question.questionType} is not a valid question type.</p>
