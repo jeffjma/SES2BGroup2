@@ -90,8 +90,13 @@ class QuestionPool extends Component{
     redirectAddQuestion() {
         this.props.history.push('/QuestionEditor');
     }
-    handleEditQuestion(e) {
-        console.log('Pencil clicked!');
+    handleEditQuestion(e, id) {
+        this.props.history.push({
+            pathname: '/QuestionEditor',
+            state: {
+                questionID: id
+            }
+          });
     }
     handleDelQuestion(questId) {
         console.log(questId);
@@ -136,7 +141,7 @@ class QuestionPool extends Component{
                                         <td>&nbsp;&nbsp;&nbsp;{PagesContent._id}</td>
                                         <td>{PagesContent.question}</td>
                                         <td>{PagesContent.difficulty}</td>
-                                        <td><i class="fa fa-pencil" aria-hidden="true" onClick={this.handleEditQuestion.bind(this)}></i></td>
+                                        <td><i class="fa fa-pencil" aria-hidden="true" onClick={(e) => this.handleEditQuestion(e, PagesContent._id)}></i></td>
                                         <td><i class="fa fa-trash-o" aria-hidden="true" onClick={() => this.handleDelQuestion(PagesContent._id)}></i></td>
                                     </tr>
                                 ))}
