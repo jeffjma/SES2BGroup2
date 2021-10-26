@@ -64,9 +64,10 @@ router.post("/addQuestion", async (req, res) => {
 // @route GET api/test/getQuestions
 // @desc Get all the questions for this test
 // @access Public
-router.get("/getQuestions", async (req, res) => {
+router.post("/getQuestions", async (req, res) => {
+    console.log(req.body)
+    const questions = (await Test.findById(req.body.test).populate("questions")).questions;
     try {
-        const questions = (await Test.findById(req.body.test).populate("questions")).questions;
         res.send(questions);
     } catch (err) {
         res.status(500).send(err);

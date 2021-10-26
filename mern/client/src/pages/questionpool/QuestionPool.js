@@ -33,7 +33,7 @@ class QuestionPool extends Component{
 
     componentDidMount(){
 
-        axios.post("http://localhost:5000/api/subjects/getQuestions", {subject: '616abaf8c1bb94f6986db37e'})
+        axios.post("http://localhost:5000/api/tests/getQuestions", {test: '616abdbcbab32b5cfab1fb45'})
         .then(res => {
             console.log(res.data)
             this.setState({
