@@ -22,7 +22,7 @@ router.get("/get", async (req, res) => {
 // @route GET api/test/getForSubject
 // @desc Gets all tests for a subject
 // @access Public
-router.get("/getForSubject", async (req, res) => {
+router.post("/getForSubject", async (req, res) => {
     try {
         const tests = await Test.find({subject: req.body.subject}, '-questions');
         res.send(tests);
