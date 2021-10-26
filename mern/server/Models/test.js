@@ -22,11 +22,11 @@ const TestSchema = new Schema({
   },
   availability: {
     start_date: {
-      type: Date,
+      type: String,
       required: true
     },
     end_date: {
-      type: Date,
+      type: String,
       required: true
     }
   }

@@ -24,7 +24,7 @@ router.get("/get", async (req, res) => {
 // @access Public
 router.post("/getForSubject", async (req, res) => {
     try {
-        const tests = await Test.find({subject: req.body.subject}, '-questions');
+        const tests = await Test.find({subject: req.body.subject});
         res.send(tests);
     } catch (err) {
         res.status(500).send(err);

@@ -75,7 +75,7 @@ class PreAssessment extends Component {
                     username={this.state.UserName}
                     hasSubHeader = "true"
                     subjectName = {this.state.SubjectName}
-                    buttonName = "Join Class"
+                    // buttonName = "Join Class"
                     profileClick = "/Profile"
                     dashboardClick = "/Home"
                     logoClick = "/Home"

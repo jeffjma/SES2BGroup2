@@ -152,7 +152,7 @@ handleToAss(event, subname, testid, subid, subavail, subdes){
               hasSubHeader = "true"
               subjectName = {this.state.SubjectName}
               profileClick = "/Profile"
-              buttonName = "Join Class"
+              // buttonName = "Join Class"
               dashboardClick = "/Home"
               logoClick = "/Home"
             ></NaviBar>

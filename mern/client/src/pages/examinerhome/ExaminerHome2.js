@@ -57,26 +57,32 @@ class ExaminerHome2 extends Component {
           id: ''+i,
           name: res.data[i].title,
           testId: res.data[i]._id,
-          studentCount: 56,
-          assessmentCount: 4,
+          studentCount: res.data[i].questions.length,
+          assessmentCount: 140-(i*8),
           status: "1",
           chartData: {
-            labels: ["Beginner", "Intermediate", "Advanced", "Expert"],
+            labels: ["Level 1", "Level 2", "Level 3", "Level 4", "Level 5", "Level 6", "Level 7"],
             datasets: [
               {
                 label: "# of Attempts",
-                data: [12, 19, 3, 5],
+                data: [30-(i), 32-(i*3), 25-(i*4), 26, 15, 9, 3],
                 backgroundColor: [
                   "rgba(200, 77, 99, 1)",
                   "rgba(255, 232, 112, 1)",
                   "rgba(253, 165, 125, 1)",
                   "rgba(91, 194, 167, 1)",
+                  "rgba(92, 154, 137, 1)",
+                  "rgba(91, 124, 157, 1)",
+                  "rgba(31, 154, 67, 1)"
                 ],
                 borderColor: [
                   "rgba(200, 77, 99, 1)",
                   "rgba(255, 232, 112, 1)",
                   "rgba(253, 165, 125, 1)",
                   "rgba(91, 194, 167, 1)",
+                  "rgba(92, 154, 137, 1)",
+                  "rgba(91, 124, 157, 1)",
+                  "rgba(31, 154, 67, 1)"
                 ],
                 borderWidth: 1,
                 hoverOffset: 4,

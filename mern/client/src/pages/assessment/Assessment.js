@@ -176,11 +176,11 @@ class Assessment extends Component {
   render() {
     let {chosenAnswer, questionNumber, continueTest, question} = this.state;
     //Redirects if question number is greater than question length
-    if (!continueTest) {
-      return (
-        <Redirect to='/Home'/>
-      );
-    }
+    // if (!continueTest) {
+    //   return (
+    //     <Redirect to='/Home'/>
+    //   );
+    // }
     var answerEle;
     switch(question.questionType) {
       case 'mc':
