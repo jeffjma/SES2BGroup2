@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import "./ExaminerHome.css";
 import NavBar from "../../components/NavigationBar";
+import axios from "axios";
 import CardSubjectExaminer from "../../components/CardSubjectExaminer.js";
 import { withCookies, Cookies } from 'react-cookie';
 import { instanceOf } from 'prop-types';
 import { Col, Row, Container } from "react-bootstrap";
 
 
-import axios from "axios";
 const api = axios.create({
   baseURL: `http://localhost:5000/api/users/profile`
 })
@@ -25,44 +25,7 @@ class ExaminerHome extends Component {
       userID: cookies.get('userid'),
       UserName:"", // Name of User
       subjects: [],
-        
-        /*/ All Subjects (which is for test only before Fetching data from database)
-        {
-          id: "1",
-          name: "31242 - Advanced Internet Programming - Spring 2021",
-          studentCount: 56,
-          assessmentCount: 4,
-          status: "1",
-        },
-        {
-          id: "2",
-          name: "31242 - Advanced Internet Programming - Spring 2021",
-          studentCount: 56,
-          assessmentCount: 4,
-          status: "1",
-        },
-        {
-          id: "3",
-          name: "31242 - Advanced Internet Programming - Spring 2021",
-          studentCount: 56,
-          assessmentCount: 4,
-          status: "1",
-        },
-        {
-          id: "4",
-          name: "31242 - Advanced Internet Programming - Spring 2021",
-          studentCount: 56,
-          assessmentCount: 4,
-          status: "1",
-        },
-        {
-          id: "5",
-          name: "31242 - Advanced Internet Programming - Spring 2021",
-          studentCount: 56,
-          assessmentCount: 4,
-          status: "1",
-        },
-      ],*/
+      SelectedSubjects:[], 
     };
   }
 
@@ -84,45 +47,53 @@ class ExaminerHome extends Component {
     .then(res => {
       console.log(res.data.subjectID.length);
       for (var i = 0; i < res.data.subjectID.length; i++) {
-        let { subjects } = this.state;
-        
-        
-        
-        /*for (var j = 0; j < res.data.subjectID.length; j++) {
-          axios.get("http://localhost:5000/api/tests/getForSubject", {
-            subject: res.data.subjectID[j]
-          })
-          .then(res => {
-            console.log(res.data.tests);
-            let { subjects } = this.state;
-            var count = 0;
-            console.log(count)
-            subjects.push({assessmentCount: count})
-            this.setState({subjects: subjects})
-          })
-        }*/
-        
-        
+        let { subjects } = this.state;  
         subjects.push({id: i, name: res.data.name[i], status: res.data.subjectID[i]})
         this.setState({ subjects: subjects});
       }
     })
+
+    var Sub= this.state.subjects;             // Temporary array for AllAssOfSubjects value
+    this.setState({SelectedSubjects: []});            // Set SelectedSubjects to null before running
+    
+    //The process of handling filters
+    if(this.state.CompletedCheckBox){
+      if(!this.state.NotAttemptedCheckBox){           // 1: Completed = true and Not Attempted = false
+        this.setState({SelectedSubjects: []});
+        var TempFirstTrue=Sub.filter((element)=>{return element.status === "1"});
+        this.setState({SelectedSubjects: TempFirstTrue, AvailableAss:TempFirstTrue.length});
+      }
+      if(this.state.NotAttemptedCheckBox){            // 1: Completed = true and Not Attempted = true
+        this.setState({ SelectedSubjects: [], AvailableAss:"0" })
+      }
+    }
+    if(!this.state.CompletedCheckBox){
+      if(this.state.NotAttemptedCheckBox){            // 1: Completed = false and Not Attempted = true
+        var TempFirstFalse=Sub.filter((element)=>{return element.status === "0"});
+        this.setState({SelectedSubjects: TempFirstFalse, AvailableAss:TempFirstFalse.length});
+      }
+      if(!this.state.NotAttemptedCheckBox){           // 1: Completed = false and Not Attempted = false
+        this.setState({SelectedSubjects: []});
+        this.setState({ SelectedSubjects: Sub, AvailableAss:Sub.length })
+      }
+    }
+    Sub = [];                                         // Set Sub to null before next running
   }
 
   render() {
     let SubScript = ( // The left table script showing the subjects details
       <Row>
-        {this.state.subjects.map((subject) => (
-          <Col xs="auto" md="auto" className="subject">
-            <CardSubjectExaminer
-              path="/ExaminerHome/Subjects"
-              //studentCount={subject.studentCount}
-              assessmentCount={subject.assessmentCount}
-            >
-              {subject.name}
-            </CardSubjectExaminer>
-          </Col>
-        ))}
+        <tr>
+      {this.state.SelectedSubjects.map(SelectedSubject=>(
+             <td key={SelectedSubject.id}>   
+             <Col md>             
+               <CardSubjectExaminer subID={SelectedSubject.status} subname={SelectedSubject.name}>
+                 {SelectedSubject.name}
+                </CardSubjectExaminer>  
+                </Col>         
+             </td>
+           ))}
+          </tr>
       </Row>
     );
 
