@@ -22,31 +22,9 @@ import {
     QuestionPool,
     QuestionEditor
 } from "./pages/Routes";
-import { CookiesProvider, useCookies } from 'react-cookie';
-import ProtectedRoute from './ProtectedRoute';
-
-function GetStuType() {
-  const [cookies, setCookie] = useCookies();
-  const usertype = cookies.usertype;
-    if(usertype === "student"){
-      return true;
-    }
-  return false;
-}
-
-function GetExaType() {
-  const [cookies, setCookie] = useCookies();
-  const usertype = cookies.usertype;
-    if(usertype === "examiner"){
-      return true;
-    }
-  return true;
-}
+import { CookiesProvider } from 'react-cookie';
 
 function App() {
-  
-  const stutype = GetStuType();
-  const exatype = GetExaType();
   
     return (
       <div className="App">
@@ -60,16 +38,16 @@ function App() {
             <CookiesProvider>
               <Route path="/Login" component={Login} /> 
               <Route exact path="/Home" component={Homepage}/>
-              <ProtectedRoute path="/Home/Subjects" exact strict component={Homepage2} isAuth={stutype}/>
-              <ProtectedRoute path="/Profile" component={Profile} isAuth={stutype}/>
-              <ProtectedRoute path="/Assessment" component={Assessment} isAuth={stutype}/>
+              <Route path="/Home/Subjects" exact strict component={Homepage2} />
+              <Route path="/Profile" component={Profile} />
+              <Route path="/Assessment" component={Assessment} />
               <Route path="/Background" component={Background}/>
-              <ProtectedRoute path="/PreAssessment" component={PreAssessment} isAuth={stutype}/>
-              <ProtectedRoute path="/Post" component={Post} isAuth={stutype}/>
+              <Route path="/PreAssessment" component={PreAssessment} />
+              <Route path="/Post" component={Post} />
               <Route exact path="/ExaminerHome" component={ExaminerHome}/>
-              <ProtectedRoute path="/ExaminerHome/Subjects" exact strict component={ExaminerHome2} isAuth={exatype}/>
-              <ProtectedRoute path="/QuestionPool" component={QuestionPool} isAuth={exatype}/>
-              <ProtectedRoute path="/QuestionEditor" component={QuestionEditor} isAuth={exatype}/>
+              <Route path="/ExaminerHome/Subjects" exact strict component={ExaminerHome2} />
+              <Route path="/QuestionPool" component={QuestionPool} />
+              <Route path="/QuestionEditor" component={QuestionEditor} />
             </CookiesProvider>
           </Router>
       </div>

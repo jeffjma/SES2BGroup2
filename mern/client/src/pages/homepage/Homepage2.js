@@ -5,8 +5,6 @@ import axios from "axios";
 import 'font-awesome/css/font-awesome.min.css';
 //import NavigationBar from components
 import NaviBar from "../../components/NavigationBar";
-//import ButtonOutlined from components
-import ButtonOutlined from "../../components/ButtonOutlined";
 import { withCookies, Cookies } from 'react-cookie';
 import { instanceOf } from 'prop-types';
 import { withRouter } from 'react-router-dom';
@@ -25,19 +23,16 @@ class Homepage2 extends Component{
   constructor(props){
     super(props)
     const { cookies } = props;
+    this.handleToAss = this.handleToAss.bind(this);
     this.state = {
       userID: cookies.get('userid'),
       UserName: '',                                   // Name of User
       SubjectName: '',                                // Name of Subjects
+      SubjectID: '',
       AvailableAss: '',                               // Numbers of Assessments shown in table
       CompletedCheckBox: false,                       // Boolean for check whether checkbox("Completed") is clicked
       NotAttemptedCheckBox: false,                    // Boolean for check whether checkbox("NotAttempted") is clicked
-      AllAssOfSubjects:[                              // All assessments of this Subjects (which is for test only before 
-        {id: "1", name:"Ass1", status: "1"},          // Fetching data from database)
-        {id: "2", name:"Ass2", status: "0"},
-        {id: "3", name:"Ass3", status: "0"},
-        {id: "4", name:"Ass4", status: "0"},
-      ],
+      AllSubjects:[],
       SelectedSubjects:[],                            // All selected assessment according to the filters
     }
   }
@@ -58,13 +53,34 @@ class Homepage2 extends Component{
       console.log(this.props.location?.state?.subjectID)
       console.log(this.props.location?.state?.subjectName)
       this.setState({
-        SubjectName: this.props.location?.state?.subjectName.subname
+        SubjectName: this.props.location?.state?.subjectName.subname,
+      })
+
+      axios
+      .post("http://localhost:5000/api/tests/getForSubject", {
+        subject: this.props.location?.state?.subjectID.path
+     })
+      .then(res => {
+        console.log(res.data);
+        var data = res.data;
+        var i ;
+        for(i=0; i < data.length; i++){
+            let { AllSubjects } = this.state;
+            AllSubjects.push({id: '1', 
+                              name: data[i].title, 
+                              status: '0', 
+                              subid: data[i].subject,
+                              availability: data[i].availability,
+                              description: data[i].description
+                            })
+            this.setState({ AllSubjects: AllSubjects});
+        }
       })
     }
 
-    var Sub= this.state.AllAssOfSubjects;             // Temporary array for AllAssOfSubjects value
+    var Sub= this.state.AllSubjects;             // Temporary array for AllAssOfSubjects value
     this.setState({SelectedSubjects: []});            // Set SelectedSubjects to null before running
-    
+
     //The process of handling filters
     if(this.state.CompletedCheckBox){
       if(!this.state.NotAttemptedCheckBox){           // 1: Completed = true and Not Attempted = false
@@ -87,55 +103,34 @@ class Homepage2 extends Component{
       }
     }
     Sub = [];                                         // Set Sub to null before next running
-  }
 
-  handleToAss(e){                                     // Push to url of each Assessment
-    /*this.props.history.push(window.location.pathname + "/" + e)*/ // Disabled for client meeting
-      this.props.history.push('/PreAssessment')
-  }
+}
 
-  handleCompleted(){                                  //Once click checkbox("Completed"), change CompletedCheckBox
-    var Temp = this.state.CompletedCheckBox;
-    if(Temp){
-      this.setState({CompletedCheckBox: false})
+handleToAss(event, subname, subid, subavail, subdes){                             
+  this.props.history.push({
+    pathname: '/PreAssessment',
+    state: {
+      testname: subname,
+      testID: subid,
+      subjectName: this.state.SubjectName,
+      availability: subavail,
+      description: subdes
     }
-    if(!Temp){
-      this.setState({CompletedCheckBox: true})
-    }
-  }
-
-  handleNotCompleted(){                               //Once click checkbox("Completed"), change NotAttemptedCheckBox
-    var Temp = this.state.NotAttemptedCheckBox;
-    if(Temp){
-      this.setState({NotAttemptedCheckBox: false});
-    }
-    if(!Temp){
-      this.setState({NotAttemptedCheckBox: true})
-    }
-  }
-
-  handleCheckBox(){                                   // handle "Confirm" button to run filters
-    this.componentDidMount();
-  }
-
-  changeStatusCss(e){                                 // Change status css color(green/gray) and type(boolean -> var)
-    if(e === "1"){
-      return <p className="AssListStatusComp">Completed</p>
-    }
-    else{
-      return <p className="AssListStatusNotAtt">Not Attempted</p>
-    }
-  }
+  });
+}
 
   render(){
     let AssScript = (                                // The left table script showing the assessments details
       <div>
         {this.state.SelectedSubjects.map(SelectedSubject=>(
                <tr key={SelectedSubject.id}>
-              {/*   <td className="AssListTd" onClick={()=>this.handleToAss(SelectedSubject.id)}><p className="AssListName">{SelectedSubject.name}</p>*/}
-              {/*/ this is just for the client meeting to show the assessment page */}
-                    <td className="AssListTd" onClick={()=>this.handleToAss()}><p className="AssListName">{SelectedSubject.name}</p>
-                 {this.changeStatusCss(SelectedSubject.status)}
+                    <td className="AssListTd" 
+                        onClick={(e)=>this.handleToAss(e, 
+                          SelectedSubject.name, 
+                          SelectedSubject.subid,
+                          SelectedSubject.availability,
+                          SelectedSubject.description)}
+                    ><p className="AssListName">{SelectedSubject.name}</p>
                  </td>
                </tr>
              ))}
@@ -161,28 +156,13 @@ class Homepage2 extends Component{
          {/* this is leftcontent */}
          <div className="LeftContent">
            <p className="AssessmentTitle">
-             You have {this.state.AvailableAss} assessments available
+             Your Tests
            </p>
            <div className="LeftCube">
              {AssScript}
            </div>
          </div>
 
-         {/* this is rightcontent */}
-         <div className="RightContent">
-           <div className="RightCube">       
-             <p className="FilterTitle"><br/>Filters</p>
-             <p className="FilterSubtitle">STATUS</p>
-             <input type="checkbox" className="FilterCheckbox"  onClick={()=>this.handleCompleted()}></input><p className="FilterCheckboxName">Completed</p>
-             <br/>
-             <input type="checkbox" className="FilterCheckbox" onClick={()=>this.handleNotCompleted()}></input><p className="FilterCheckboxName">Not attempted</p>
-             <br/><br/>&nbsp;&nbsp;&nbsp;
-             <ButtonOutlined
-               children = "Confirm"
-               onClick={()=>this.handleCheckBox()}
-             ></ButtonOutlined>
-           </div>
-         </div>
         </body>
       </React.Fragment>
     )
