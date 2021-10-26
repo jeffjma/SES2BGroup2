@@ -8,11 +8,10 @@ import { instanceOf } from 'prop-types';
 import "./Assessment.css";
 import Timer from "./Timer.js";
 import Question from "./attributes/Question";
-import Answer from "./attributes/Answer";
+import RadioAnswer from "./attributes/radioAnswer";
 import { Redirect } from "react-router";
-import RadioAnswer from "./attributes/radioAnswer"
 import CheckboxAnswer from "./attributes/checkboxAnswer"
-import TextAnswer from "./attributes/textAnswer"
+import TextAnswer from "./attributes/textAnswer";
 // import { Homepage } from "../Routes";
 
 class Assessment extends Component {
@@ -27,7 +26,7 @@ class Assessment extends Component {
       userID: cookies.get('userid'),
       UserName: 'John Smith',
       testId: '616abdbcbab32b5cfab1fb45',
-      chosenAnswer: '',
+      chosenAnswer: [],
       questionNumber: 1,
       questions:[],
       levels:[],
@@ -36,6 +35,7 @@ class Assessment extends Component {
       continueTest: true,
       level:0
     }
+    this.typeAnswer = this.typeAnswer.bind(this);
   }
 
   //Gets username
@@ -65,17 +65,41 @@ class Assessment extends Component {
     });
   }
 
-//Selects an answer by updating chosenAnswer
+  //Selects an answer by updating chosenAnswer
   selectAnswer = answer => {
     this.setState({
-      chosenAnswer: answer
-    })
+      chosenAnswer: [answer]
+    });
+  }
+
+  //Reads the typed answer and updates chosenAnswer
+  typeAnswer(event) {
+    if (event.target.value != this.state.chosenAnswer[0])
+    {
+      this.setState({
+        chosenAnswer: [event.target.value]
+      });
+    }
+  }
+
+  checkAnswer(CA) {
+    switch(this.state.question.questionType) {
+      case 'mc':
+        return CA[0] === this.state.question.correctAnswer[0];
+      case 'sa':
+        console.log(CA[0]);
+        console.log(this.state.question.correctAnswer[0]);
+        return CA[0].toLowerCase() === this.state.question.correctAnswer[0].toLowerCase();
+      case 'cb':
+        return true;
+    }
   }
 
   // makes button move onto the next question
   nextQuestion = (questionNumber) => {
     this.state.levels.push(this.state.question.difficulty);
-    this.state.results.push(this.state.chosenAnswer === this.state.question.correctAnswer[0]);
+    this.state.results.push(this.checkAnswer(this.state.chosenAnswer));
+    console.log(this.state.results);
     this.state.questions.push(this.state.question._id);
     this.setState({
       levels: this.state.levels,
@@ -91,22 +115,38 @@ class Assessment extends Component {
       console.log(res.data);
       this.setState({
         question: res.data.question,
-        chosenAnswer: '',
+        chosenAnswer: [''],
         questionNumber: questionNumber + 1,
         continueTest: res.data.continueTest,
         level: res.data.level
       });
-    })
+    });
   }
 
   render() {
-    let {chosenAnswer, questionNumber} = this.state;
+    let {chosenAnswer, questionNumber, continueTest, question} = this.state;
     //Redirects if question number is greater than question length
-    if (!this.state.continueTest) {
+    if (!continueTest) {
       return (
         <Redirect to='/Home'/>
       );
     }
+    var answerEle;
+    switch(question.questionType) {
+      case 'mc':
+        answerEle = <RadioAnswer answer={question.answers} selectAnswer={this.selectAnswer} chosenAnswer={chosenAnswer[0]}/>;
+        break;
+      case 'sa':
+        answerEle = <TextAnswer value={chosenAnswer[0]} typeAnswer={this.typeAnswer}/>;
+        break;
+      case 'cb':
+        answerEle = <></>;// <checkboxAnswer/>
+        break;
+      default:
+        answerEle = <p>{question.questionType} is not a valid question type.</p>
+    }
+
+
     return (
       <React.Fragment>
         <NavigationBar
@@ -123,16 +163,14 @@ class Assessment extends Component {
   
           <h4 className="questionTitle">Question {questionNumber}: </h4>
 
-          <Question question={this.state.question.question} />
+          <Question question={question.question} />
 
           {/* looks over which answers need to be put for which question number + tracking the chosen answers*/}
-          {(this.state.question.questionType === 'mc') ?
-          <Answer answer={this.state.question.answers} selectAnswer={this.selectAnswer} chosenAnswer={this.state.chosenAnswer}/>:<></>
-          }
+          {answerEle}
           <ButtonGroup className="button" >
             <ButtonContained 
               className="nextQuestion"
-              isDisabled={chosenAnswer === ''} //Disables the button if no answer is selected
+              isDisabled={chosenAnswer[0] === ''} //Disables the button if no answer is selected
               onClick={() => this.nextQuestion(questionNumber)}> 
                 Next
             </ButtonContained>
