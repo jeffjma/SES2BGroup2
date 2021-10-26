@@ -55,7 +55,7 @@ router.post("/addNew", async (req, res) => {
 // @route GET api/subjects/getQuestions
 // @desc Get all the questions for this subject
 // @access Public
-router.get("/getQuestions", async (req, res) => {
+router.post("/getQuestions", async (req, res) => {
     const questions = (await Subject.findById(req.body.subject).populate("questions")).questions;
 
     try {
