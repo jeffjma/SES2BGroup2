@@ -97,7 +97,13 @@ class QuestionPool extends Component{
     }
     redirectAddQuestion() {
         this.props.history.push('/QuestionEditor');
-      }
+    }
+    handleEditQuestion(e) {
+        console.log('Pencil clicked!');
+    }
+    handleDelQuestion(e) {
+        console.log('Delete button clicked!');
+    }
 
     render(){
         return(
@@ -134,8 +140,8 @@ class QuestionPool extends Component{
                                         <td>&nbsp;&nbsp;&nbsp;{PagesContent.id}</td>
                                         <td>{PagesContent.label}</td>
                                         <td>{PagesContent.difficulty}</td>
-                                        <td><i class="fa fa-pencil" aria-hidden="true"></i></td>
-                                        <td><i class="fa fa-trash-o" aria-hidden="true"></i></td>
+                                        <td><i class="fa fa-pencil" aria-hidden="true" onClick={this.handleEditQuestion.bind(this)}></i></td>
+                                        <td><i class="fa fa-trash-o" aria-hidden="true" onClick={this.handleDelQuestion.bind(this)}></i></td>
                                     </tr>
                                 ))}
                             </table>
