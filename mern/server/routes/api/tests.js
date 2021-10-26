@@ -91,10 +91,10 @@ router.get("/getFilteredQuestions", async (req, res) => {
     }
 });
 
-// @route GET api/test/getNextQuestion
+// @route POST api/test/getNextQuestion
 // @desc Get the next question during a test.
 // @access Public
-router.get("/getNextQuestion", async (req, res) => {
+router.post("/getNextQuestion", async (req, res) => {
     const levels = req.body.levels;
     const results = req.body.results;
     try {
@@ -104,6 +104,16 @@ router.get("/getNextQuestion", async (req, res) => {
                 path: "questions",
                 match: {_id: {$nin: req.body.questions}}
             })).questions;
+        if (levels.length == 0) { //Special case for first question
+            const lvl = Math.floor(Math.random() * 7 + 1);
+            qs = questions.filter(q => q.difficulty == lvl);
+            obj = {
+                continueTest: true,
+                level: lvl,
+                question: qs[Math.floor(Math.random() * qs.length)]
+            }
+            return res.send(obj);
+        }
         options = {
             scriptPath: resolve("functions/"),
             args: [levels, results, questions.length == 0]
@@ -111,7 +121,6 @@ router.get("/getNextQuestion", async (req, res) => {
         PythonShell.run("exponential.py", options, async (err, result) => {
             if (err) throw err
             else {
-                //res.send(result)
                 obj = {
                     continueTest: result[0] == 'True',
                     level: parseInt(result[1]),

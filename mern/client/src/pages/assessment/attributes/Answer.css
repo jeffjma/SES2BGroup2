@@ -3,18 +3,36 @@
   margin-right: 40%;
 }
 
+.shortAnswer {
+  padding-top: 5%;
+  margin-right: 40%;
+}
+
 .form-check {
   padding: 3%;
   height: 15%;
   background-color: #e7e9eb;
 }
 
+.form-group {
+  padding: 3%;
+  height: 15%;
+  background-color: #e7e9eb;
+}
+
+textarea {
+  width: 100%;
+  height: 130%;
+  filter: drop-shadow(5px 5px 12px rgba(0, 0, 0, 0.1));
+  border: solid white;
+}
+
 input[type="radio"]:after {
-  width: 120%;
-  height: 120%;
+  width: 130%;
+  height: 130%;
   border-radius: 100%;
-  top: -25%;
-  left: -10%;
+  top: -15%;
+  left: -15%;
   position: relative;
   background-color: solid white;
   content: "";
@@ -24,11 +42,39 @@ input[type="radio"]:after {
 }
 
 input[type="radio"]:checked:after {
-  width: 120%;
-  height: 120%;
+  width: 130%;
+  height: 130%;
   border-radius: 100%;
-  top: -25%;
-  left: -10%;
+  top: -15%;
+  left: -15%;
+  position: relative;
+  background-color: #5bc2a7;
+  content: "";
+  display: inline-block;
+  visibility: visible;
+  border: solid white;
+}
+
+input[type="checkbox"]:after {
+  width: 130%;
+  height: 130%;
+  border-radius: 100%;
+  top: -15%;
+  left: -15%;
+  position: relative;
+  background-color: solid white;
+  content: "";
+  display: inline-block;
+  visibility: visible;
+  border: solid white;
+}
+
+input[type="checkbox"]:checked:after {
+  width: 130%;
+  height: 130%;
+  border-radius: 100%;
+  top: -15%;
+  left: -15%;
   position: relative;
   background-color: #5bc2a7;
   content: "";
