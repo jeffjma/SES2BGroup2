@@ -27,7 +27,7 @@
 .body-container {
   position: absolute;
   width: 679px;
-  height: 326px;
+  height: 230px;
   left: 116px;
   top: 300px;
 
@@ -158,7 +158,7 @@
   width: 270px;
   height: 52px;
   margin-left: 31px;
-  margin-top: 235px;
+  margin-top: 150px;
 }
 
 .image {
@@ -166,5 +166,5 @@
   width: 569px;
   height: 259px;
   left: 825px;
-  top: 300px;
+  top: 280px;
 }

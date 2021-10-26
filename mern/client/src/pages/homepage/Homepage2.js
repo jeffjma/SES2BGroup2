@@ -5,8 +5,6 @@ import axios from "axios";
 import 'font-awesome/css/font-awesome.min.css';
 //import NavigationBar from components
 import NaviBar from "../../components/NavigationBar";
-//import ButtonOutlined from components
-import ButtonOutlined from "../../components/ButtonOutlined";
 import { withCookies, Cookies } from 'react-cookie';
 import { instanceOf } from 'prop-types';
 import { withRouter } from 'react-router-dom';
@@ -25,6 +23,7 @@ class Homepage2 extends Component{
   constructor(props){
     super(props)
     const { cookies } = props;
+    this.handleToAss = this.handleToAss.bind(this);
     this.state = {
       userID: cookies.get('userid'),
       UserName: '',                                   // Name of User
@@ -67,24 +66,71 @@ class Homepage2 extends Component{
         var i ;
         for(i=0; i < data.length; i++){
             let { AllSubjects } = this.state;
-            AllSubjects.push({id: '1', name: data[i].title, status: '0'})
+            AllSubjects.push({id: '1', 
+                              name: data[i].title, 
+                              status: '0', 
+                              subid: data[i].subject,
+                              availability: data[i].availability,
+                              description: data[i].description
+                            })
             this.setState({ AllSubjects: AllSubjects});
         }
       })
     }
 
+    var Sub= this.state.AllSubjects;             // Temporary array for AllAssOfSubjects value
+    this.setState({SelectedSubjects: []});            // Set SelectedSubjects to null before running
+
+    //The process of handling filters
+    if(this.state.CompletedCheckBox){
+      if(!this.state.NotAttemptedCheckBox){           // 1: Completed = true and Not Attempted = false
+        this.setState({SelectedSubjects: []});
+        var TempFirstTrue=Sub.filter((element)=>{return element.status === "1"});
+        this.setState({SelectedSubjects: TempFirstTrue, AvailableAss:TempFirstTrue.length});
+      }
+      if(this.state.NotAttemptedCheckBox){            // 1: Completed = true and Not Attempted = true
+        this.setState({ SelectedSubjects: [], AvailableAss:"0" })
+      }
+    }
+    if(!this.state.CompletedCheckBox){
+      if(this.state.NotAttemptedCheckBox){            // 1: Completed = false and Not Attempted = true
+        var TempFirstFalse=Sub.filter((element)=>{return element.status === "0"});
+        this.setState({SelectedSubjects: TempFirstFalse, AvailableAss:TempFirstFalse.length});
+      }
+      if(!this.state.NotAttemptedCheckBox){           // 1: Completed = false and Not Attempted = false
+        this.setState({SelectedSubjects: []});
+        this.setState({ SelectedSubjects: Sub, AvailableAss:Sub.length })
+      }
+    }
+    Sub = [];                                         // Set Sub to null before next running
+
 }
 
-handleToAss(e){                             
-    this.props.history.push('/PreAssessment')
+handleToAss(event, subname, subid, subavail, subdes){                             
+  this.props.history.push({
+    pathname: '/PreAssessment',
+    state: {
+      testname: subname,
+      testID: subid,
+      subjectName: this.state.SubjectName,
+      availability: subavail,
+      description: subdes
+    }
+  });
 }
 
   render(){
     let AssScript = (                                // The left table script showing the assessments details
       <div>
-        {this.state.AllSubjects.map(AllSubject=>(
-               <tr key={AllSubject.id}>
-                    <td className="AssListTd" onClick={()=>this.handleToAss()}><p className="AssListName">{AllSubject.name}</p>
+        {this.state.SelectedSubjects.map(SelectedSubject=>(
+               <tr key={SelectedSubject.id}>
+                    <td className="AssListTd" 
+                        onClick={(e)=>this.handleToAss(e, 
+                          SelectedSubject.name, 
+                          SelectedSubject.subid,
+                          SelectedSubject.availability,
+                          SelectedSubject.description)}
+                    ><p className="AssListName">{SelectedSubject.name}</p>
                  </td>
                </tr>
              ))}
@@ -110,7 +156,7 @@ handleToAss(e){
          {/* this is leftcontent */}
          <div className="LeftContent">
            <p className="AssessmentTitle">
-             You have {this.state.AvailableAss} tests available
+             Your Tests
            </p>
            <div className="LeftCube">
              {AssScript}
