@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { Component } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import { Form } from 'react-bootstrap';
@@ -11,64 +12,46 @@ class QuestionEditor extends Component {
     super();
     
     this.state = {
-      question: {
-        name: "Some question.",
-        challenge: "Basic"
-      },
-      answers: [
-        ["Answer goes here.", true],
-        ["Answer goes here.", false],
-        ["Answer goes here.", false],
-        ["Answer goes here.", false]
-      ],
-
+      questionID: "",
+      question: "",
+      questionType: "",
+      answers: [],
+      correctAnswer: [],
+      difficulty: "",
       editValue: "",
       editTarget: "",
-      isEditing: false
+      isEditing: false,
     };
-
-    [ this.state.question, this.state.answers ] = this.getData();
     
     this.setCorrectAnswer = this.setCorrectAnswer.bind(this);
-    this.setChallenge = this.setChallenge.bind(this);
+    this.setDifficulty = this.setDifficulty.bind(this);
     this.doEdit = this.doEdit.bind(this);
     this.saveToDatabase = this.saveToDatabase.bind(this);
     this.openEditor = this.openEditor.bind(this);
     this.closeEditor = this.closeEditor.bind(this);
   }
 
-  getData() {
-    var question = {
-      name: "Question goes here.",
-      challenge: "Basic"
-    };
-
-    var answers = [
-      ["Answer goes here.", true],
-      ["Answer goes here.", false],
-      ["Answer goes here.", false],
-      ["Answer goes here.", false],
-    ];
-
-    return [question, answers];
-  };
-
-  setCorrectAnswer(e) {
-    var answerID = e.target.id.slice(-1);
-    var temp = this.state.answers;
-
-    temp.map((answer, index) => (
-      answer[1] = (answerID == index)
-    ));
-
-    this.setState({ answers: temp });
+  componentDidMount() {
+    axios.post("http://localhost:5000/api/questions/edit", {questionId: '6140a74d87d0a8b668fefc5f'})
+    .then(res => {
+      this.setState({
+        question: res.data.question,
+        questionType: res.data.questionType,
+        answers: res.data.answers,
+        correctAnswer: res.data.correctAnswer,
+        difficulty: res.data.difficulty,
+      })
+    })
   }
 
-  setChallenge(e) {
-    var temp = this.state.question;
-    temp["challenge"] = e.target.value;
+  setCorrectAnswer(e) {
+    this.setState({ correctAnswer: e.target.value });
+    console.log('Setting correct answer to: ' + e.target.value);
+  }
 
-    this.setState({ question: temp });
+  setDifficulty(e) {
+    this.setState({ difficulty: e.target.value });
+    console.log('State set to ' + e.target.value);
   }
 
   doEdit() {
@@ -126,9 +109,18 @@ class QuestionEditor extends Component {
     this.closeEditor();
   }
 
-  // TODO
   saveToDatabase() {
-    console.log("TODO: Save to database.");
+    axios.post("http://localhost:5000/api/questions/edit", {
+      questionId: this.state.questionID,
+      question: this.state.question,
+      questionType: this.state.questionType,
+      answers: this.state.answers,
+      correctAnswer: this.state.correctAnswer,
+      difficulty: this.state.difficulty
+    })
+    .then(
+      console.log('Question successfully updated!')
+    )
   }
 
   openEditor(target) {
@@ -152,14 +144,14 @@ class QuestionEditor extends Component {
           <div class="row QuestionRow">
             <div class="col-10">
               <p class="pageQuestion">
-                { this.state.question.name } <Icon icon="edit" colour="#CCCCCC" action={() => this.openEditor("Q")} class="pageQuestionIcon"></Icon>
+                { this.state.question } <Icon icon="edit" colour="#CCCCCC" action={() => this.openEditor("Q")} class="pageQuestionIcon"></Icon>
               </p>
             </div>
             <div class="col">
-              <Form.Select bsPrefix="form-select centerV" value={this.state.question.challenge} onChange={this.setChallenge}>
-                <option value="Basic">Basic</option>
-                <option value="Intermediate">Intermediate</option>
-                <option value="Advanced">Advanced</option>
+              <Form.Select bsPrefix="form-select centerV" value={this.state.question.difficulty} onChange={this.setDifficulty}>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
               </Form.Select>
             </div>
           </div>
@@ -168,7 +160,7 @@ class QuestionEditor extends Component {
             this.state.answers.map((answer, index) => (
               <div class="row AnswerRow">
                 <div class="col-11">
-                  <input id={"Answer" + index} type="radio" name="answers" value={answer} onClick={this.setCorrectAnswer} checked={this.state.answers[index][1]} />
+                  <input id={"Answer" + index} type="radio" name="answers" value={answer} onClick={this.setCorrectAnswer} checked={this.state.correctAnswer==answer} />
                   <label for={"Answer" + index}>{answer}</label>
                 </div>
                 <div class="col">

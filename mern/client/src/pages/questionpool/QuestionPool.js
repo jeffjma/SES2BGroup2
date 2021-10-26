@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, {Component} from 'react';
 import "./QuestionPool.css";
 //import NavigationBar from components
@@ -22,28 +23,7 @@ class QuestionPool extends Component{
         this.state = {
             UserName: "Examiner",
             SubjectName: "TestSubjectName",
-            DataFromDatabase:[             //array in database                  
-                {id: "6140a7e88n1", difficulty:"Elementary", label:"Inside which HTML element do we put the Javascript ?"},         
-                {id: "6140a7e88n2", difficulty:"Intermediate", label:"What is the correct JavaScript syntax to change the content of the HTML elem..."},
-                {id: "6140a7e88n3", difficulty:"Elementary", label:"Inside which HTML element do we put the Javascript ?"},
-                {id: "6140a7e88n4", difficulty:"Intermediate", label:"What is the correct JavaScript syntax to change the content of the HTML elem..."},
-                {id: "6140a7e88n5", difficulty:"Elementary", label:"Inside which HTML element do we put the Javascript ?"},         
-                {id: "6140a7e88n6", difficulty:"Intermediate", label:"What is the correct JavaScript syntax to change the content of the HTML elem..."},
-                {id: "6140a7e88n7", difficulty:"Elementary", label:"Inside which HTML element do we put the Javascript ?"},
-                {id: "6140a7e88n8", difficulty:"Intermediate", label:"What is the correct JavaScript syntax to change the content of the HTML elem..."}, 
-                {id: "6140a7e88n9", difficulty:"Elementary", label:"Inside which HTML element do we put the Javascript ?"},
-                {id: "6140a7e88n10", difficulty:"Intermediate", label:"What is the correct JavaScript syntax to change the content of the HTML elem..."},
-                {id: "6140a7e88n11", difficulty:"Elementary", label:"Inside which HTML element do we put the Javascript ?"},         
-                {id: "6140a7e88n12", difficulty:"Intermediate", label:"What is the correct JavaScript syntax to change the content of the HTML elem..."},
-                {id: "6140a7e88n13", difficulty:"Elementary", label:"Inside which HTML element do we put the Javascript ?"},
-                {id: "6140a7e88n14", difficulty:"Intermediate", label:"What is the correct JavaScript syntax to change the content of the HTML elem..."},
-                {id: "6140a7e88n15", difficulty:"Elementary", label:"Inside which HTML element do we put the Javascript ?"},         
-                {id: "6140a7e88n16", difficulty:"Intermediate", label:"What is the correct JavaScript syntax to change the content of the HTML elem..."},
-                {id: "6140a7e88n17", difficulty:"Elementary", label:"Inside which HTML element do we put the Javascript ?"},
-                {id: "6140a7e88n18", difficulty:"Intermediate", label:"What is the correct JavaScript syntax to change the content of the HTML elem..."},
-                {id: "6140a7e88n19", difficulty:"Elementary", label:"Inside which HTML element do we put the Javascript ?"},
-                {id: "6140a7e88n20", difficulty:"Intermediate", label:"What is the correct JavaScript syntax to change the content of the HTML elem..."},  
-            ],
+            DataFromDatabase:[],
             QuestionsArrays:[], //the array used in system
             PagesContents:[],   //the table contents in each page
             PaginationNumbers:[],  //how many pages
@@ -51,16 +31,20 @@ class QuestionPool extends Component{
         }
     }
 
-    setStateAsync(state) {
-        return new Promise((resolve) => {
-          this.setState(state, resolve)
-        });
-    }
+    componentDidMount(){
 
-    async componentDidMount(){
-        await this.setStateAsync({QuestionsArrays: this.state.DataFromDatabase});
-        this.setState({PagesContents: this.state.QuestionsArrays.slice(0,8)});
-        this.PagesNumbers();
+        axios.post("http://localhost:5000/api/subjects/getQuestions", {subject: '616abaf8c1bb94f6986db37e'})
+        .then(res => {
+            console.log(res.data)
+            this.setState({
+                DataFromDatabase: res.data
+            })
+            console.log(this.state.DataFromDatabase)
+            this.setState({QuestionsArrays: this.state.DataFromDatabase})
+            this.setState({PagesContents: this.state.QuestionsArrays.slice(0,8)});
+            this.PagesNumbers();
+        })
+        
     }
 
     PagesNumbers(){
@@ -97,7 +81,17 @@ class QuestionPool extends Component{
     }
     redirectAddQuestion() {
         this.props.history.push('/QuestionEditor');
-      }
+    }
+    handleEditQuestion(e) {
+        console.log('Pencil clicked!');
+    }
+    handleDelQuestion(questId) {
+        console.log(questId);
+        axios.post("http://localhost:5000/api/questions/delete", {questionId: questId})
+        .then(res => {
+            console.log(res)
+        })
+    }
 
     render(){
         return(
@@ -124,18 +118,18 @@ class QuestionPool extends Component{
                             <table>
                                 <tr id="QPTitletr">
                                     <th style={{width:"20%"}}>&nbsp;&nbsp;Question ID</th>
-                                    <th style={{width:"50%"}}>Question Label</th>
-                                    <th style={{width:"20%"}}>Question Difficulty</th>
+                                    <th style={{width:"50%"}}>Question</th>
+                                    <th style={{width:"20%"}}>Question Level</th>
                                     <th style={{width:"5%"}}></th>
                                     <th style={{width:"5%"}}></th>
                                 </tr>
                                 {this.state.PagesContents.map(PagesContent =>(
-                                    <tr key={PagesContent.id} id="QPContenttr">
-                                        <td>&nbsp;&nbsp;&nbsp;{PagesContent.id}</td>
-                                        <td>{PagesContent.label}</td>
+                                    <tr key={PagesContent._id} id="QPContenttr">
+                                        <td>&nbsp;&nbsp;&nbsp;{PagesContent._id}</td>
+                                        <td>{PagesContent.question}</td>
                                         <td>{PagesContent.difficulty}</td>
-                                        <td><i class="fa fa-pencil" aria-hidden="true"></i></td>
-                                        <td><i class="fa fa-trash-o" aria-hidden="true"></i></td>
+                                        <td><i class="fa fa-pencil" aria-hidden="true" onClick={this.handleEditQuestion.bind(this)}></i></td>
+                                        <td><i class="fa fa-trash-o" aria-hidden="true" onClick={() => this.handleDelQuestion(PagesContent._id)}></i></td>
                                     </tr>
                                 ))}
                             </table>

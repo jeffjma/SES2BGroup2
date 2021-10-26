@@ -42,4 +42,23 @@ router.post("/edit", async (req, res) => {
     }
 });
 
+// @route delete api/questions/delete
+// @desc delete question by questionID
+// @access Public
+router.post("/delete", async (req, res) => {
+    try{    
+        Question.findByIdAndDelete(req.body.questionId, function (err, docs) {
+                if(err) {
+                    console.log(err);
+                    res.status(500).send(err);
+                } else {
+                    res.send('Question successfully deleted');
+                }
+            })
+    } catch (err) {
+        res.status(500).send
+    }
+
+});
+
 module.exports = router;
