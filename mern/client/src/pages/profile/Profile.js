@@ -61,7 +61,6 @@ class Profile extends Component{
             this.setState({ 
                 UserName: res.data.name,
                 CurrentEducation: res.data.educationLevel,
-                EducationLastYear: res.data.year
             })
         })
     }
@@ -159,15 +158,9 @@ class Profile extends Component{
                         <div id="SeparateLine"></div>
                         <p id="AboutMe">
                             About Me 
-                            {/* this may cause page width problem that over the screen */}
-                            <i class="fa fa-pencil" style={{marginLeft:"120px"}} aria-hidden="true"></i>   
                         </p>
                         <p id="ProfileTitle">Current Education</p>
                         <p id="ProfileContent">{this.state.CurrentEducation}</p>
-                        <p id="ProfileTitle">Latest Year Completed</p>
-                        <p id="ProfileContent">{this.state.EducationLastYear}</p>
-                        <p id="ProfileTitle">Program</p>
-                        <p id="ProfileContent">{this.state.ProgramName}</p>
                         <button className="logout-btn" onClick={this.handleLogout.bind(this)}> Logout </button>
                     </div>
                     
