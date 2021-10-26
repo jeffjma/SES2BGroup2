@@ -3,16 +3,25 @@ import React, { Component } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import { Form } from 'react-bootstrap';
 import { useHistory } from 'react-router';
+import { withCookies, Cookies } from 'react-cookie';
+import { instanceOf } from 'prop-types';
+import NaviBar from "../../components/NavigationBar";
 import ButtonContained from "../../components/ButtonContained";
 import "./question-editor.css";
 
 
 class QuestionEditor extends Component {
+  static propTypes = {
+    cookies: instanceOf(Cookies).isRequired
+  };
 
-  constructor() {
-    super();
-    
+  constructor(props) {
+    super(props);
+    const { cookies } = props;
     this.state = {
+      userID: cookies.get('userid'),
+      UserName: "",
+      SubjectName: "",
       questionID: "",
       question: "",
       questionType: "",
@@ -34,7 +43,20 @@ class QuestionEditor extends Component {
 
   componentDidMount() {
 
+    axios.post('http://localhost:5000/api/users/profile', {
+      userID: this.state.userID
+    })
+    .then(res => {
+        console.log(res.data)
+        this.setState({ 
+            UserName: res.data.name,
+        })
+    });
+
     if(this.props.location?.state != null) {
+
+      this.setState({SubjectName: this.props.location?.state.subname})
+
       axios.post("http://localhost:5000/api/questions/edit", {questionId: this.props.location?.state.questionID})
       .then(res => {
         this.setState({
@@ -145,6 +167,16 @@ class QuestionEditor extends Component {
 
   render() {
     return (
+      <div class="wrapper">
+                <NaviBar
+          username={this.state.UserName}
+          hasSubHeader = "true"
+          subjectName = {this.state.SubjectName}
+          profileClick = "/ExaminerHome"
+          dashboardClick = "/ExaminerHome"
+          buttonName = "Add Question"
+          logoClick = "/ExaminerHome"
+        ></NaviBar>
       <div class="container">
         <div>
           <p class="pageHeader">Edit Question</p>
@@ -214,6 +246,7 @@ class QuestionEditor extends Component {
         </div>
 
       </div>
+      </div>
     );
   }
 }
@@ -262,4 +295,4 @@ class Icon extends Component {
   }
 }
 
-export default QuestionEditor;
+export default withCookies(QuestionEditor);
