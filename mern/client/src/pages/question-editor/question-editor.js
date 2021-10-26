@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { Component } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import { Form } from 'react-bootstrap';
+import { useHistory } from 'react-router';
 import ButtonContained from "../../components/ButtonContained";
 import "./question-editor.css";
 
@@ -37,6 +38,7 @@ class QuestionEditor extends Component {
       axios.post("http://localhost:5000/api/questions/edit", {questionId: this.props.location?.state.questionID})
       .then(res => {
         this.setState({
+          questionID: this.props.location?.state.questionID,
           question: res.data.question,
           questionType: res.data.questionType,
           answers: res.data.answers,
@@ -112,17 +114,22 @@ class QuestionEditor extends Component {
   }
 
   saveToDatabase() {
+    console.log('This is questionID: '+ this.state.questionID);
     axios.post("http://localhost:5000/api/questions/edit", {
       questionId: this.state.questionID,
-      question: this.state.question,
-      questionType: this.state.questionType,
-      answers: this.state.answers,
-      correctAnswer: this.state.correctAnswer,
-      difficulty: this.state.difficulty
+      updates: {
+        question: this.state.question,
+        questionType: this.state.questionType,
+        answers: this.state.answers,
+        correctAnswer: this.state.correctAnswer,
+        difficulty: this.state.difficulty
+      }
     })
-    .then(
-      console.log('Question successfully updated!')
-    )
+    .then(() => {
+      console.log('Question successfully updated!');
+    }).catch(err =>
+      console.log(err.response)
+    );
   }
 
   openEditor(target) {
