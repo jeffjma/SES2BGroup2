@@ -32,18 +32,20 @@ class QuestionEditor extends Component {
   }
 
   componentDidMount() {
-    axios.post("http://localhost:5000/api/questions/edit", {questionId: '6177b3194021dfcb4d77e091'})
-    .then(res => {
-      this.setState({
-        question: res.data.question,
-        questionType: res.data.questionType,
-        answers: res.data.answers,
-        correctAnswer: res.data.correctAnswer,
-        difficulty: res.data.difficulty,
-      })
-    })
-  }
 
+    if(this.props.location?.state != null) {
+      axios.post("http://localhost:5000/api/questions/edit", {questionId: this.props.location?.state.questionID})
+      .then(res => {
+        this.setState({
+          question: res.data.question,
+          questionType: res.data.questionType,
+          answers: res.data.answers,
+          correctAnswer: res.data.correctAnswer,
+          difficulty: res.data.difficulty,
+        })
+      })
+    }
+  }
   setCorrectAnswer(e) {
     this.setState({ correctAnswer: e.target.value });
     console.log('Setting correct answer to: ' + e.target.value);
@@ -138,7 +140,7 @@ class QuestionEditor extends Component {
     return (
       <div class="container">
         <div>
-          <p class="pageHeader">Temp</p>
+          <p class="pageHeader">Edit Question</p>
         </div>
         <div class="pane">
           <div class="row QuestionRow">

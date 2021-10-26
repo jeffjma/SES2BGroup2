@@ -22,7 +22,7 @@ class QuestionPool extends Component{
         const { cookies } = props;
         this.state = {
             UserName: "Examiner",
-            SubjectName: "TestSubjectName",
+            SubjectName: "",
             DataFromDatabase:[],
             QuestionsArrays:[], //the array used in system
             PagesContents:[],   //the table contents in each page
@@ -33,7 +33,13 @@ class QuestionPool extends Component{
 
     componentDidMount(){
 
-        axios.post("http://localhost:5000/api/tests/getQuestions", {test: '616abdbcbab32b5cfab1fb45'})
+        if(this.props.location?.state != null) {
+            console.log(this.props.location?.state?.testID.testID )
+            this.setState({
+                SubjectName: this.props.location?.state?.subName.subName
+              })
+
+        axios.post("http://localhost:5000/api/tests/getQuestions", {test: this.props.location?.state?.testID.testID})
         .then(res => {
             console.log(res.data)
             this.setState({
@@ -44,6 +50,8 @@ class QuestionPool extends Component{
             this.setState({PagesContents: this.state.QuestionsArrays.slice(0,8)});
             this.PagesNumbers();
         })
+
+        }
         
     }
 
@@ -82,8 +90,13 @@ class QuestionPool extends Component{
     redirectAddQuestion() {
         this.props.history.push('/QuestionEditor');
     }
-    handleEditQuestion(e) {
-        console.log('Pencil clicked!');
+    handleEditQuestion(e, id) {
+        this.props.history.push({
+            pathname: '/QuestionEditor',
+            state: {
+                questionID: id
+            }
+          });
     }
     handleDelQuestion(questId) {
         console.log(questId);
@@ -128,7 +141,7 @@ class QuestionPool extends Component{
                                         <td>&nbsp;&nbsp;&nbsp;{PagesContent._id}</td>
                                         <td>{PagesContent.question}</td>
                                         <td>{PagesContent.difficulty}</td>
-                                        <td><i class="fa fa-pencil" aria-hidden="true" onClick={this.handleEditQuestion.bind(this)}></i></td>
+                                        <td><i class="fa fa-pencil" aria-hidden="true" onClick={(e) => this.handleEditQuestion(e, PagesContent._id)}></i></td>
                                         <td><i class="fa fa-trash-o" aria-hidden="true" onClick={() => this.handleDelQuestion(PagesContent._id)}></i></td>
                                     </tr>
                                 ))}
