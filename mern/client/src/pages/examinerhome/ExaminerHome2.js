@@ -152,7 +152,7 @@ class ExaminerHome2 extends Component {
             username={this.state.UserName}
             hasSubHeader="true"
             subjectName={this.state.subjectName}
-            buttonName="Add Test"
+            // buttonName="Add Test"
             profileClick="/ExaminerHome"
             logoClick="/ExaminerHome"
             dashboardClick="/ExaminerHome"
