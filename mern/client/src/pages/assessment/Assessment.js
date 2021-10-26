@@ -1,129 +1,179 @@
 import React, { Component } from "react";
+import axios from "axios";
 import { ButtonGroup } from "react-bootstrap";
 import ButtonContained from "../../components/ButtonContained";
 import NavigationBar from "../../components/NavigationBar.js";
+import { withCookies, Cookies } from 'react-cookie';
+import { instanceOf } from 'prop-types';
 import "./Assessment.css";
 import Timer from "./Timer.js";
 import Question from "./attributes/Question";
-import Answer from "./attributes/Answer"
-import { Homepage } from "../Routes";
+import RadioAnswer from "./attributes/radioAnswer";
+import { Redirect } from "react-router";
+import CheckboxAnswer from "./attributes/checkboxAnswer"
+import TextAnswer from "./attributes/textAnswer";
+// import { Homepage } from "../Routes";
 
-export default class Assessment extends Component {
+class Assessment extends Component {
+  static propTypes = {
+    cookies: instanceOf(Cookies).isRequired
+  };
 
-// dummy code, i had a seperate .js file before but too much of a hassle to use it. i just put it in here knowing it'll be gone
-  state = {
-        question: {
-          1:'What is 2+2?',
-          2:'What colour is the sky?',
-          3:'Between music, theater, and chariot racing, which sport did Nero win when he participated in the Olympics?',
-          4:'If angle C is 28 degrees, and angles A + D are equal to 88 degrees, what is the angle of B + E?',
-          5:'What’s one of the origins for the phrase “cat got your tongue”?',
-          6:'If we use “three watermelons in the sun” to visualize a certain matter’s size against the universe’s, what are the melons?',
-          7:'Counting both black and white surfaces, how many surfaces are there in total on a soccer ball?',
-        },
-        answers: {
-          1: {
-            1:'2',
-            2:'3',
-            3:'4',
-            4:'1'
-          },
-
-          2: {
-            1:'Hot Pink',
-            2:'Light Blue',
-            3:'Blood Red',
-            4:'Lime Green'
-          },
-
-          3: {
-            1:'Music',
-            2:'Theatre', 
-            3:'Chariot Racing', 
-            4:'All of them'
-          },
-
-          4: {
-            1:'74',
-            2:'64', 
-            3:'62', 
-            4:'40'
-          },
-
-          5: {
-            1:'Wild cats who don’t meow',
-            2:'Tongues are the same texture as a cat’s skin', 
-            3:'A breed of cat with no tongue', 
-            4:'Cats eating human tongues'
-          },
-
-          6: {
-            1:'Stars',
-            2:'Moons', 
-            3:'Galaxies', 
-            4:'People'
-          },
-
-          7: {
-            1:'26',
-            2:'34', 
-            3:'32', 
-            4:'22'
-          }, 
-        },
-        correctAnswers: {
-          1:'3',
-          2:'2',
-          3:'4',
-          4:'2',
-          5:'4',
-          6:'1',
-          7:'3'
-        },
-        correctAnswer: 0,
-        chosenAnswer: 0,
-        questionNumber: 1,
-        studentScore:0,
-        UserName: 'John Smith',   
+  constructor(props){
+    super(props)
+    const { cookies } = props;
+    this.state = {
+      userID: cookies.get('userid'),
+      UserName: 'John Smith',
+      testId: '616abdbcbab32b5cfab1fb45',
+      chosenAnswer: [''],
+      questionNumber: 1,
+      questions:[],
+      levels:[],
+      results:[],
+      question: {},
+      continueTest: true,
+      level:0
+    }
+    this.typeAnswer = this.typeAnswer.bind(this);
   }
 
-//checks if answers are correct and adds to student score 
-  checkAnswer = answer => {
-    const{ correctAnswers, questionNumber, studentScore } = this.state;
+  //Gets username
+  componentDidMount(){
+    axios.post('http://localhost:5000/api/users/profile', {
+      userID: this.state.userID
+   })
+    .then(res => {
+        console.log(res.data)
+        this.setState({ 
+            UserName: res.data.name,
+        })
+    });
 
-    if(answer === correctAnswers[questionNumber]){
+    axios.post('http://localhost:5000/api/tests/getNextQuestion', {
+      test: this.state.testId,
+      questions: this.state.questions,
+      levels: this.state.levels,
+      results: this.state.results
+    })
+    .then(res => {
+      console.log(res.data);
       this.setState({
-        studentScore: studentScore + 1,
-        correctAnswer: correctAnswers[questionNumber],
-        chosenAnswer: answer
+        question: res.data.question,
+        level: res.data.level
       });
-    }
-
-    else{
-      this.setState({
-          correctAnswer: 0,
-          chosenAnswer: answer
-      });
-    }
+    });
   }
 
-// makes button move onto the next question
-  nextQuestion = (questionNumber) => {
+  //Selects an answer by updating chosenAnswer
+  selectAnswer = answer => {
     this.setState({
+      chosenAnswer: [answer]
+    });
+  }
+
+  //Reads the typed answer and updates chosenAnswer
+  typeAnswer(event) {
+    if (event.target.value != this.state.chosenAnswer[0])
+    {
+      this.setState({
+        chosenAnswer: [event.target.value]
+      });
+    }
+  }
+
+  changeAnswers = answer => {
+    const ca = this.state.chosenAnswer.slice();
+    if(ca.includes('')) {
+      const i = ca.indexOf('');
+      ca.splice(i,1);
+    }
+    if(ca.includes(answer)) {
+      const i = ca.indexOf(answer);
+      ca.splice(i,1);
+      if (ca.length === 0) {
+        ca.push('');
+      }
+    } else {
+      ca.push(answer);
+    }
+    this.setState({
+      chosenAnswer: ca
+    });
+  }
+
+  checkAnswer(CA) {
+    switch(this.state.question.questionType) {
+      case 'mc':
+        return CA[0] === this.state.question.correctAnswer[0];
+      case 'sa':
+        return CA[0].toLowerCase() === this.state.question.correctAnswer[0].toLowerCase();
+      case 'cb':
+        if (CA.length !== this.state.question.correctAnswer.length) {
+          return false;
+        }
+        for(let i = 0; i < CA.length; i++) {
+          if (!this.state.question.correctAnswer.includes(CA[i])){
+            return false;
+          }
+        }
+        return true;
+    }
+  }
+
+  // makes button move onto the next question
+  nextQuestion = (questionNumber) => {
+    this.state.levels.push(this.state.question.difficulty);
+    this.state.results.push(this.checkAnswer(this.state.chosenAnswer));
+    this.state.questions.push(this.state.question._id);
+    this.setState({
+      levels: this.state.levels,
+      results: this.state.results,
+      questions: this.state.questions
+    });
+    axios.post('http://localhost:5000/api/tests/getNextQuestion', {
+      test: this.state.testId,
+      questions: this.state.questions,
+      levels: this.state.levels,
+      results: this.state.results
+    }).then(res => {
+      console.log(res.data);
+      this.setState({
+        question: res.data.question,
+        chosenAnswer: [''],
         questionNumber: questionNumber + 1,
-        correctAnswer: 0,
-        clickedAnswer: 0
+        continueTest: res.data.continueTest,
+        level: res.data.level
+      });
     });
   }
 
   render() {
-    let { question, answers, correctAnswer, chosenAnswer, questionNumber} = this.state;
+    let {chosenAnswer, questionNumber, continueTest, question} = this.state;
+    //Redirects if question number is greater than question length
+    if (!continueTest) {
+      return (
+        <Redirect to='/Home'/>
+      );
+    }
+    var answerEle;
+    switch(question.questionType) {
+      case 'mc':
+        answerEle = <RadioAnswer answer={question.answers} selectAnswer={this.selectAnswer} chosenAnswer={chosenAnswer[0]}/>;
+        break;
+      case 'sa':
+        answerEle = <TextAnswer value={chosenAnswer[0]} typeAnswer={this.typeAnswer}/>;
+        break;
+      case 'cb':
+        answerEle = <CheckboxAnswer answer={question.answers} changeAnswers={this.changeAnswers} chosenAnswer={chosenAnswer}/>;
+        break;
+      default:
+        answerEle = <p>{question.questionType} is not a valid question type.</p>
+    }
+
 
     return (
       <React.Fragment>
-        {/* basically says if question number is equal to or under the length, do the quiz*/}
-        {questionNumber <= Object.keys(question).length ? 
-          (<>
         <NavigationBar
           username={this.state.UserName}
           profileClick = "/Profile"
@@ -132,46 +182,28 @@ export default class Assessment extends Component {
   
         <div className="assessment-parent">
           <div className="headerObjects">
-          <h3>Example Test</h3>
-          <Timer />
+            <h3>Example Test</h3>
+            <Timer />
           </div>
   
           <h4 className="questionTitle">Question {questionNumber}: </h4>
-  
-          <Question question={question[questionNumber]} />
+
+          <Question question={question.question} />
 
           {/* looks over which answers need to be put for which question number + tracking the chosen answers*/}
-          <Answer
-                            answer={answers[questionNumber]}
-                            questionNumber={questionNumber}
-                            checkAnswer={this.checkAnswer}
-                            correctAnswer={correctAnswer}
-                            chosenAnswer={chosenAnswer}
-                        />
-          
+          {answerEle}
           <ButtonGroup className="button" >
-          <ButtonContained
-                        className="nextQuestion"
-                        isDisabled={
-                        // supposed to disable the button until question is picked. worked for the first one but not the next ones. 
-                          chosenAnswer && Object.keys(question).length >= questionNumber
-                            ? false : true
-                        }
-
-                        // moves to the next question in dummy data
-                        onClick={() => this.nextQuestion(questionNumber)}>Next</ButtonContained>
+            <ButtonContained 
+              className="nextQuestion"
+              isDisabled={chosenAnswer[0] === ''} //Disables the button if no answer is selected
+              onClick={() => this.nextQuestion(questionNumber)}> 
+                Next
+            </ButtonContained>
           </ButtonGroup>
         </div>
-
-        {/* the 'else' statement: what happens after the question length goes over aka moving to post-assessment page */}
-        </>) : (
-
-          //change to post-assessment but i used homepage to test functionality
-          <Homepage />
-
-         )
-        }
       </React.Fragment>
     );
   }
 }
+
+export default withCookies(Assessment);
