@@ -2,6 +2,9 @@
 import React, { Component } from 'react';
 //import font-awesome icons
 import 'font-awesome/css/font-awesome.min.css';
+import { withCookies, Cookies } from 'react-cookie';
+import { instanceOf } from 'prop-types';
+import axios from 'axios';
 //import NavigationBar from components
 import NaviBar from "../../components/NavigationBar";
 import Button from "react-bootstrap/Button";
@@ -13,12 +16,17 @@ import sliver from './silver_medal.png';
 import "./post.css";
 
 class Post extends Component {
+  static propTypes = {
+    cookies: instanceOf(Cookies).isRequired
+  };
 
   constructor(props) {
     super(props)
+    const { cookies } = props;
     this.state = {
       //this state values are now only for test before fetching data from api
-      UserName: 'TestUserName',                       // Name of User
+      userID: cookies.get('userid'),
+      UserName: 'John Smith',                       // Name of User
       SubjectName: '31242 - Advanced Internet Programming - Spring 2021',                 // Name of Subjects
       AvailableAss: '',                               // Numbers of Assessments shown in table
       CompletedCheckBox: false,                       // Boolean for check whether checkbox("Completed") is clicked
@@ -30,13 +38,25 @@ class Post extends Component {
         { id: "4", name: "Ass4", status: "0" },
       ],
       SelectedSubjects: [],                            // All selected assessment according to the filters
-      score: 100
+      score: 100,
+      testId: '',
     }
   }
 
   componentDidMount() {
     var Sub = this.state.AllAssOfSubjects;             // Temporary array for AllAssOfSubjects value
     this.setState({ SelectedSubjects: [] });            // Set SelectedSubjects to null before running
+
+    this.setState({ score: this.props.location?.state.level, testId: this.props.location?.state.testId});
+
+    axios.post("http://localhost:5000/api/results/add", {testID: this.props.location?.state.testId, result: this.props.location?.state.level})
+        .then(res => {
+            console.log(res.data._id);
+            axios.post("http://localhost:5000/api/users/newTestResult", {userID: this.state.userID, resultID: this.props.location?.state.level})
+            .then(resp => {
+              console.log(resp.data);
+            })
+        })
 
     //The process of handling filters
     if (this.state.CompletedCheckBox) {
@@ -277,4 +297,4 @@ class Post extends Component {
   }
 };
 
-export default Post;
+export default withCookies(Post);

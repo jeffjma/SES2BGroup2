@@ -33,6 +33,7 @@ class Homepage2 extends Component{
       CompletedCheckBox: false,                       // Boolean for check whether checkbox("Completed") is clicked
       NotAttemptedCheckBox: false,                    // Boolean for check whether checkbox("NotAttempted") is clicked
       AllSubjects:[],
+      testID: '',
       SelectedSubjects:[],                            // All selected assessment according to the filters
     }
   }
@@ -61,6 +62,7 @@ class Homepage2 extends Component{
         subject: this.props.location?.state?.subjectID.path
      })
       .then(res => {
+        console.log('Does this have test ID???')
         console.log(res.data);
         var data = res.data;
         var i ;
@@ -69,6 +71,7 @@ class Homepage2 extends Component{
             AllSubjects.push({id: '1', 
                               name: data[i].title, 
                               status: '0', 
+                              testid: data[i]._id,
                               subid: data[i].subject,
                               availability: data[i].availability,
                               description: data[i].description
@@ -106,12 +109,13 @@ class Homepage2 extends Component{
 
 }
 
-handleToAss(event, subname, subid, subavail, subdes){                             
+handleToAss(event, subname, testid, subid, subavail, subdes){     
+  console.log('MESSY PPOP' + subid);                        
   this.props.history.push({
     pathname: '/PreAssessment',
     state: {
       testname: subname,
-      testID: subid,
+      testID: testid,
       subjectName: this.state.SubjectName,
       availability: subavail,
       description: subdes
@@ -126,7 +130,8 @@ handleToAss(event, subname, subid, subavail, subdes){
                <tr key={SelectedSubject.id}>
                     <td className="AssListTd" 
                         onClick={(e)=>this.handleToAss(e, 
-                          SelectedSubject.name, 
+                          SelectedSubject.name,
+                          SelectedSubject.testid, 
                           SelectedSubject.subid,
                           SelectedSubject.availability,
                           SelectedSubject.description)}

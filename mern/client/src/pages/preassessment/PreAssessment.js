@@ -27,7 +27,8 @@ class PreAssessment extends Component {
             TimeLimit: '60 Minutes',
             Attempts: '3',
             Description: '',
-            SubjectName: ''
+            SubjectName: '',
+            testID: ''
         }
     }
 
@@ -47,11 +48,22 @@ class PreAssessment extends Component {
             console.log(this.props.location?.state)
             this.setState({
               SubjectName: this.props.location?.state?.subjectName,
+              testID: this.props.location?.state?.testID,
               Title: this.props.location?.state?.testname,
               Description: this.props.location?.state?.description,
               Available: (this.props.location?.state?.availability.start_date).concat(' - ').concat(this.props.location?.state?.availability.end_date)
             })
         }
+    }
+
+    handleStartAssessment() {
+        console.log('IS IT ALIVE' + this.state.testID);
+        this.props.history.push({
+            pathname: '/Assessment',
+            state: {
+              testId: this.state.testID
+            }
+          })
     }
 
     render() {
@@ -83,14 +95,13 @@ class PreAssessment extends Component {
                             <p><b>Description:</b> {this.state.Description}</p>
                         </div>
                         <div className="beginButton">
-                            <Link to='/Assessment'>
                             <ButtonOutlined
                                 variant="contained"
                                 color="primary"
-                                href="">
+                                href=""
+                                onClick={this.handleStartAssessment.bind(this)}>
                                 BEGIN ASSESSMENT
                             </ButtonOutlined>
-                            </Link>
                         </div>
                     </div>
 

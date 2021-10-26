@@ -25,7 +25,7 @@ class Assessment extends Component {
     this.state = {
       userID: cookies.get('userid'),
       UserName: 'John Smith',
-      testId: '616abdbcbab32b5cfab1fb45',
+      testId: '',
       chosenAnswer: [''],
       questionNumber: 1,
       questions:[],
@@ -40,6 +40,12 @@ class Assessment extends Component {
 
   //Gets username
   componentDidMount(){
+      console.log(this.props.location?.state.testId);
+      console.log('LOL STATE DOESNT EXIST');
+      this.setState({
+        testId: this.props.location?.state.testId,
+      })
+
     axios.post('http://localhost:5000/api/users/profile', {
       userID: this.state.userID
    })
@@ -51,7 +57,7 @@ class Assessment extends Component {
     });
 
     axios.post('http://localhost:5000/api/tests/getNextQuestion', {
-      test: this.state.testId,
+      test: this.props.location?.state.testId,
       questions: this.state.questions,
       levels: this.state.levels,
       results: this.state.results
@@ -145,7 +151,20 @@ class Assessment extends Component {
         continueTest: res.data.continueTest,
         level: res.data.level
       });
+      if(!this.state.continueTest) {
+        this.handleFinishTest();
+      }
     });
+  }
+
+  handleFinishTest() {
+    this.props.history.push({
+      pathname: '/Post',
+      state: {
+        testId: this.state.testId,
+        level: this.state.level,
+      }
+    })
   }
 
   render() {
