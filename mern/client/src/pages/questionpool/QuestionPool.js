@@ -21,7 +21,8 @@ class QuestionPool extends Component{
         super(props)
         const { cookies } = props;
         this.state = {
-            UserName: "Examiner",
+            userID: cookies.get('userid'),
+            UserName: "",
             SubjectName: "",
             DataFromDatabase:[],
             QuestionsArrays:[], //the array used in system
@@ -32,6 +33,16 @@ class QuestionPool extends Component{
     }
 
     componentDidMount(){
+
+        axios.post('http://localhost:5000/api/users/profile', {
+            userID: this.state.userID
+          })
+          .then(res => {
+              console.log(res.data)
+              this.setState({ 
+                  UserName: res.data.name,
+              })
+          });
 
         if(this.props.location?.state != null) {
             console.log(this.props.location?.state?.testID.testID )
@@ -94,7 +105,8 @@ class QuestionPool extends Component{
         this.props.history.push({
             pathname: '/QuestionEditor',
             state: {
-                questionID: id
+                questionID: id,
+                subname: this.state.SubjectName
             }
           });
     }
